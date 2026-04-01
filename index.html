@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>We Design — Brand Systems for Serious First Impressions</title>
+  <meta name="description" content="We Design creates logos, slogans, brand stories, landing pages, websites, and iOS MVP builds for founders who need a clean, credible first impression." />
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: rgba(255,255,255,0.04);
+      --panel-2: rgba(255,255,255,0.03);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.66);
+      --muted-2: rgba(255,255,255,0.5);
+      --line: rgba(255,255,255,0.1);
+      --accent: #bef264;
+      --accent-dark: #0a0a0a;
+      --danger: #f87171;
+      --radius: 28px;
+      --shadow: 0 30px 90px rgba(0,0,0,0.45);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(190,242,100,0.12), transparent 22%),
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.08), transparent 18%),
+        radial-gradient(circle at bottom left, rgba(190,242,100,0.08), transparent 18%),
+        var(--bg);
+      color: var(--text);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(0,0,0,0.62); backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding: 16px 0;
+    }
+    .brand-kicker { font-size: 11px; letter-spacing: .38em; text-transform: uppercase; color: var(--accent); }
+    .brand-sub { font-size: 14px; color: var(--muted-2); margin-top: 6px; }
+    .nav { display:flex; gap:28px; font-size: 14px; color: var(--muted); }
+    .nav a:hover, .button-outline:hover { color: var(--accent); border-color: rgba(190,242,100,0.45); }
+    .button, .button-outline {
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 16px 22px; border-radius: 18px; font-size: 13px; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase; transition: .22s ease;
+      border: 1px solid transparent;
+    }
+    .button:hover, .button-outline:hover { transform: translateY(-1px); }
+    .button { background: var(--accent); color: #000; }
+    .button-outline { border-color: rgba(255,255,255,0.14); color: var(--text); }
+    .hero { padding: 72px 0 54px; }
+    .hero-grid, .split-grid, .contact-grid, .critique-grid { display:grid; gap:24px; }
+    .hero-grid { grid-template-columns: 1.08fr .92fr; align-items:end; }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:10px; padding: 10px 14px;
+      border-radius: 999px; background: var(--panel-2); border: 1px solid var(--line);
+      font-size: 12px; letter-spacing: .26em; text-transform: uppercase; color: rgba(255,255,255,0.7);
+    }
+    h1, h2, h3, h4, p { margin: 0; }
+    .hero h1 { margin-top: 22px; font-size: clamp(52px, 7vw, 102px); line-height: .93; letter-spacing: -0.04em; max-width: 10.5ch; }
+    .hero-copy { margin-top: 22px; max-width: 720px; font-size: 18px; line-height: 1.75; color: var(--muted); }
+    .cta-row { margin-top: 34px; display:flex; flex-wrap:wrap; gap:14px; }
+    .stat-grid, .card-grid, .offer-grid, .process-grid { display:grid; gap:18px; }
+    .stat-grid { margin-top: 48px; grid-template-columns: repeat(3, 1fr); }
+    .stat, .panel, .service-card, .package-card, .offer, .process-card, .contact-panel, .form-panel, .critique-panel, .feedback-card {
+      border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); backdrop-filter: blur(18px);
+    }
+    .stat, .service-card, .package-card, .offer, .process-card, .contact-panel, .form-panel, .critique-panel, .feedback-card { padding: 22px; }
+    .stat p:last-child, .service-card p:last-child, .offer p, .process-card p, .panel p, .contact-panel p, .feedback-card p { color: var(--muted-2); line-height: 1.7; }
+    .panel { padding: 16px; box-shadow: var(--shadow); }
+    .panel-inner { background: #090909; border: 1px solid var(--line); border-radius: calc(var(--radius) - 8px); padding: 18px; }
+    .panel-top { display:flex; justify-content:space-between; align-items:start; gap:16px; padding-bottom:14px; border-bottom:1px solid var(--line); }
+    .tag { padding: 8px 12px; border-radius: 999px; background: rgba(190,242,100,0.1); color: #d9f99d; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; border:1px solid rgba(190,242,100,0.25); white-space:nowrap; }
+    .gradient-box {
+      margin-top: 16px; padding: 24px; border-radius: 22px; border:1px solid var(--line);
+      background: linear-gradient(140deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01), rgba(190,242,100,0.08));
+    }
+    .mini-grid { margin-top: 16px; display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+    section { padding: 64px 0; }
+    .section-head { display:flex; justify-content:space-between; gap:24px; align-items:end; margin-bottom: 28px; }
+    .section-head p { max-width: 520px; color: var(--muted-2); line-height: 1.7; }
+    .section-kicker { font-size: 11px; letter-spacing: .34em; text-transform: uppercase; color: var(--accent); }
+    .section-title { margin-top: 12px; font-size: clamp(34px, 4.2vw, 64px); line-height: 1.02; max-width: 14ch; }
+    .card-grid { grid-template-columns: repeat(3, 1fr); }
+    .service-card h3, .package-card h3, .offer h3, .process-card h3, .contact-panel h3, .feedback-card h3 { margin: 18px 0 10px; font-size: 28px; }
+    .icon-box {
+      width: 48px; height: 48px; display:grid; place-items:center; border-radius: 16px;
+      border:1px solid var(--line); background: rgba(0,0,0,0.25); font-size: 22px;
+    }
+    .band { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background: rgba(255,255,255,0.02); }
+    .offer-grid { grid-template-columns: repeat(2, 1fr); }
+    .offer { display:flex; gap:12px; align-items:flex-start; background: rgba(0,0,0,0.22); }
+    .check { color: var(--accent); font-size: 18px; line-height: 1.5; }
+    .process-grid { grid-template-columns: repeat(4, 1fr); }
+    .step { color: var(--accent); font-weight: 700; font-size: 14px; }
+    .packages-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; margin-top: 26px; }
+    .package-card { position: relative; overflow: hidden; }
+    .package-card::before {
+      content:""; position:absolute; inset:auto -20% 70% auto; width:180px; height:180px; border-radius:50%;
+      background: rgba(190,242,100,0.08); filter: blur(22px);
+    }
+    .price { margin-top: 6px; font-size: 46px; line-height: 1; letter-spacing: -0.04em; }
+    .price span { font-size: 16px; color: var(--muted-2); letter-spacing: normal; }
+    .package-sub { margin-top: 8px; color: var(--muted); line-height: 1.7; min-height: 94px; }
+    .feature-list { margin: 18px 0; padding: 0; list-style: none; display:grid; gap:10px; }
+    .feature-list li { color: var(--muted); line-height: 1.65; padding-left: 18px; position: relative; }
+    .feature-list li::before { content: "•"; color: var(--accent); position: absolute; left: 0; }
+    .pay-note { margin-top: 16px; padding: 14px 16px; border-radius: 18px; background: rgba(190,242,100,0.08); border: 1px solid rgba(190,242,100,0.18); color: var(--muted); line-height: 1.65; font-size: 14px; }
+    .button-stack { display:grid; gap:10px; margin-top: 18px; }
+    .modular-box { margin-top: 22px; padding: 20px; border-radius: 24px; border: 1px solid var(--line); background: rgba(255,255,255,0.03); }
+    .modular-box strong { color: var(--text); }
+    .contact-grid, .critique-grid { grid-template-columns: .9fr 1.1fr; }
+    .contact-panel, .critique-panel { padding: 30px; }
+    .bullet-line { display:flex; gap:12px; align-items:flex-start; padding: 16px; margin-top: 14px; border-radius: 22px; border:1px solid var(--line); background: rgba(0,0,0,0.18); }
+    .form-panel { background: #090909; padding: 24px; box-shadow: var(--shadow); }
+    .grid-2 { display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; }
+    label { display:block; margin-bottom: 8px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+    input, select, textarea {
+      width:100%; padding: 14px 15px; border-radius: 18px; border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03); color: var(--text); font: inherit; outline: none;
+    }
+    textarea { min-height: 160px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: rgba(190,242,100,0.45); }
+    .status { margin-top: 14px; padding: 14px 16px; border-radius: 18px; border:1px solid transparent; font-size: 14px; display:none; }
+    .status.show { display:block; }
+    .status.success { background: rgba(190,242,100,0.1); border-color: rgba(190,242,100,0.2); }
+    .status.error { background: rgba(248,113,113,0.12); border-color: rgba(248,113,113,0.2); }
+    footer { padding: 28px 0 54px; color: var(--muted-2); font-size: 14px; }
+    .footer-inner { display:flex; justify-content:space-between; gap:18px; border-top:1px solid var(--line); padding-top: 22px; }
+    @media (max-width: 1040px) {
+      .hero-grid, .contact-grid, .critique-grid, .split-grid, .section-head { grid-template-columns: 1fr; }
+      .packages-grid, .card-grid, .process-grid, .stat-grid { grid-template-columns: 1fr; }
+      .offer-grid, .mini-grid, .grid-2 { grid-template-columns: 1fr; }
+      .nav { display:none; }
+      .hero h1 { max-width: unset; }
+      .section-title { max-width: unset; }
+      .package-sub { min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div>
+        <div class="brand-kicker">We Design</div>
+        <div class="brand-sub">Brand systems for serious first impressions.</div>
+      </div>
+      <nav class="nav">
+        <a href="#services">Services</a>
+        <a href="#packages">Packages</a>
+        <a href="#work">Why Us</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+        <a href="#critique">Critique</a>
+      </nav>
+      <a href="#contact" class="button-outline" style="padding:12px 16px;font-size:12px;">Start Here</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Creative Direction • Brand Identity • Web Presence</div>
+          <h1>We build brand presence that looks expensive before a client reads a sentence.</h1>
+          <p class="hero-copy">For founders, operators, and growing brands that need a cleaner first impression, a sharper story, and a landing page that actually carries weight. We create logos, slogans, brand stories, landing pages, websites, and iOS MVP builds without making the buying process feel like a menu from hell.</p>
+          <div class="cta-row">
+            <a href="#contact" class="button">Book a Project</a>
+            <a href="https://calendly.com/hello-wedesignsstudio/30min" class="button-outline" target="_blank" rel="noopener">Book on Calendly</a>
+          </div>
+          <div class="stat-grid">
+            <div class="stat"><h4>Fast</h4><p>Clear front-door websites and identity work for brands that need presence now.</p></div>
+            <div class="stat"><h4>Clean</h4><p>Minimal systems that don’t look templated, messy, or bargain-bin.</p></div>
+            <div class="stat"><h4>Ready</h4><p>Structured so forms, invoices, and client communication can connect later with less pain.</p></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="panel-top">
+              <div>
+                <div class="section-kicker" style="color:rgba(255,255,255,0.38)">Featured Impression</div>
+                <h3 style="margin-top:10px;font-size:32px;line-height:1.1">A premium front door for your business.</h3>
+              </div>
+              <div class="tag">Vercel Ready</div>
+            </div>
+            <div class="gradient-box">
+              <div class="section-kicker">Positioning Snapshot</div>
+              <h3 style="margin-top:10px;font-size:36px;line-height:1.08;max-width:12ch;">The page does not just look good. It makes the brand feel decided.</h3>
+              <p style="margin-top:14px;max-width:520px;">Less clutter. More status. Better copy. Cleaner structure. The kind of page that stops explaining and starts implying competence.</p>
+            </div>
+            <div class="mini-grid">
+              <div class="feedback-card"><p>Sharper positioning for small brands that need to feel established.</p></div>
+              <div class="feedback-card"><p>Luxury-minded layout without bloated agency nonsense.</p></div>
+              <div class="feedback-card"><p>Built to plug into Google Workspace, invoicing, and client comms later.</p></div>
+              <div class="feedback-card"><p>Designed for direct booking, direct payment, and cleaner project intake.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Services</div>
+            <h2 class="section-title">Built for brands that need to look like they know what they’re doing.</h2>
+          </div>
+          <p>The lane is simple: premium visual direction, tighter messaging, cleaner presentation, and a site that can later plug into operations without needing a full rebuild.</p>
+        </div>
+        <div class="card-grid">
+          <div class="service-card"><div class="icon-box">✦</div><h3>Brand Identity</h3><p>Logos, slogans, brand stories, type direction, and visual language that stop your brand from looking undecided.</p></div>
+          <div class="service-card"><div class="icon-box">⌘</div><h3>Web Launch</h3><p>Landing pages and compact business websites designed to create a stronger online presence and a more credible first impression.</p></div>
+          <div class="service-card"><div class="icon-box">◉</div><h3>iOS MVP</h3><p>SwiftUI-based MVP builds and app concept execution for founders who need a functional early product without pretending they need an enterprise build yet.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages" class="band">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Packages</div>
+            <h2 class="section-title">Three clear paths. One modular lane.</h2>
+          </div>
+          <p>Enough structure to make the decision easy. Enough flexibility so people do not feel boxed into paying for what they do not need.</p>
+        </div>
+
+        <div class="packages-grid">
+          <div class="package-card">
+            <div class="section-kicker">Brand Foundation</div>
+            <div class="price">$750 <span>starting</span></div>
+            <p class="package-sub">Logo direction, slogan support, and a concise brand story for businesses that need a clean identity before they build bigger.</p>
+            <ul class="feature-list">
+              <li>Logo concept / direction</li>
+              <li>Slogan or tagline support</li>
+              <li>Concise brand story</li>
+              <li>Visual direction and tone</li>
+            </ul>
+            <div class="pay-note">Pay in full or start with a deposit. Apple Pay may appear through Stripe when available. No final files or deliverables are released until all monies have been satisfied and paid in full.</div>
+            <div class="button-stack">
+              <a class="button" href="https://buy.stripe.com/REPLACE_BRAND_FULL" target="_blank" rel="noopener">Pay Full / Apple Pay</a>
+              <a class="button-outline" href="https://buy.stripe.com/REPLACE_BRAND_DEPOSIT" target="_blank" rel="noopener">Pay Deposit</a>
+            </div>
+          </div>
+
+          <div class="package-card">
+            <div class="section-kicker">Web Launch</div>
+            <div class="price">$1,250 <span>starting</span></div>
+            <p class="package-sub">A polished landing page or compact business website designed to give your brand a stronger online presence, clearer messaging, and a better first impression.</p>
+            <ul class="feature-list">
+              <li>Landing page or compact website</li>
+              <li>Messaging cleanup</li>
+              <li>Mobile-friendly structure</li>
+              <li>Vercel-ready delivery</li>
+            </ul>
+            <div class="pay-note">Upfront payment or deposit-plus-installments. Apple Pay may appear through Stripe when available. No final website handoff, source files, or deliverables are released until the balance is paid in full.</div>
+            <div class="button-stack">
+              <a class="button" href="https://buy.stripe.com/REPLACE_WEB_FULL" target="_blank" rel="noopener">Pay Full / Apple Pay</a>
+              <a class="button-outline" href="https://buy.stripe.com/REPLACE_WEB_DEPOSIT" target="_blank" rel="noopener">Pay Deposit</a>
+            </div>
+          </div>
+
+          <div class="package-card">
+            <div class="section-kicker">App MVP</div>
+            <div class="price">$2,500 <span>starting</span></div>
+            <p class="package-sub">A SwiftUI-based MVP or early iOS app build for founders who need a functional concept, key screens, and a cleaner product presentation before scaling further.</p>
+            <ul class="feature-list">
+              <li>SwiftUI MVP or app concept build</li>
+              <li>Core screens and user flow</li>
+              <li>Product presentation direction</li>
+              <li>Early handoff structure</li>
+            </ul>
+            <div class="pay-note">Pay in full or reserve your slot with a deposit and approved installments. Apple Pay may appear through Stripe when available. No final app files, code handoff, or deliverables are released until payment is completed in full.</div>
+            <div class="button-stack">
+              <a class="button" href="https://buy.stripe.com/REPLACE_APP_FULL" target="_blank" rel="noopener">Pay Full / Apple Pay</a>
+              <a class="button-outline" href="https://buy.stripe.com/REPLACE_APP_DEPOSIT" target="_blank" rel="noopener">Pay Deposit</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="modular-box">
+          <p style="color:var(--muted);line-height:1.8"><strong>Need only part of the work?</strong> You do not have to buy a full package if you only need a few pieces. Use the form below and choose <strong>logo only</strong>, <strong>slogan + brand story</strong>, <strong>landing page only</strong>, <strong>website only</strong>, or <strong>custom modular quote</strong>. Clean options. Less confusion.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="container split-grid" style="grid-template-columns:.88fr 1.12fr;">
+        <div>
+          <div class="section-kicker">Why We Design</div>
+          <h2 class="section-title">Clean enough to feel premium. Direct enough to convert.</h2>
+          <p style="margin-top:16px;max-width:560px;color:var(--muted-2);line-height:1.75">Too many design sites look like they were built by a committee with a Canva addiction. This one is tighter. More intentional. Less noise, more gravity.</p>
+        </div>
+        <div class="offer-grid">
+          <div class="offer"><div class="check">✓</div><p>Starter brand direction</p></div>
+          <div class="offer"><div class="check">✓</div><p>Landing pages and compact websites</p></div>
+          <div class="offer"><div class="check">✓</div><p>Pitch visuals and branded assets</p></div>
+          <div class="offer"><div class="check">✓</div><p>Proposal and service framing</p></div>
+          <div class="offer"><div class="check">✓</div><p>Vercel deployment-ready handoff</p></div>
+          <div class="offer"><div class="check">✓</div><p>Google Workspace integration-ready structure</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" class="band">
+      <div class="container">
+        <div>
+          <div class="section-kicker">Process</div>
+          <h2 class="section-title">Sharp workflow. No drama.</h2>
+        </div>
+        <div class="process-grid" style="margin-top:24px;">
+          <div class="process-card"><div class="step">01</div><h3>Clarify</h3><p>We tighten the story, the audience, and the visual territory.</p></div>
+          <div class="process-card"><div class="step">02</div><h3>Design</h3><p>We shape the page, the message, and the brand tension.</p></div>
+          <div class="process-card"><div class="step">03</div><h3>Deploy</h3><p>The site ships clean on Vercel and stays ready for future ops integrations.</p></div>
+          <div class="process-card"><div class="step">04</div><h3>Scale</h3><p>Forms, inboxes, invoices, and docs can be wired into Workspace when you are ready.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-grid">
+        <div class="contact-panel">
+          <div class="section-kicker">Contact</div>
+          <h2 class="section-title">If your brand feels uncertain, clients feel it too.</h2>
+          <p style="margin-top:16px;max-width:560px;">This page is already structured so forms, client intake, invoices, Calendly, Stripe, and Google Workspace routing can connect later without ripping the site apart.</p>
+          <div class="bullet-line"><div class="check">✉</div><p><strong style="color:#fff">hello@wedesignstudio.com</strong></p></div>
+          <div class="bullet-line"><div class="check">$</div><p>Invoices and billing can route through Workspace later. Stripe handles card and Apple Pay when available.</p></div>
+          <div class="bullet-line"><div class="check">⧉</div><p>Form architecture is ready for Apps Script or any later endpoint swap.</p></div>
+          <div class="modular-box" style="margin-top:18px;">
+            <p style="color:var(--muted);line-height:1.75"><strong>Integration-ready by design.</strong> The inquiry form already stores the fields you would want for a later Sheets CRM, Gmail notifications, modular quote flow, and invoice workflow. No rebuild tax.</p>
+          </div>
+        </div>
+
+        <form class="form-panel" id="inquiryForm">
+          <div class="grid-2">
+            <div><label>Name</label><input name="name" required placeholder="Your name" /></div>
+            <div><label>Email</label><input type="email" name="email" required placeholder="you@company.com" /></div>
+            <div><label>Company</label><input name="company" placeholder="Company name" /></div>
+            <div>
+              <label>What are you looking for?</label>
+              <select name="service">
+                <option>Brand Foundation</option>
+                <option>Web Launch</option>
+                <option>App MVP</option>
+                <option>Logo Only</option>
+                <option>Slogan + Brand Story Only</option>
+                <option>Landing Page Only</option>
+                <option>Website Only</option>
+                <option>Custom Modular Quote</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top:16px"><label>Budget</label><input name="budget" placeholder="$750 – $2,500" /></div>
+          <div style="margin-top:16px"><label>Project Summary</label><textarea name="summary" required placeholder="Tell us what you need, what you’re building, and where the current brand feels weak."></textarea></div>
+          <div class="cta-row" style="margin-top:18px;">
+            <button class="button" type="submit">Send Inquiry</button>
+            <a class="button-outline" href="mailto:hello@wedesignstudio.com?subject=New%20We%20Design%20Inquiry">Email Instead</a>
+            <a class="button-outline" href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Book Calendly</a>
+          </div>
+          <div id="inquiryStatus" class="status"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="critique">
+      <div class="container critique-grid">
+        <div class="critique-panel">
+          <div class="eyebrow">Client Critique</div>
+          <h2 class="section-title" style="margin-top:18px">Let clients send praise, notes, or straight-up critique without the mess.</h2>
+          <p style="margin-top:16px;max-width:560px;">This section is set up to forward client feedback into your Google Workspace inbox later. Good feedback can become testimonials. Hard feedback becomes useful intel instead of random text chaos.</p>
+          <div class="bullet-line"><div class="check">★</div><p>Great for collecting testimonials, revision notes, and final client reactions in one clean lane.</p></div>
+          <div class="bullet-line"><div class="check">✉</div><p>Route destination is already set to <strong style="color:#fff">hello@wedesignstudio.com</strong>.</p></div>
+          <div class="bullet-line"><div class="check">✓</div><p>Later, the same data can drop into Sheets, a testimonial bank, or a lightweight client hub.</p></div>
+        </div>
+
+        <form class="form-panel" id="critiqueForm">
+          <div class="grid-2">
+            <div><label>Client Name</label><input name="clientName" required placeholder="Your name" /></div>
+            <div><label>Client Email</label><input type="email" name="clientEmail" required placeholder="client@company.com" /></div>
+            <div><label>Project Name</label><input name="projectName" required placeholder="Project or deliverable" /></div>
+            <div>
+              <label>Rating</label>
+              <select name="rating"><option>5 / 5</option><option>4 / 5</option><option>3 / 5</option><option>2 / 5</option><option>1 / 5</option></select>
+            </div>
+          </div>
+          <div style="margin-top:16px"><label>Type</label><select name="critiqueType"><option>Praise / Testimonial</option><option>Revision Notes</option><option>General Feedback</option><option>Issue / Concern</option></select></div>
+          <div style="margin-top:16px"><label>Feedback</label><textarea name="feedback" required placeholder="Tell us what worked, what could be better, or what stood out."></textarea></div>
+          <div class="cta-row" style="margin-top:18px;">
+            <button class="button" type="submit">Send Critique</button>
+            <a class="button-outline" href="mailto:hello@wedesignstudio.com?subject=Client%20Critique">Email Instead</a>
+          </div>
+          <div id="critiqueStatus" class="status"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 We Design. Built for clean first impressions.</div>
+      <div>Vercel hosted • Stripe payments • Calendly booking • Workspace-ready structure</div>
+    </div>
+  </footer>
+
+  <script>
+    const siteConfig = {
+      formEndpoint: 'https://script.google.com/macros/s/REPLACE_WITH_WEB_APP_URL/exec',
+      formMode: 'mock'
+    };
+
+    function showStatus(el, type, message) {
+      el.className = 'status show ' + type;
+      el.textContent = message;
+    }
+
+    async function handleForm(formId, statusId, formType) {
+      const form = document.getElementById(formId);
+      const status = document.getElementById(statusId);
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
+
+        if (siteConfig.formMode === 'mock') {
+          showStatus(status, 'success', formType === 'inquiry'
+            ? 'Inquiry flow is staged for Google Workspace. Flip formMode to live when your endpoint is ready.'
+            : 'Critique flow is staged for Google Workspace. Flip formMode to live when your endpoint is ready.');
+          form.reset();
+          return;
+        }
+
+        try {
+          const res = await fetch(siteConfig.formEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ formType, ...data, timestamp: new Date().toISOString() })
+          });
+          if (!res.ok) throw new Error('Failed');
+          showStatus(status, 'success', formType === 'inquiry' ? 'Inquiry sent.' : 'Critique sent.');
+          form.reset();
+        } catch (err) {
+          showStatus(status, 'error', 'Endpoint not connected yet. Use the email fallback for now.');
+        }
+      });
+    }
+
+    handleForm('inquiryForm', 'inquiryStatus', 'inquiry');
+    handleForm('critiqueForm', 'critiqueStatus', 'critique');
+  </script>
+</body>
+</html>
