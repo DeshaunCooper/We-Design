@@ -276,7 +276,7 @@
       border-bottom: 1px solid rgba(8,8,8,0.08);
       display: flex; gap: 12px; color: rgba(8,8,8,0.6);
     }
-    .pkg-li::before { content: '—'; color: var(--red); flex-shrink: 0; font-weight: 700; }
+    .pkg-li::before { content: ''; width: 16px; height: 1px; background: var(--red); flex-shrink: 0; margin-top: 10px; }
     .pkg-note {
       padding: 13px 16px; margin-bottom: 22px;
       background: rgba(8,8,8,0.04); border: 1px solid rgba(8,8,8,0.08);
@@ -401,9 +401,11 @@
     }
     .crit-body { font-size: 16px; line-height: 1.75; color: rgba(244,242,238,0.38); font-weight: 300; }
     .crit-detail { display: flex; gap: 14px; margin-top: 20px; font-size: 14px; color: rgba(244,242,238,0.38); }
-    .crit-detail .icon { color: var(--red); flex-shrink: 0; }
-    .crit-detail a { color: rgba(244,242,238,0.6); transition: 0.2s; }
-    .crit-detail a:hover { color: var(--white); }
+    .crit-lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--red); width: 52px; flex-shrink: 0; padding-top: 1px;
+    }
 
     /* PAYMENT */
     .payment { padding: 120px 48px; border-bottom: 1px solid var(--line); background: rgba(244,242,238,0.02); }
@@ -453,6 +455,63 @@
     .reveal.d3 { transition-delay: 0.3s; } .reveal.d4 { transition-delay: 0.4s; }
     .reveal.on { opacity: 1; transform: none; }
 
+    /* AVAILABILITY */
+    .avail-line { display: flex; align-items: center; gap: 10px; margin-top: 20px; }
+    .avail-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; flex-shrink: 0; box-shadow: 0 0 0 3px rgba(74,222,128,0.2); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 3px rgba(74,222,128,0.2); } 50% { box-shadow: 0 0 0 6px rgba(74,222,128,0.08); } }
+    .avail-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(74,222,128,0.7); }
+
+    /* MODULAR SELECTOR */
+    .modular-selector { margin-top: 2px; background: var(--black); border: 1px solid var(--line); padding: 48px 40px; }
+    .mod-header { margin-bottom: 40px; }
+    .mod-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 4vw, 52px); letter-spacing: 0.03em; margin: 10px 0 10px; color: var(--white); }
+    .mod-sub { font-size: 15px; color: rgba(244,242,238,0.38); font-weight: 300; }
+    .mod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 2px; }
+    .mod-group-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--red); padding: 10px 0 12px; }
+    .mod-card { padding: 18px 20px; border: 1px solid var(--line); cursor: pointer; transition: 0.18s ease; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; background: rgba(244,242,238,0.02); }
+    .mod-card:hover { background: rgba(244,242,238,0.05); border-color: rgba(244,242,238,0.2); }
+    .mod-card.selected { background: rgba(214,58,42,0.1); border-color: var(--red); }
+    .mod-card.mod-complete { border-color: rgba(214,58,42,0.3); background: rgba(214,58,42,0.05); }
+    .mod-card.mod-complete.selected { background: rgba(214,58,42,0.18); }
+    .mod-card-name { font-size: 14px; font-weight: 500; color: rgba(244,242,238,0.8); }
+    .mod-card-price { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.05em; color: var(--red); }
+    .mod-panel { background: rgba(244,242,238,0.04); border: 1px solid var(--line); padding: 28px 32px; margin-top: 2px; }
+    .mod-panel-inner { display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+    .mod-panel-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(244,242,238,0.25); margin-bottom: 8px; }
+    .mod-panel-service { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.04em; color: var(--white); }
+    .mod-panel-desc { font-size: 13px; color: rgba(244,242,238,0.38); font-weight: 300; margin-top: 6px; max-width: 380px; }
+    .mod-panel-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0; }
+    .mod-panel-price { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: -0.01em; color: var(--red); line-height: 1; }
+    .mod-pay-btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; background: var(--red); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; transition: 0.2s; white-space: nowrap; }
+    .mod-pay-btn:hover { background: var(--red-dark); }
+    .mod-pay-btn.disabled { background: rgba(244,242,238,0.08); color: rgba(244,242,238,0.35); pointer-events: none; }
+    .mod-alt { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(244,242,238,0.28); border-bottom: 1px solid rgba(244,242,238,0.12); padding-bottom: 2px; transition: 0.2s; }
+    .mod-alt:hover { color: rgba(244,242,238,0.6); }
+
+    /* REVISION POLICY STRIP */
+    .rev-policy { margin-top: 2px; background: rgba(214,58,42,0.07); border: 1px solid rgba(214,58,42,0.18); }
+    .rev-policy-inner { display: grid; grid-template-columns: 1fr 24px 1fr 24px 1fr; align-items: center; padding: 48px 40px; gap: 0; }
+    .rev-divider { width: 1px; height: 100%; background: rgba(214,58,42,0.2); align-self: stretch; margin: 0 32px; }
+    .rev-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 14px;
+    }
+    .rev-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 3vw, 44px); letter-spacing: 0.03em; line-height: 1;
+      color: var(--black);
+    }
+    .rev-text { font-size: 14px; line-height: 1.75; color: rgba(8,8,8,0.52); font-weight: 300; }
+    .rev-link {
+      display: inline-block; margin-top: 14px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--red); border-bottom: 1px solid rgba(214,58,42,0.35); padding-bottom: 2px;
+      transition: 0.2s;
+    }
+    .rev-link:hover { border-color: var(--red); }
+
     /* RESPONSIVE */
     @media (max-width: 1100px) {
       nav { padding: 22px 24px; }
@@ -472,7 +531,14 @@
       .pkg-grid { grid-template-columns: 1fr; }
       .pkg { border-right: none !important; border-bottom: 1px solid rgba(8,8,8,0.1); }
       .pkg:last-child { border-bottom: none; }
-      .modular { flex-direction: column; padding: 28px 24px; }
+      .rev-policy-inner { grid-template-columns: 1fr; padding: 32px 24px; gap: 24px; }
+      .rev-divider { width: 100%; height: 1px; margin: 0; }
+      .mod-grid { grid-template-columns: 1fr 1fr; }
+      .mod-panel-inner { flex-direction: column; align-items: flex-start; }
+      .mod-panel-right { align-items: flex-start; width: 100%; }
+      .mod-pay-btn { width: 100%; justify-content: center; }
+      .modular-selector { padding: 32px 24px; }
+
       .process { padding: 80px 24px; }
       .process-grid { grid-template-columns: 1fr 1fr; }
       .step { border-right: none !important; border-bottom: 1px solid var(--line); padding: 40px 0 !important; }
@@ -507,6 +573,7 @@
     <a href="#services">Services</a>
     <a href="#packages">Packages</a>
     <a href="#process">Process</a>
+    <a href="/contract">Agreement</a>
     <a href="#contact">Contact</a>
   </div>
   <a href="#contact" class="nav-cta">Start a Project</a>
@@ -523,7 +590,7 @@
     <div class="hero-bottom">
       <p class="hero-sub">We build <strong>logos, identity systems, landing pages, websites, and iOS MVPs</strong> for founders who refuse to look small. Not templates. Not committees. Human crafted, intentionally built.</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn-red">Start a Project ↗</a>
+        <a href="#contact" class="btn-red">Start a Project</a>
         <a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener" class="btn-outline-light">Book a Call</a>
       </div>
     </div>
@@ -645,7 +712,7 @@
         <li class="pkg-li">Concise brand story</li>
         <li class="pkg-li">Visual direction and tone</li>
       </ul>
-      <div class="pkg-note">Pay in full or start with a deposit. No final files or deliverables released until balance is paid in full.</div>
+      <div class="pkg-note">2 rounds of revisions included. Additional rounds at $75/hr. Pay in full or start with a deposit. No final files released until balance is paid in full.</div>
       <a class="pkg-full" href="https://buy.stripe.com/eVq14mepUeRr1m96rtfMA01" target="_blank" rel="noopener">Pay Full — $750</a>
       <a class="pkg-dep" href="https://buy.stripe.com/aFa5kC1D838Jc0NaHJfMA02" target="_blank" rel="noopener">Pay Deposit Instead</a>
     </div>
@@ -660,7 +727,7 @@
         <li class="pkg-li">Mobile-first structure</li>
         <li class="pkg-li">Vercel-ready delivery</li>
       </ul>
-      <div class="pkg-note">Upfront or deposit plus installments. No website handoff or source files released until balance is paid in full.</div>
+      <div class="pkg-note">2 rounds of revisions included. Additional rounds at $75/hr. Upfront or deposit plus installments. No website handoff or source files released until balance is paid in full.</div>
       <a class="pkg-full" href="https://buy.stripe.com/6oU00i1D8dNne8V6rtfMA03" target="_blank" rel="noopener">Pay Full — $1,250</a>
       <a class="pkg-dep" href="https://buy.stripe.com/aFafZgbdI9x7fcZ3fhfMA04" target="_blank" rel="noopener">Pay Deposit Instead</a>
     </div>
@@ -675,17 +742,74 @@
         <li class="pkg-li">Product presentation direction</li>
         <li class="pkg-li">Early handoff structure</li>
       </ul>
-      <div class="pkg-note">Pay in full or reserve your slot with a deposit. No final app files or code handoff until payment is completed in full.</div>
+      <div class="pkg-note">2 rounds of revisions included. Additional rounds at $100/hr. Pay in full or reserve your slot with a deposit. No final app files or code handoff until payment is completed in full.</div>
       <a class="pkg-full" href="https://buy.stripe.com/dRmaEW5TogZz7KxdTVfMA05" target="_blank" rel="noopener">Pay Full — $2,500</a>
       <a class="pkg-dep" href="https://buy.stripe.com/9B6fZg1D89x71m93fhfMA06" target="_blank" rel="noopener">Pay Deposit Instead</a>
     </div>
   </div>
-  <div class="modular reveal">
-    <div>
-      <h3>Only Need Part of the Work?</h3>
-      <p>You don't have to buy a full package. Request a logo only, slogan and brand story, landing page only, website only, or a custom modular quote. Use the contact form and tell us exactly what you need.</p>
+  <!-- MODULAR SELECTOR -->
+  <div class="modular-selector reveal" id="modular">
+    <div class="mod-header">
+      <div class="rev-label">Build Your Own</div>
+      <h3 class="mod-title">ONLY NEED PART OF THE WORK?</h3>
+      <p class="mod-sub">Select exactly what you need. Price updates instantly. Pay directly.</p>
     </div>
-    <a href="#contact" class="btn-dark">Build Custom →</a>
+    <div class="mod-grid">
+      <div class="mod-group">
+        <div class="mod-group-label">Identity</div>
+        <div class="mod-card" data-service="Logo Only" data-price="350" data-link="https://buy.stripe.com/7sY4gychMeRrfcZ4jlfMA07" data-desc="Logo concept, direction, and final files."><div class="mod-card-name">Logo Only</div><div class="mod-card-price">$350</div></div>
+        <div class="mod-card" data-service="Slogan + Brand Story" data-price="250" data-link="https://buy.stripe.com/14A8wOgy238JfcZ4jlfMA08" data-desc="Tagline and written brand narrative."><div class="mod-card-name">Slogan + Brand Story</div><div class="mod-card-price">$250</div></div>
+        <div class="mod-card" data-service="Logo + Slogan Bundle" data-price="550" data-link="https://buy.stripe.com/aFadR8epUgZzfcZcPRfMA09" data-desc="Logo and slogan bundled — slightly discounted."><div class="mod-card-name">Logo + Slogan Bundle</div><div class="mod-card-price">$550</div></div>
+      </div>
+      <div class="mod-group">
+        <div class="mod-group-label">Web</div>
+        <div class="mod-card" data-service="Landing Page Only" data-price="650" data-link="https://buy.stripe.com/7sYcN4epU4cNfcZ5npfMA0a" data-desc="Single polished page. Mobile-first. Vercel-ready."><div class="mod-card-name">Landing Page Only</div><div class="mod-card-price">$650</div></div>
+        <div class="mod-card" data-service="Full Website" data-price="1250" data-link="https://buy.stripe.com/6oU00i1D8dNne8V6rtfMA03" data-desc="Compact multi-page website. Clean, structured, ready to grow."><div class="mod-card-name">Full Website</div><div class="mod-card-price">$1,250</div></div>
+      </div>
+      <div class="mod-group">
+        <div class="mod-group-label">Print</div>
+        <div class="mod-card" data-service="Business Cards" data-price="175" data-link="https://buy.stripe.com/6oU5kC6XsbFf3uh8zBfMA0b" data-desc="Design + print production + delivery included."><div class="mod-card-name">Business Cards</div><div class="mod-card-price">$175</div></div>
+        <div class="mod-card" data-service="Flyers" data-price="225" data-link="https://buy.stripe.com/3cI8wOepU9x72qdaHJfMA0c" data-desc="Design + print production + delivery included."><div class="mod-card-name">Flyers</div><div class="mod-card-price">$225</div></div>
+        <div class="mod-card" data-service="Yard Signs" data-price="275" data-link="https://buy.stripe.com/bJe8wO6XsaBb9SFg23fMA0d" data-desc="Design + print production + delivery included."><div class="mod-card-name">Yard Signs</div><div class="mod-card-price">$275</div></div>
+      </div>
+      <div class="mod-group">
+        <div class="mod-group-label">Product + Bundles</div>
+        <div class="mod-card" data-service="Product Design" data-price="450" data-link="https://buy.stripe.com/bJeeVcdlQcJjgh38zBfMA0g" data-desc="Send your product photos. We style and enhance them for web use."><div class="mod-card-name">Product Design</div><div class="mod-card-price">$450</div></div>
+        <div class="mod-card" data-service="Promo Bundle" data-price="1350" data-link="https://buy.stripe.com/3cI3cu4PkcJjaWJ8zBfMA0e" data-desc="Business cards + Yard Signs + Landing Page + Logo + Slogan."><div class="mod-card-name">Promo Bundle</div><div class="mod-card-price">$1,350</div></div>
+        <div class="mod-card mod-complete" data-service="WD Complete" data-price="5000" data-link="https://buy.stripe.com/eVq8wO6XsbFf5Cp9DFfMA0f" data-desc="Every service. Identity, web, app, print, and product design. Full studio engagement."><div class="mod-card-name">WD Complete</div><div class="mod-card-price">$5,000</div></div>
+      </div>
+    </div>
+    <div class="mod-panel" id="modPanel">
+      <div class="mod-panel-inner">
+        <div class="mod-panel-left">
+          <div class="mod-panel-label">Selected</div>
+          <div class="mod-panel-service" id="modService">Nothing selected yet</div>
+          <div class="mod-panel-desc" id="modDesc">Choose a service above to see details and pay directly.</div>
+        </div>
+        <div class="mod-panel-right">
+          <div class="mod-panel-price" id="modPrice"></div>
+          <a class="mod-pay-btn disabled" id="modPayBtn" href="#contact">Ask First — Contact Form</a>
+          <a class="mod-alt" href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Or book a call</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rev-policy reveal">
+    <div class="rev-policy-inner">
+      <div class="rev-col">
+        <div class="rev-label">Revision Policy</div>
+        <div class="rev-headline">2 ROUNDS INCLUDED.<br>EVERY PACKAGE.</div>
+      </div>
+      <div class="rev-divider"></div>
+      <div class="rev-col">
+        <p class="rev-text">Every project includes two full rounds of revisions. A revision round means one consolidated set of feedback — not individual changes over multiple messages. Additional rounds are billed at $75–$100/hr depending on scope.</p>
+      </div>
+      <div class="rev-divider"></div>
+      <div class="rev-col">
+        <p class="rev-text">Before any project starts, both parties agree to a simple one-page service agreement covering scope, revisions, payment, and delivery terms.</p>
+        <a href="/contract" class="rev-link">Read the Service Agreement</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -724,9 +848,10 @@
 <section class="contact" id="contact">
   <div class="contact-grid">
     <div>
-      <div class="slabel reveal">Contact</div>
-      <h2 class="contact-headline reveal d1">LET'S<br>BUILD<br>IT.</h2>
-      <p class="contact-body reveal d2">If your brand feels uncertain, your clients feel it too. Start with a message, book a call, or jump straight to payment if you already know what you need.</p>
+      <div class="slabel reveal">Apply to Work With Us</div>
+      <h2 class="contact-headline reveal d1">WE TAKE ON A LIMITED NUMBER OF PROJECTS EACH MONTH.</h2>
+      <p class="contact-body reveal d2">Not every project is a fit. If you're ready to execute at a high level, fill out the form and we'll be in touch within one business day.</p>
+      <div class="avail-line reveal d2"><span class="avail-dot"></span><span class="avail-text">Currently accepting new projects</span></div>
       <div class="cline reveal d2"><span class="cline-lbl">Email</span><a href="mailto:hello@wedesignsstudio.com">hello@wedesignsstudio.com</a></div>
       <div class="cline reveal d2"><span class="cline-lbl">Book</span><a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">30-min call on Calendly</a></div>
       <div class="cline reveal d2"><span class="cline-lbl">Pay</span><span>Stripe — card and Apple Pay accepted</span></div>
@@ -754,10 +879,32 @@
             </select>
           </div>
         </div>
-        <div class="ff"><label>Budget</label><input name="budget" placeholder="$750 – $2,500+" /></div>
-        <div class="ff"><label>Project Summary</label><textarea name="summary" required placeholder="Tell us what you need, what you're building, and where your current brand feels weak."></textarea></div>
+        <div class="frow">
+          <div class="ff">
+            <label>Budget Range</label>
+            <select name="budget" required>
+              <option value="">Select your budget</option>
+              <option>Under $500</option>
+              <option>$500 – $1,000</option>
+              <option>$1,000 – $2,500</option>
+              <option>$2,500 – $5,000</option>
+              <option>$5,000+</option>
+            </select>
+          </div>
+          <div class="ff">
+            <label>Timeline</label>
+            <select name="timeline" required>
+              <option value="">When do you need this?</option>
+              <option>ASAP — within 2 weeks</option>
+              <option>1 month</option>
+              <option>1–3 months</option>
+              <option>Flexible</option>
+            </select>
+          </div>
+        </div>
+        <div class="ff"><label>What Are You Trying to Fix or Build?</label><textarea name="summary" required placeholder="Be specific. The more context you give, the faster we can move."></textarea></div>
         <div class="factions">
-          <button class="btn-red sbtn" type="submit">Send Inquiry</button>
+          <button class="btn-red sbtn" type="submit">Apply for a Project Slot</button>
           <a class="btn-outline-light" href="mailto:hello@wedesignsstudio.com">Email Instead</a>
           <a class="btn-outline-light" href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Calendly</a>
         </div>
@@ -775,8 +922,8 @@
         <div class="slabel reveal">Client Feedback</div>
         <h2 class="crit-headline reveal d1">PRAISE.<br>NOTES.<br>CRITIQUE.</h2>
         <p class="crit-body reveal d2">Good feedback becomes testimonials. Hard feedback becomes intel. Routes directly to the studio inbox — built for a later Sheets CRM or testimonial bank.</p>
-        <div class="crit-detail reveal d2"><span class="icon">★</span><span>Great for testimonials, revision notes, and final client reactions.</span></div>
-        <div class="crit-detail reveal d2"><span class="icon">→</span><span>Routes to <a href="mailto:hello@wedesignsstudio.com">hello@wedesignsstudio.com</a></span></div>
+        <div class="crit-detail reveal d2"><span class="crit-lbl">Note</span><span>Great for testimonials, revision notes, and final client reactions.</span></div>
+        <div class="crit-detail reveal d2"><span class="crit-lbl">Inbox</span><span>Routes to <a href="mailto:hello@wedesignsstudio.com">hello@wedesignsstudio.com</a></span></div>
       </div>
       <div class="form-box reveal d1">
         <div class="form-ttl">SEND FEEDBACK</div>
@@ -827,7 +974,7 @@
     <div class="pay-box reveal d1">
       <stripe-buy-button buy-button-id="buy_btn_1THCXLADGjKiCwz3JTZThDcf" publishable-key="pk_live_rczP5XxZqrfQPMh7zVW51RNp"></stripe-buy-button>
       <p>If the button doesn't load, use the direct link below.</p>
-      <a class="btn-stripe" href="https://buy.stripe.com/eVq14mepUeRr1m96rtfMA01" target="_blank" rel="noopener">Open Stripe Checkout →</a>
+      <a class="btn-stripe" href="https://buy.stripe.com/eVq14mepUeRr1m96rtfMA01" target="_blank" rel="noopener">Open Stripe Checkout</a>
     </div>
   </div>
 </section>
@@ -892,6 +1039,33 @@
   }
   wire('inquiryForm', 'inquiryStatus', 'inquiry');
   wire('critiqueForm', 'critiqueStatus', 'critique');
+
+  // MODULAR SELECTOR
+  const cards = document.querySelectorAll('.mod-card');
+  const modService = document.getElementById('modService');
+  const modDesc = document.getElementById('modDesc');
+  const modPrice = document.getElementById('modPrice');
+  const modPayBtn = document.getElementById('modPayBtn');
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      cards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      const service = card.dataset.service;
+      const price = parseInt(card.dataset.price);
+      const link = card.dataset.link;
+      const desc = card.dataset.desc;
+      modService.textContent = service;
+      modDesc.textContent = desc;
+      modPrice.textContent = '$' + price.toLocaleString();
+      modPayBtn.textContent = 'Pay Now — $' + price.toLocaleString();
+      modPayBtn.href = link;
+      modPayBtn.classList.remove('disabled');
+      modPayBtn.classList.add('active');
+      modPayBtn.setAttribute('target', '_blank');
+      modPayBtn.setAttribute('rel', 'noopener');
+    });
+  });
 </script>
 </body>
 </html>
