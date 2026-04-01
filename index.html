@@ -28,7 +28,7 @@
       background: var(--white);
       color: var(--ink);
       font-family: 'Barlow', sans-serif;
-      font-weight: 300;
+      font-weight: 400;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
@@ -105,7 +105,7 @@
     }
     .hero-sub {
       font-size: 17px; line-height: 1.75; color: rgba(255,255,255,0.42);
-      max-width: 480px; font-weight: 300;
+      max-width: 480px; font-weight: 400;
     }
     .hero-sub strong { color: rgba(255,255,255,0.8); font-weight: 500; }
     .hero-actions { display: flex; gap: 12px; flex-shrink: 0; }
@@ -188,7 +188,7 @@
     .stmt-aside { display: flex; justify-content: flex-end; margin-top: 52px; }
     .stmt-aside-inner {
       max-width: 400px; font-size: 16px; line-height: 1.82;
-      color: rgba(26,26,26,0.5); font-weight: 300;
+      color: rgba(26,26,26,0.65); font-weight: 400;
       border-left: 2px solid var(--red); padding-left: 22px;
     }
     .stmt-aside-inner strong { color: var(--ink); font-weight: 500; }
@@ -201,7 +201,7 @@
     .svc:nth-child(2) { padding-left: 32px; }
     .svc-num { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.22em; color: rgba(26,26,26,0.2); margin-bottom: 32px; }
     .svc-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 3.8vw, 58px); letter-spacing: 0.04em; line-height: 0.92; margin-bottom: 18px; color: var(--ink); }
-    .svc-desc { font-size: 15px; line-height: 1.75; color: rgba(26,26,26,0.5); font-weight: 300; max-width: 280px; }
+    .svc-desc { font-size: 15px; line-height: 1.75; color: rgba(26,26,26,0.5); font-weight: 400; max-width: 280px; }
     .svc-tags { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 6px; }
     .svc-tag {
       font-family: 'Barlow Condensed', sans-serif;
@@ -216,7 +216,7 @@
     .packages { padding: 100px 48px; background: var(--cream); }
     .pkg-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
     .pkg-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 6vw, 96px); line-height: 0.88; letter-spacing: 0.02em; color: var(--ink); }
-    .pkg-sub { font-size: 15px; line-height: 1.75; color: rgba(26,26,26,0.46); font-weight: 300; max-width: 320px; text-align: right; }
+    .pkg-sub { font-size: 15px; line-height: 1.75; color: rgba(26,26,26,0.46); font-weight: 400; max-width: 320px; text-align: right; }
     .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .pkg {
       padding: 36px 32px; border-radius: 12px;
@@ -229,7 +229,7 @@
       border-color: var(--ink); box-shadow: 0 8px 36px rgba(0,0,0,0.16);
     }
     .pkg.feat .pkg-tier-label { color: var(--red); }
-    .pkg.feat .pkg-desc { color: rgba(255,255,255,0.44); }
+    .pkg.feat .pkg-desc { color: rgba(255,255,255,0.52); }
     .pkg.feat .pkg-li { color: rgba(255,255,255,0.54); border-color: rgba(255,255,255,0.08); }
     .pkg.feat .pkg-li::before { background: var(--red); }
     .pkg.feat .pkg-note { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); }
@@ -239,9 +239,9 @@
     .pkg-amount { font-family: 'Bebas Neue', sans-serif; font-size: 76px; line-height: 1; letter-spacing: -0.01em; margin-bottom: 4px; }
     .pkg-amount sup { font-size: 28px; vertical-align: top; padding-top: 14px; opacity: 0.32; }
     .pkg-starting { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.36; margin-bottom: 16px; }
-    .pkg-desc { font-size: 14px; line-height: 1.72; color: rgba(26,26,26,0.48); font-weight: 300; margin-bottom: 24px; flex: 1; }
+    .pkg-desc { font-size: 14px; line-height: 1.72; color: rgba(26,26,26,0.48); font-weight: 400; margin-bottom: 24px; flex: 1; }
     .pkg-list { list-style: none; margin-bottom: 22px; }
-    .pkg-li { font-size: 14px; padding: 10px 0; border-bottom: 1px solid rgba(26,26,26,0.07); display: flex; gap: 12px; color: rgba(26,26,26,0.58); align-items: flex-start; }
+    .pkg-li { font-size: 14px; padding: 10px 0; border-bottom: 1px solid rgba(26,26,26,0.07); display: flex; gap: 12px; color: rgba(26,26,26,0.68); align-items: flex-start; font-weight: 400; }
     .pkg-li::before { content: ''; width: 14px; height: 1px; background: var(--red); flex-shrink: 0; margin-top: 10px; }
     .pkg-note { padding: 11px 14px; margin-bottom: 18px; background: rgba(26,26,26,0.03); border: 1px solid rgba(26,26,26,0.07); font-size: 12px; line-height: 1.65; color: rgba(26,26,26,0.38); border-radius: 6px; }
     .pkg-full {
@@ -265,7 +265,7 @@
     .modular-selector { margin-top: 20px; background: var(--white); border: 1px solid rgba(26,26,26,0.08); border-radius: 12px; padding: 40px 36px; }
     .mod-header { margin-bottom: 32px; }
     .mod-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(26px, 3vw, 44px); letter-spacing: 0.03em; margin: 8px 0 8px; color: var(--ink); }
-    .mod-sub { font-size: 14px; color: rgba(26,26,26,0.44); font-weight: 300; }
+    .mod-sub { font-size: 14px; color: rgba(26,26,26,0.44); font-weight: 400; }
     .mod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 14px; }
     .mod-group-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--red); padding: 0 0 9px; margin-bottom: 8px; border-bottom: 1px solid var(--line); }
     .mod-card { padding: 13px 15px; border: 1px solid var(--line); cursor: pointer; transition: 0.18s ease; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; background: var(--white); border-radius: 6px; }
@@ -279,7 +279,7 @@
     .mod-panel-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
     .mod-panel-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(26,26,26,0.28); margin-bottom: 5px; }
     .mod-panel-service { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.03em; color: var(--ink); }
-    .mod-panel-desc { font-size: 13px; color: rgba(26,26,26,0.42); font-weight: 300; margin-top: 4px; max-width: 360px; line-height: 1.6; }
+    .mod-panel-desc { font-size: 13px; color: rgba(26,26,26,0.5); font-weight: 400; margin-top: 4px; max-width: 360px; line-height: 1.6; }
     .mod-panel-right { display: flex; flex-direction: column; align-items: flex-end; gap: 9px; flex-shrink: 0; }
     .mod-panel-price { font-family: 'Bebas Neue', sans-serif; font-size: 40px; letter-spacing: -0.01em; color: var(--red); line-height: 1; }
     .mod-pay-btn { display: inline-flex; align-items: center; justify-content: center; padding: 13px 26px; background: var(--red); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; transition: 0.2s; white-space: nowrap; border-radius: var(--radius); }
@@ -296,7 +296,7 @@
     .policy-col.refund-col { background: rgba(200,53,42,0.03); }
     .policy-col-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
     .policy-col-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px, 2.2vw, 30px); letter-spacing: 0.03em; line-height: 1.05; color: var(--ink); margin-bottom: 12px; }
-    .policy-col-text { font-size: 13px; line-height: 1.75; color: rgba(26,26,26,0.48); font-weight: 300; }
+    .policy-col-text { font-size: 13px; line-height: 1.75; color: rgba(26,26,26,0.58); font-weight: 400; }
     .policy-col-link { display: inline-block; margin-top: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); border-bottom: 1px solid rgba(200,53,42,0.28); padding-bottom: 2px; transition: 0.2s; }
     .policy-col-link:hover { border-color: var(--red); }
 
@@ -311,18 +311,18 @@
     .step-n { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 1; color: rgba(255,255,255,0.045); margin-bottom: 12px; }
     .step-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
     .step-name { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.04em; margin-bottom: 10px; color: rgba(255,255,255,0.86); }
-    .step-desc { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.32); font-weight: 300; }
+    .step-desc { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.52); font-weight: 400; }
 
     /* CONSULTATION CTA */
     .consult { padding: 84px 48px; background: var(--cream); border-bottom: 1px solid var(--line); }
     .consult-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
     .consult-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 74px); line-height: 0.92; letter-spacing: 0.02em; color: var(--ink); margin-top: 18px; margin-bottom: 18px; }
-    .consult-body { font-size: 16px; line-height: 1.78; color: rgba(26,26,26,0.48); font-weight: 300; margin-bottom: 24px; }
+    .consult-body { font-size: 16px; line-height: 1.78; color: rgba(26,26,26,0.58); font-weight: 400; margin-bottom: 24px; }
     .consult-actions { display: flex; gap: 12px; flex-wrap: wrap; }
     .consult-right { padding: 36px 32px; background: var(--white); border: 1px solid rgba(26,26,26,0.08); border-radius: 12px; }
     .consult-right-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
     .consult-right h3 { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 0.03em; margin-bottom: 12px; color: var(--ink); }
-    .consult-right p { font-size: 14px; line-height: 1.72; color: rgba(26,26,26,0.46); font-weight: 300; margin-bottom: 18px; }
+    .consult-right p { font-size: 14px; line-height: 1.72; color: rgba(26,26,26,0.56); font-weight: 400; margin-bottom: 18px; }
     .consult-detail { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: rgba(26,26,26,0.48); }
     .consult-detail:last-of-type { border-bottom: none; }
     .consult-detail-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); width: 60px; flex-shrink: 0; }
@@ -339,13 +339,13 @@
     .contact { padding: 100px 48px; border-bottom: 1px solid var(--line); background: var(--white); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
     .contact-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 6vw, 86px); line-height: 0.9; letter-spacing: 0.02em; color: var(--ink); margin-top: 18px; margin-bottom: 22px; }
-    .contact-body { font-size: 16px; line-height: 1.78; color: rgba(26,26,26,0.44); font-weight: 300; margin-bottom: 0; }
+    .contact-body { font-size: 16px; line-height: 1.78; color: rgba(26,26,26,0.58); font-weight: 400; margin-bottom: 0; }
     .form-box { background: var(--cream); border: 1px solid rgba(26,26,26,0.08); padding: 40px 36px; border-radius: 12px; }
     .form-ttl { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 0.04em; margin-bottom: 28px; color: var(--ink); }
     .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
     .ff { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
     .ff label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(26,26,26,0.36); }
-    .ff input, .ff select, .ff textarea { background: var(--white); border: 1px solid rgba(26,26,26,0.11); padding: 12px 14px; color: var(--ink); border-radius: 6px; font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 300; outline: none; width: 100%; transition: border-color 0.2s; }
+    .ff input, .ff select, .ff textarea { background: var(--white); border: 1px solid rgba(26,26,26,0.11); padding: 12px 14px; color: var(--ink); border-radius: 6px; font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 400; outline: none; width: 100%; transition: border-color 0.2s; }
     .ff input:focus, .ff select:focus, .ff textarea:focus { border-color: var(--red); }
     .ff textarea { min-height: 105px; resize: vertical; }
     .factions { display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
@@ -360,7 +360,7 @@
     .crit-inner { background: var(--white); border: 1px solid rgba(26,26,26,0.08); padding: 56px; border-radius: 12px; }
     .crit-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; }
     .crit-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4vw, 60px); letter-spacing: 0.02em; line-height: 0.92; margin-top: 18px; margin-bottom: 18px; color: var(--ink); }
-    .crit-body { font-size: 15px; line-height: 1.75; color: rgba(26,26,26,0.44); font-weight: 300; }
+    .crit-body { font-size: 15px; line-height: 1.75; color: rgba(26,26,26,0.58); font-weight: 400; }
     .crit-detail { display: flex; gap: 12px; margin-top: 16px; font-size: 14px; color: rgba(26,26,26,0.4); }
     .crit-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); width: 44px; flex-shrink: 0; padding-top: 1px; }
     .crit-detail a { color: var(--ink); transition: 0.2s; }
@@ -660,13 +660,13 @@
       </div>
       <div class="mod-group">
         <div class="mod-group-label">Product + Bundles</div>
-        <div class="mod-card" data-service="Product Design" data-price="450" data-link="https://buy.stripe.com/bJeeVcdlQcJjgh38zBfMA0g" data-desc="Send us your product photos. We style, enhance, and prep them for web use.">
+        <div class="mod-card" data-service="Product Design" data-price="450" data-link="https://buy.stripe.com/eVq8wO6XsbFf5Cp9DFfMA0f" data-desc="Send us your product photos. We style, enhance, and prep them for web use.">
           <div class="mod-card-name">Product Design</div><div class="mod-card-price">$450</div>
         </div>
         <div class="mod-card" data-service="Promo Bundle" data-price="1350" data-link="https://buy.stripe.com/3cI3cu4PkcJjaWJ8zBfMA0e" data-desc="Business cards + Yard Signs + Landing Page + Logo + Slogan. Everything to get visible.">
           <div class="mod-card-name">Promo Bundle</div><div class="mod-card-price">$1,350</div>
         </div>
-        <div class="mod-card mod-complete" data-service="WD Complete" data-price="5000" data-link="https://buy.stripe.com/eVq8wO6XsbFf5Cp9DFfMA0f" data-desc="Every service. Identity, web, app, print, and product design. Full studio engagement.">
+        <div class="mod-card mod-complete" data-service="WD Complete" data-price="5000" data-link="https://buy.stripe.com/bJeeVcdlQcJjgh38zBfMA0g" data-desc="Every service. Identity, web, app, print, and product design. Full studio engagement.">
           <div class="mod-card-name">WD Complete</div><div class="mod-card-price">$5,000</div>
         </div>
       </div>
