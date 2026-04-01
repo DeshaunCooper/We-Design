@@ -4,901 +4,894 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>We Design — Human Crafted Brand Better.</title>
-  <meta name="description" content="We Design creates logos, brand stories, landing pages, websites, and iOS MVP builds for founders who need a clean, credible first impression." />
+  <meta name="description" content="We Design. Human crafted brand better. Logos, identity, web, iOS. For founders who refuse to look small." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
   <script async src="https://js.stripe.com/v3/buy-button.js"></script>
   <style>
     :root {
-      --bg: #f5f2ed;
-      --bg-2: #ede9e2;
-      --ink: #0f0d0a;
-      --ink-2: #2a2620;
-      --muted: #7a7267;
-      --muted-2: #a09890;
-      --accent: #c8473a;
-      --accent-2: #e8b84b;
-      --line: rgba(15,13,10,0.1);
-      --line-2: rgba(15,13,10,0.06);
-      --white: #ffffff;
-      --panel: rgba(255,255,255,0.72);
-      --panel-dark: #0f0d0a;
-      --radius: 4px;
-      --radius-lg: 12px;
+      --black: #080808;
+      --white: #f4f2ee;
+      --red: #d63a2a;
+      --red-dark: #b02e1f;
+      --gray: #888480;
+      --gray-2: #3a3835;
+      --line: rgba(244,242,238,0.1);
+      --line-light: rgba(244,242,238,0.06);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--ink);
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      cursor: none;
     }
-
     a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
-    h1, h2, h3, h4, h5 { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; line-height: 1; letter-spacing: -0.02em; }
 
-    .container { width: min(1280px, calc(100% - 48px)); margin: 0 auto; }
-
-    /* ── NOISE TEXTURE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      opacity: 0.4;
+    /* CURSOR */
+    .cursor {
+      width: 10px; height: 10px;
+      background: var(--white); border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease;
+      mix-blend-mode: difference;
     }
+    .cursor.hovering { width: 44px; height: 44px; }
 
-    /* ── NAV ── */
-    .nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(245,242,237,0.88);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav-inner {
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 0;
+      padding: 28px 48px;
     }
-    .nav-logo {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 22px; letter-spacing: -0.03em;
-    }
-    .nav-logo em { font-style: italic; color: var(--accent); }
-    .nav-links { display: flex; gap: 32px; font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0.02em; }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 20px; background: var(--ink); color: var(--bg);
-      font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      border-radius: 2px; transition: 0.2s ease;
-    }
-    .nav-cta:hover { background: var(--accent); }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 80px 0 0;
-      min-height: 88vh;
-      display: flex; flex-direction: column;
-      position: relative; overflow: hidden;
-    }
-    .hero-kicker {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: 'Space Mono', monospace;
-      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 28px;
-    }
-    .hero-kicker::before {
-      content: ''; width: 28px; height: 1px; background: var(--muted);
-    }
-    .hero-headline {
-      font-size: clamp(68px, 9vw, 148px);
-      line-height: 0.9; letter-spacing: -0.04em;
-      max-width: 14ch;
-    }
-    .hero-headline em { font-style: italic; color: var(--accent); }
-    .hero-grid {
-      display: grid; grid-template-columns: 1.2fr 0.8fr;
-      gap: 0; align-items: end; margin-top: 60px;
-    }
-    .hero-sub {
-      font-size: 18px; line-height: 1.72; color: var(--muted);
-      max-width: 480px; font-weight: 300;
-    }
-    .hero-sub strong { color: var(--ink); font-weight: 500; }
-    .hero-actions { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 16px 32px; background: var(--ink); color: var(--bg);
-      font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-      border-radius: 2px; transition: 0.2s ease;
-    }
-    .btn-primary:hover { background: var(--accent); }
-    .btn-ghost {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 16px 28px;
-      font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
-      border: 1px solid var(--line); border-radius: 2px; transition: 0.2s;
-    }
-    .btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
-
-    .hero-right {
-      padding-bottom: 0;
-      align-self: end;
-    }
-    .hero-manifesto {
-      background: var(--panel-dark);
-      color: var(--bg);
-      padding: 44px 40px;
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-      position: relative; overflow: hidden;
-    }
-    .hero-manifesto::before {
-      content: '"';
-      position: absolute; top: -10px; right: 24px;
-      font-family: 'Instrument Serif', serif;
-      font-size: 160px; color: rgba(255,255,255,0.04); line-height: 1;
+    nav::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.96) 0%, transparent 100%);
       pointer-events: none;
     }
-    .manifesto-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
-      color: rgba(255,255,255,0.35); margin-bottom: 20px;
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px; letter-spacing: 0.12em; position: relative; z-index: 1;
     }
-    .manifesto-quote {
-      font-family: 'Instrument Serif', serif;
-      font-size: 28px; line-height: 1.2; letter-spacing: -0.02em;
-      color: rgba(255,255,255,0.92);
+    .nav-logo span { color: var(--red); }
+    .nav-links {
+      display: flex; gap: 40px; position: relative; z-index: 1;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(244,242,238,0.45);
     }
-    .manifesto-quote em { font-style: italic; color: var(--accent-2); }
-    .manifesto-sub {
-      margin-top: 20px; font-size: 14px; line-height: 1.7;
-      color: rgba(255,255,255,0.45); font-weight: 300;
+    .nav-links a:hover { color: var(--white); transition: color 0.2s; }
+    .nav-cta {
+      position: relative; z-index: 1;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 12px 28px; border: 1px solid rgba(244,242,238,0.25); transition: all 0.2s;
     }
-    .manifesto-tags {
-      margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px;
-    }
-    .mtag {
-      padding: 6px 14px; background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 999px; font-size: 11px; color: rgba(255,255,255,0.5);
-      font-weight: 500;
-    }
+    .nav-cta:hover { background: var(--white); color: var(--black); border-color: var(--white); }
 
-    /* ── MARQUEE ── */
-    .marquee-section {
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 0 48px 64px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 82% 38%, rgba(214,58,42,0.13), transparent),
+        radial-gradient(ellipse 40% 60% at 8% 82%, rgba(214,58,42,0.06), transparent),
+        var(--black);
+    }
+    .hero-noise {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .hero-bg-word {
+      position: absolute; top: 50%; right: -20px;
+      transform: translateY(-54%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(180px, 26vw, 380px); line-height: 1;
+      color: rgba(244,242,238,0.022); letter-spacing: 0.05em;
+      user-select: none; pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-overline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .hero-overline::before { content: ''; width: 40px; height: 1px; background: var(--red); }
+    .hero-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 13.5vw, 210px);
+      line-height: 0.88; letter-spacing: 0.02em;
+    }
+    .hero-headline .hl2 { color: var(--red); }
+    .hero-bottom {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-top: 52px; padding-top: 32px;
       border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: var(--ink);
-      overflow: hidden; padding: 18px 0;
+    }
+    .hero-sub {
+      font-size: 18px; line-height: 1.72; color: rgba(244,242,238,0.5);
+      max-width: 500px; font-weight: 300;
+    }
+    .hero-sub strong { color: var(--white); font-weight: 500; }
+    .hero-actions { display: flex; gap: 14px; flex-shrink: 0; }
+    .btn-red {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 18px 40px; background: var(--red); color: var(--white);
+      display: inline-flex; align-items: center; gap: 10px; transition: 0.2s;
+    }
+    .btn-red:hover { background: var(--red-dark); }
+    .btn-outline-light {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 18px 32px; border: 1px solid var(--line);
+      color: rgba(244,242,238,0.5);
+      display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+    }
+    .btn-outline-light:hover { border-color: var(--white); color: var(--white); }
+
+    /* MARQUEE */
+    .marquee {
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      overflow: hidden; background: rgba(244,242,238,0.025);
     }
     .marquee-track {
       display: flex; white-space: nowrap;
-      animation: marquee 28s linear infinite;
+      animation: ticker 32s linear infinite;
     }
     .marquee-track:hover { animation-play-state: paused; }
-    .marquee-item {
-      display: inline-flex; align-items: center; gap: 32px;
-      padding-right: 48px;
-      font-family: 'Instrument Serif', serif;
-      font-size: 20px; color: rgba(255,255,255,0.6); letter-spacing: -0.01em;
+    @keyframes ticker { to { transform: translateX(-50%); } }
+    .m-item {
+      display: inline-flex; align-items: center; gap: 0;
+      padding: 20px 40px 20px 0;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px; letter-spacing: 0.18em;
+      color: rgba(244,242,238,0.22);
     }
-    .marquee-item em { font-style: italic; color: var(--accent); }
-    .marquee-sep { color: rgba(255,255,255,0.2); }
-    @keyframes marquee { to { transform: translateX(-50%); } }
+    .m-item.red { color: var(--red); }
+    .m-sep { width: 4px; height: 4px; background: var(--gray-2); border-radius: 50%; margin-right: 40px; flex-shrink: 0; display: inline-block; }
 
-    /* ── PHILOSOPHY SECTION ── */
-    .philosophy { padding: 120px 0; }
-    .section-kicker {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--muted); display: flex; align-items: center; gap: 12px;
+    /* STATEMENT */
+    .statement { padding: 160px 48px; border-bottom: 1px solid var(--line); }
+    .stmt-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 8vw, 128px); line-height: 0.92; letter-spacing: 0.02em;
     }
-    .section-kicker::before { content: ''; width: 20px; height: 1px; background: var(--muted); }
-    .phil-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 60px; }
-    .phil-headline { font-size: clamp(44px, 5vw, 80px); line-height: 0.95; letter-spacing: -0.035em; }
-    .phil-headline em { font-style: italic; color: var(--muted); }
-    .phil-body { padding-top: 8px; }
-    .phil-stat {
-      font-family: 'Instrument Serif', serif;
-      font-size: 72px; line-height: 1; letter-spacing: -0.04em;
-      color: var(--accent); margin-bottom: 6px;
+    .stmt-text .dim { color: rgba(244,242,238,0.18); }
+    .stmt-text .red { color: var(--red); }
+    .stmt-aside {
+      display: flex; justify-content: flex-end; margin-top: 64px;
     }
-    .phil-stat-label { font-size: 14px; color: var(--muted); font-weight: 400; line-height: 1.6; max-width: 28ch; }
-    .phil-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
-    .phil-text { font-size: 17px; line-height: 1.78; color: var(--muted); font-weight: 300; }
-    .phil-text strong { color: var(--ink); font-weight: 500; }
+    .stmt-aside-inner {
+      max-width: 420px; font-size: 17px; line-height: 1.8;
+      color: rgba(244,242,238,0.42); font-weight: 300;
+      border-left: 2px solid var(--red); padding-left: 28px;
+    }
+    .stmt-aside-inner strong { color: var(--white); font-weight: 500; }
 
-    /* ── SERVICES ── */
-    .services { padding: 80px 0 120px; }
-    .services-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 56px; }
-    .services-headline { font-size: clamp(42px, 4.5vw, 72px); line-height: 0.95; letter-spacing: -0.03em; margin-top: 20px; }
-    .services-desc { font-size: 16px; line-height: 1.75; color: var(--muted); font-weight: 300; max-width: 420px; align-self: end; }
+    /* SECTION LABEL */
+    .slabel {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--red); display: flex; align-items: center; gap: 16px; margin-bottom: 64px;
+    }
+    .slabel::before { content: ''; width: 32px; height: 1px; background: var(--red); }
 
-    .service-row { border-top: 1px solid var(--line); }
-    .service-item {
-      display: grid; grid-template-columns: 80px 1fr 1fr auto;
-      gap: 32px; align-items: start;
-      padding: 40px 0; border-bottom: 1px solid var(--line);
-      transition: 0.2s ease; cursor: default;
+    /* SERVICES */
+    .services { padding: 120px 48px; border-bottom: 1px solid var(--line); }
+    .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .svc {
+      padding: 56px 40px 56px 0; border-right: 1px solid var(--line);
+      position: relative; overflow: hidden;
     }
-    .service-item:hover { background: rgba(15,13,10,0.02); }
-    .service-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px; color: var(--muted-2); letter-spacing: 0.12em; padding-top: 4px;
+    .svc:last-child { border-right: none; padding-right: 0; padding-left: 40px; }
+    .svc:nth-child(2) { padding-left: 40px; }
+    .svc-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.25em;
+      color: rgba(244,242,238,0.18); margin-bottom: 40px;
     }
-    .service-name { font-family: 'Instrument Serif', serif; font-size: 32px; letter-spacing: -0.02em; line-height: 1; }
-    .service-desc { font-size: 15px; line-height: 1.72; color: var(--muted); font-weight: 300; max-width: 340px; }
-    .service-tag {
-      padding: 6px 14px; border: 1px solid var(--line); border-radius: 2px;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); white-space: nowrap; align-self: start;
+    .svc-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(44px, 4.5vw, 68px); letter-spacing: 0.04em; line-height: 0.9;
+      margin-bottom: 24px;
     }
+    .svc-desc { font-size: 15px; line-height: 1.75; color: rgba(244,242,238,0.42); font-weight: 300; max-width: 300px; }
+    .svc-tags { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .svc-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 6px 14px; border: 1px solid var(--line); color: rgba(244,242,238,0.32);
+    }
+    .svc-price {
+      margin-top: 40px; font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px; letter-spacing: 0.08em; color: var(--red);
+    }
+    .svc-line {
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--red);
+      transition: width 0.45s ease;
+    }
+    .svc:hover .svc-line { width: 100%; }
 
-    /* ── PACKAGES ── */
-    .packages { padding: 80px 0 120px; background: var(--ink); color: var(--bg); }
-    .packages .section-kicker { color: rgba(255,255,255,0.35); }
-    .packages .section-kicker::before { background: rgba(255,255,255,0.35); }
-    .packages-headline { font-size: clamp(44px, 5vw, 80px); line-height: 0.95; letter-spacing: -0.04em; margin-top: 20px; max-width: 14ch; }
-    .packages-sub { font-size: 16px; line-height: 1.72; color: rgba(255,255,255,0.42); font-weight: 300; max-width: 480px; margin-top: 20px; }
+    /* PACKAGES */
+    .packages { padding: 120px 48px; background: var(--white); color: var(--black); }
+    .packages .slabel { color: var(--red); }
+    .packages .slabel::before { background: var(--red); }
+    .pkg-top {
+      display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px;
+    }
+    .pkg-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 7vw, 108px); line-height: 0.88; letter-spacing: 0.02em;
+    }
+    .pkg-sub {
+      font-size: 16px; line-height: 1.75; color: rgba(8,8,8,0.48); font-weight: 300;
+      max-width: 360px; text-align: right;
+    }
+    .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid rgba(8,8,8,0.1); }
+    .pkg {
+      padding: 48px 40px; border-right: 1px solid rgba(8,8,8,0.1);
+      position: relative; display: flex; flex-direction: column;
+    }
+    .pkg:last-child { border-right: none; }
+    .pkg.feat { background: var(--black); color: var(--white); }
+    .pkg.feat .pkg-tier-label { color: var(--red); }
+    .pkg.feat .pkg-desc { color: rgba(244,242,238,0.42); }
+    .pkg.feat .pkg-li { color: rgba(244,242,238,0.55); border-color: rgba(244,242,238,0.07); }
+    .pkg.feat .pkg-li::before { color: var(--red); }
+    .pkg.feat .pkg-note { background: rgba(244,242,238,0.04); border-color: rgba(244,242,238,0.08); color: rgba(244,242,238,0.32); }
+    .pkg.feat .pkg-dep { border-color: rgba(244,242,238,0.14); color: rgba(244,242,238,0.38); }
+    .pkg.feat .pkg-dep:hover { border-color: var(--white); color: var(--white); }
+    .pkg-tier-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 28px;
+    }
+    .pkg-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 88px; line-height: 1; letter-spacing: -0.01em; margin-bottom: 4px;
+    }
+    .pkg-amount sup { font-size: 34px; vertical-align: top; padding-top: 18px; opacity: 0.38; }
+    .pkg-starting {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      opacity: 0.4; margin-bottom: 20px;
+    }
+    .pkg-desc { font-size: 15px; line-height: 1.72; color: rgba(8,8,8,0.48); font-weight: 300; margin-bottom: 32px; flex: 1; }
+    .pkg-list { list-style: none; margin-bottom: 28px; }
+    .pkg-li {
+      font-size: 14px; padding: 11px 0;
+      border-bottom: 1px solid rgba(8,8,8,0.08);
+      display: flex; gap: 12px; color: rgba(8,8,8,0.6);
+    }
+    .pkg-li::before { content: '—'; color: var(--red); flex-shrink: 0; font-weight: 700; }
+    .pkg-note {
+      padding: 13px 16px; margin-bottom: 22px;
+      background: rgba(8,8,8,0.04); border: 1px solid rgba(8,8,8,0.08);
+      font-size: 12px; line-height: 1.65; color: rgba(8,8,8,0.38);
+    }
+    .pkg-full {
+      display: flex; align-items: center; justify-content: center;
+      padding: 18px; background: var(--red); color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 8px; transition: 0.2s;
+    }
+    .pkg-full:hover { background: var(--red-dark); }
+    .pkg-dep {
+      display: flex; align-items: center; justify-content: center;
+      padding: 15px; border: 1px solid rgba(8,8,8,0.14);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(8,8,8,0.38); transition: 0.2s;
+    }
+    .pkg-dep:hover { color: var(--black); border-color: var(--black); }
+    .modular {
+      margin-top: 2px; padding: 36px 40px; background: rgba(8,8,8,0.04);
+      border: 1px solid rgba(8,8,8,0.08);
+      display: flex; justify-content: space-between; align-items: center; gap: 32px;
+    }
+    .modular h3 {
+      font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 0.05em; margin-bottom: 6px;
+    }
+    .modular p { font-size: 15px; color: rgba(8,8,8,0.48); font-weight: 300; max-width: 540px; line-height: 1.65; }
+    .btn-dark {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 18px 36px; background: var(--black); color: var(--white);
+      white-space: nowrap; flex-shrink: 0; transition: 0.2s;
+    }
+    .btn-dark:hover { background: var(--red); }
 
-    .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
-    .pkg-card {
-      padding: 44px 36px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      position: relative; overflow: hidden; display: flex; flex-direction: column;
+    /* PROCESS */
+    .process { padding: 120px 48px; border-bottom: 1px solid var(--line); }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line); margin-top: 64px;
     }
-    .pkg-card.featured {
-      background: rgba(200,71,58,0.12);
-      border-color: rgba(200,71,58,0.3);
+    .step {
+      padding: 48px 32px 48px 0; border-right: 1px solid var(--line);
     }
-    .pkg-card.featured::before {
-      content: 'Most Chosen';
-      position: absolute; top: 20px; right: 20px;
-      padding: 4px 12px; background: var(--accent); color: white;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-      border-radius: 2px;
+    .step:last-child { border-right: none; padding-right: 0; }
+    .step:not(:first-child) { padding-left: 32px; }
+    .step-n {
+      font-family: 'Bebas Neue', sans-serif; font-size: 80px; line-height: 1;
+      color: rgba(244,242,238,0.055); margin-bottom: 16px;
     }
-    .pkg-tier { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 24px; }
-    .pkg-price { font-family: 'Instrument Serif', serif; font-size: 64px; line-height: 1; letter-spacing: -0.04em; }
-    .pkg-price sub { font-size: 18px; letter-spacing: 0; vertical-align: top; padding-top: 16px; color: rgba(255,255,255,0.4); }
-    .pkg-name { font-size: 22px; color: rgba(255,255,255,0.9); margin-top: 12px; margin-bottom: 8px; }
-    .pkg-desc { font-size: 14px; line-height: 1.72; color: rgba(255,255,255,0.42); font-weight: 300; margin-bottom: 28px; flex: 1; }
-    .pkg-features { list-style: none; display: grid; gap: 10px; margin-bottom: 32px; }
-    .pkg-features li {
-      font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.5;
-      display: flex; gap: 10px; align-items: flex-start;
+    .step-lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 12px;
     }
-    .pkg-features li::before { content: '→'; color: var(--accent); flex-shrink: 0; font-family: 'Space Mono', monospace; }
-    .pay-note-dark {
-      padding: 14px 16px; border-radius: var(--radius); margin-bottom: 20px;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      font-size: 12px; line-height: 1.65; color: rgba(255,255,255,0.32);
+    .step-name {
+      font-family: 'Bebas Neue', sans-serif; font-size: 38px; letter-spacing: 0.04em; margin-bottom: 14px;
     }
-    .btn-pkg-full {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 16px; background: var(--accent); color: white;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-      border-radius: 2px; transition: 0.2s; margin-bottom: 8px;
-    }
-    .btn-pkg-full:hover { background: #b03c30; }
-    .btn-pkg-dep {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 14px; color: rgba(255,255,255,0.5);
-      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.14); border-radius: 2px; transition: 0.2s;
-    }
-    .btn-pkg-dep:hover { color: white; border-color: rgba(255,255,255,0.4); }
-    .modular-note {
-      margin-top: 48px; padding: 36px; background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg);
-      display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
-    }
-    .modular-note h3 { font-family: 'Instrument Serif', serif; font-size: 28px; color: rgba(255,255,255,0.9); margin-bottom: 10px; }
-    .modular-note p { font-size: 15px; line-height: 1.72; color: rgba(255,255,255,0.42); font-weight: 300; }
+    .step-desc { font-size: 14px; line-height: 1.75; color: rgba(244,242,238,0.38); font-weight: 300; }
 
-    /* ── PROCESS ── */
-    .process { padding: 120px 0; }
-    .process-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 80px; align-items: end; }
-    .process-headline { font-size: clamp(44px, 5vw, 80px); line-height: 0.95; letter-spacing: -0.04em; margin-top: 20px; }
-    .process-desc { font-size: 16px; line-height: 1.75; color: var(--muted); font-weight: 300; align-self: end; }
-    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); }
-    .step-item { padding: 40px 32px 40px 0; border-right: 1px solid var(--line); }
-    .step-item:last-child { border-right: none; padding-right: 0; }
-    .step-num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted-2); letter-spacing: 0.2em; margin-bottom: 28px; }
-    .step-title { font-family: 'Instrument Serif', serif; font-size: 36px; letter-spacing: -0.02em; margin-bottom: 14px; }
-    .step-desc { font-size: 14px; line-height: 1.75; color: var(--muted); font-weight: 300; }
-
-    /* ── CONTACT ── */
-    .contact { padding: 80px 0 120px; }
-    .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; }
-    .contact-headline { font-size: clamp(44px, 5vw, 72px); line-height: 0.95; letter-spacing: -0.04em; margin-top: 20px; }
-    .contact-text { font-size: 16px; line-height: 1.75; color: var(--muted); font-weight: 300; margin-top: 20px; max-width: 420px; }
-    .contact-detail {
-      display: flex; align-items: center; gap: 14px;
-      padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius);
-      margin-top: 14px; font-size: 14px;
+    /* CONTACT */
+    .contact { padding: 120px 48px; border-bottom: 1px solid var(--line); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 7vw, 98px); line-height: 0.9; letter-spacing: 0.02em;
+      margin-top: 24px; margin-bottom: 28px;
     }
-    .contact-detail .icon { font-size: 16px; color: var(--muted); }
-    .contact-detail a { color: var(--ink); border-bottom: 1px solid var(--line); transition: 0.2s; }
-    .contact-detail a:hover { border-color: var(--accent); color: var(--accent); }
-
+    .contact-body { font-size: 17px; line-height: 1.78; color: rgba(244,242,238,0.42); font-weight: 300; margin-bottom: 40px; }
+    .cline {
+      display: flex; align-items: center; gap: 16px;
+      padding: 17px 0; border-bottom: 1px solid var(--line);
+      font-size: 15px; color: rgba(244,242,238,0.45);
+    }
+    .cline-lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--red); width: 76px; flex-shrink: 0;
+    }
+    .cline a { color: var(--white); transition: 0.2s; }
+    .cline a:hover { color: var(--red); }
     .form-box {
-      background: var(--white); padding: 44px 40px;
-      border-radius: var(--radius-lg); border: 1px solid var(--line);
-      box-shadow: 0 4px 40px rgba(15,13,10,0.06);
+      background: rgba(244,242,238,0.03); border: 1px solid var(--line); padding: 48px 44px;
     }
-    .form-title { font-family: 'Instrument Serif', serif; font-size: 28px; letter-spacing: -0.02em; margin-bottom: 28px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-    .field { display: flex; flex-direction: column; gap: 6px; }
-    .field label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
-    .field input, .field select, .field textarea {
-      padding: 13px 16px; background: var(--bg); border: 1px solid var(--line);
-      border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 15px;
-      color: var(--ink); outline: none; transition: border-color 0.2s;
-      width: 100%;
+    .form-ttl {
+      font-family: 'Bebas Neue', sans-serif; font-size: 44px; letter-spacing: 0.04em; margin-bottom: 36px;
     }
-    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--ink); }
-    .field textarea { min-height: 120px; resize: vertical; }
-    .field-full { margin-bottom: 16px; }
-    .form-actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
-    .btn-form {
-      padding: 16px 28px; background: var(--ink); color: var(--bg);
-      font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      border-radius: 2px; border: none; cursor: pointer; transition: 0.2s; font-family: inherit;
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .ff { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+    .ff label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(244,242,238,0.28);
     }
-    .btn-form:hover { background: var(--accent); }
-    .btn-form-ghost {
-      padding: 14px 22px; color: var(--muted);
-      font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-      border: 1px solid var(--line); border-radius: 2px; transition: 0.2s;
-      display: inline-flex; align-items: center; gap: 6px;
+    .ff input, .ff select, .ff textarea {
+      background: rgba(244,242,238,0.04); border: 1px solid var(--line);
+      padding: 14px 18px; color: var(--white);
+      font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 300;
+      outline: none; width: 100%; transition: border-color 0.2s;
     }
-    .btn-form-ghost:hover { color: var(--ink); border-color: var(--ink); }
-    .status-msg { margin-top: 14px; padding: 14px 16px; border-radius: var(--radius); font-size: 14px; display: none; }
-    .status-msg.show { display: block; }
-    .status-msg.ok { background: rgba(0,150,80,0.08); border: 1px solid rgba(0,150,80,0.2); color: #005a30; }
-    .status-msg.err { background: rgba(200,71,58,0.08); border: 1px solid rgba(200,71,58,0.2); color: var(--accent); }
+    .ff select option { background: var(--black); }
+    .ff input:focus, .ff select:focus, .ff textarea:focus { border-color: rgba(244,242,238,0.3); }
+    .ff textarea { min-height: 120px; resize: vertical; }
+    .factions { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+    .sbtn { all: unset; cursor: pointer; }
+    .smsg { margin-top: 14px; padding: 14px 18px; font-size: 13px; display: none; }
+    .smsg.show { display: block; }
+    .smsg.ok { background: rgba(0,160,80,0.1); border: 1px solid rgba(0,160,80,0.2); color: #4ade80; }
+    .smsg.err { background: rgba(214,58,42,0.1); border: 1px solid rgba(214,58,42,0.3); color: #f87171; }
 
-    /* ── CRITIQUE ── */
-    .critique { padding: 0 0 120px; }
-    .critique-inner { background: var(--bg-2); padding: 80px; border-radius: var(--radius-lg); border: 1px solid var(--line); }
-    .critique-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: start; }
-    .critique-headline { font-size: clamp(36px, 4vw, 60px); line-height: 0.95; letter-spacing: -0.04em; margin-top: 18px; }
+    /* CRITIQUE */
+    .critique { padding: 80px 48px 120px; border-bottom: 1px solid var(--line); }
+    .crit-inner { background: rgba(244,242,238,0.02); border: 1px solid var(--line); padding: 80px; }
+    .crit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    .crit-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(44px, 5vw, 74px); letter-spacing: 0.02em; line-height: 0.9;
+      margin-top: 24px; margin-bottom: 24px;
+    }
+    .crit-body { font-size: 16px; line-height: 1.75; color: rgba(244,242,238,0.38); font-weight: 300; }
+    .crit-detail { display: flex; gap: 14px; margin-top: 20px; font-size: 14px; color: rgba(244,242,238,0.38); }
+    .crit-detail .icon { color: var(--red); flex-shrink: 0; }
+    .crit-detail a { color: rgba(244,242,238,0.6); transition: 0.2s; }
+    .crit-detail a:hover { color: var(--white); }
 
-    /* ── PAYMENT ── */
-    .payment { padding: 80px 0 120px; background: var(--ink); color: var(--bg); }
-    .payment .section-kicker { color: rgba(255,255,255,0.35); }
-    .payment .section-kicker::before { background: rgba(255,255,255,0.35); }
-    .payment-headline { font-size: clamp(36px, 4vw, 64px); letter-spacing: -0.04em; margin-top: 18px; max-width: 16ch; }
-    .payment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 56px; align-items: start; }
-    .payment-info p { font-size: 16px; line-height: 1.75; color: rgba(255,255,255,0.45); font-weight: 300; margin-top: 20px; }
-    .pay-warning {
-      margin-top: 24px; padding: 18px 20px;
-      background: rgba(200,71,58,0.1); border: 1px solid rgba(200,71,58,0.25);
-      border-radius: var(--radius); font-size: 13px; line-height: 1.65;
-      color: rgba(255,255,255,0.5);
+    /* PAYMENT */
+    .payment { padding: 120px 48px; border-bottom: 1px solid var(--line); background: rgba(244,242,238,0.02); }
+    .pay-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(44px, 6vw, 86px); letter-spacing: 0.02em; margin-top: 16px; max-width: 18ch;
     }
-    .pay-warning strong { color: rgba(255,255,255,0.75); }
-    .payment-box {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius-lg); padding: 44px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
-      min-height: 300px;
+    .pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; align-items: start; }
+    .pay-body { font-size: 17px; line-height: 1.78; color: rgba(244,242,238,0.42); font-weight: 300; margin-bottom: 28px; }
+    .pay-policy {
+      padding: 22px 28px; border-left: 2px solid var(--red);
+      background: rgba(214,58,42,0.06);
+      font-size: 14px; line-height: 1.7; color: rgba(244,242,238,0.42);
     }
-    .payment-box p { font-size: 13px; color: rgba(255,255,255,0.3); text-align: center; line-height: 1.65; }
+    .pay-policy strong { color: var(--white); font-weight: 500; }
+    .pay-box {
+      border: 1px solid var(--line); padding: 48px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 22px; text-align: center; min-height: 280px; justify-content: center;
+    }
+    .pay-box p { font-size: 13px; color: rgba(244,242,238,0.28); line-height: 1.65; }
     .btn-stripe {
-      padding: 16px 28px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75);
-      font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.15); border-radius: 2px; transition: 0.2s;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 16px 32px; border: 1px solid var(--line);
+      color: rgba(244,242,238,0.45); transition: 0.2s;
     }
-    .btn-stripe:hover { background: rgba(255,255,255,0.12); color: white; }
+    .btn-stripe:hover { border-color: var(--white); color: var(--white); }
 
-    /* ── FOOTER ── */
-    footer { padding: 40px 0; background: var(--ink); }
-    .footer-inner {
-      display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px;
-      font-size: 13px; color: rgba(255,255,255,0.3);
+    /* FOOTER */
+    footer { padding: 48px; border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.12em; }
+    .footer-logo span { color: var(--red); }
+    .footer-copy { font-size: 13px; color: rgba(244,242,238,0.22); }
+    .footer-links {
+      display: flex; gap: 32px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(244,242,238,0.28);
     }
-    .footer-brand { font-family: 'Instrument Serif', serif; font-size: 20px; color: rgba(255,255,255,0.7); letter-spacing: -0.02em; }
-    .footer-brand em { font-style: italic; color: var(--accent); }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: rgba(255,255,255,0.3); transition: 0.2s; }
-    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-links a:hover { color: var(--white); transition: color 0.2s; }
 
-    /* ── ANIMATIONS ── */
-    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .fade-up-d1 { transition-delay: 0.1s; }
-    .fade-up-d2 { transition-delay: 0.2s; }
-    .fade-up-d3 { transition-delay: 0.3s; }
-    .fade-up-d4 { transition-delay: 0.4s; }
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.d1 { transition-delay: 0.1s; } .reveal.d2 { transition-delay: 0.2s; }
+    .reveal.d3 { transition-delay: 0.3s; } .reveal.d4 { transition-delay: 0.4s; }
+    .reveal.on { opacity: 1; transform: none; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      .hero-grid, .phil-grid, .services-header, .packages-header,
-      .process-header, .contact-grid, .critique-grid, .payment-grid { grid-template-columns: 1fr; gap: 40px; }
-      .phil-stats { grid-template-columns: 1fr 1fr; }
-      .pkg-grid { grid-template-columns: 1fr; }
-      .process-steps { grid-template-columns: 1fr 1fr; }
-      .step-item { border-right: none; border-bottom: 1px solid var(--line); padding: 32px 0; }
-      .step-item:last-child { border-bottom: none; }
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      nav { padding: 22px 24px; }
       .nav-links { display: none; }
-      .modular-note { grid-template-columns: 1fr; }
-      .critique-inner { padding: 48px 28px; }
-      .form-row { grid-template-columns: 1fr; }
-      .hero-manifesto { border-radius: var(--radius-lg); }
-      .services-header { margin-bottom: 32px; }
+      .hero { padding: 0 24px 52px; }
+      .hero-bg-word { display: none; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 28px; }
+      .statement { padding: 100px 24px; }
+      .stmt-aside { justify-content: flex-start; }
+      .services { padding: 80px 24px; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .svc { border-right: none !important; border-bottom: 1px solid var(--line); padding: 48px 0 !important; }
+      .svc:last-child { border-bottom: none; }
+      .packages { padding: 80px 24px; }
+      .pkg-top { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .pkg-sub { text-align: left; }
+      .pkg-grid { grid-template-columns: 1fr; }
+      .pkg { border-right: none !important; border-bottom: 1px solid rgba(8,8,8,0.1); }
+      .pkg:last-child { border-bottom: none; }
+      .modular { flex-direction: column; padding: 28px 24px; }
+      .process { padding: 80px 24px; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .step { border-right: none !important; border-bottom: 1px solid var(--line); padding: 40px 0 !important; }
+      .step:last-child { border-bottom: none; }
+      .contact { padding: 80px 24px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .critique { padding: 60px 24px 80px; }
+      .crit-inner { padding: 44px 24px; }
+      .crit-grid { grid-template-columns: 1fr; gap: 48px; }
+      .payment { padding: 80px 24px; }
+      .pay-grid { grid-template-columns: 1fr; gap: 40px; }
+      footer { padding: 36px 24px; }
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+      .frow { grid-template-columns: 1fr; }
+      .form-box { padding: 32px 24px; }
     }
     @media (max-width: 640px) {
-      .container { width: calc(100% - 32px); }
-      .hero { padding: 60px 0 0; min-height: auto; }
-      .hero-headline { font-size: 60px; }
-      .hero-manifesto { padding: 28px 24px; }
-      .form-box { padding: 28px 22px; }
-      .phil-stats { grid-template-columns: 1fr; }
-      .service-item { grid-template-columns: 1fr; gap: 8px; }
-      .service-tag { align-self: start; width: fit-content; }
-      .process-steps { grid-template-columns: 1fr; }
-      .payment-box { padding: 28px 20px; }
-      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .hero-headline { font-size: 68px; }
+      .process-grid { grid-template-columns: 1fr; }
+      .pkg-amount { font-size: 72px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <header class="nav">
-    <div class="container nav-inner">
-      <div class="nav-logo">We <em>Design</em></div>
-      <nav class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#packages">Packages</a>
-        <a href="#process">Process</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <a href="#contact" class="nav-cta">Start a Project ↗</a>
-    </div>
-  </header>
+<div class="cursor" id="cursor"></div>
 
-  <main>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">WE <span>DESIGN</span></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#packages">Packages</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Start a Project</a>
+</nav>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-kicker">Human Crafted Brand Better — Est. 2024</div>
-        <h1 class="hero-headline fade-up">Your brand should look expensive before anyone reads a word.</h1>
-        <div class="hero-grid">
-          <div>
-            <p class="hero-sub fade-up fade-up-d1">
-              We Design helps <strong>founders, operators, and growing brands</strong> build a sharper first impression.
-              Logos, stories, landing pages, websites, and iOS MVP builds — structured for real business outcomes,
-              not agency ego.
-            </p>
-            <div class="hero-actions fade-up fade-up-d2">
-              <a href="#contact" class="btn-primary">Start a Project</a>
-              <a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener" class="btn-ghost">Book on Calendly</a>
-            </div>
-          </div>
-          <div class="hero-right fade-up fade-up-d3">
-            <div class="hero-manifesto">
-              <div class="manifesto-label">Our Philosophy</div>
-              <p class="manifesto-quote">
-                Branding is not decoration.<br>
-                It is <em>clarity, trust, and
-                perception</em> — shaped
-                by human judgment.
-              </p>
-              <p class="manifesto-sub">We build the front-facing version of your business: the story, the language, the visual system, the web presence. The version that walks into a room before you do.</p>
-              <div class="manifesto-tags">
-                <span class="mtag">Visual Identity</span>
-                <span class="mtag">Positioning</span>
-                <span class="mtag">Storytelling</span>
-                <span class="mtag">Web Presence</span>
-                <span class="mtag">iOS MVP</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MARQUEE -->
-    <div class="marquee-section">
-      <div class="marquee-track">
-        <!-- Two copies for seamless loop -->
-        <span class="marquee-item">Brand Identity <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item"><em>Human Crafted Brand Better</em> <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Landing Pages <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Logo Direction <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Brand Story <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">iOS MVP Builds <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Vercel Ready <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Visual Positioning <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">We Design <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Brand Identity <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item"><em>Human Crafted Brand Better</em> <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Landing Pages <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Logo Direction <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Brand Story <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">iOS MVP Builds <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Vercel Ready <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">Visual Positioning <span class="marquee-sep">✦</span></span>
-        <span class="marquee-item">We Design <span class="marquee-sep">✦</span></span>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-bg-word">WD</div>
+  <div class="hero-content">
+    <div class="hero-overline">Human Crafted Brand Better</div>
+    <h1 class="hero-headline">YOUR BRAND<br><span class="hl2">IS THE PITCH.</span></h1>
+    <div class="hero-bottom">
+      <p class="hero-sub">We build <strong>logos, identity systems, landing pages, websites, and iOS MVPs</strong> for founders who refuse to look small. Not templates. Not committees. Human crafted, intentionally built.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-red">Start a Project ↗</a>
+        <a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener" class="btn-outline-light">Book a Call</a>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- PHILOSOPHY -->
-    <section class="philosophy" id="work">
-      <div class="container">
-        <div class="section-kicker fade-up">The We Design Approach</div>
-        <div class="phil-grid">
-          <div>
-            <h2 class="phil-headline fade-up">A weak brand<br><em>costs you</em><br>before you speak.</h2>
-          </div>
-          <div class="phil-body fade-up fade-up-d1">
-            <div class="phil-stats">
-              <div>
-                <div class="phil-stat">94%</div>
-                <div class="phil-stat-label">of first impressions are design-driven before a single sentence is read.</div>
-              </div>
-              <div>
-                <div class="phil-stat">3s</div>
-                <div class="phil-stat-label">is how long a visitor decides whether to trust your brand or move on.</div>
-              </div>
-            </div>
-            <p class="phil-text">
-              <strong>We do not make things look pretty for the sake of it.</strong> We build visual clarity that makes your business feel decided, trustworthy, and worth the price you're asking. The goal is for your brand to feel like it belongs in a bigger room — before the client reads a line, before they hear the pitch, before they see the invoice.
-            </p>
-            <p class="phil-text" style="margin-top:20px;">
-              We work with founders, new business owners, service providers, and operators who are done looking smaller than they are. Human crafted. Intentionally designed. Built to convert.
-            </p>
-          </div>
-        </div>
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="m-item">BRAND IDENTITY</span><span class="m-sep"></span>
+    <span class="m-item red">HUMAN CRAFTED BRAND BETTER</span><span class="m-sep"></span>
+    <span class="m-item">LOGO DIRECTION</span><span class="m-sep"></span>
+    <span class="m-item">BRAND STORY</span><span class="m-sep"></span>
+    <span class="m-item red">WE DESIGN</span><span class="m-sep"></span>
+    <span class="m-item">LANDING PAGES</span><span class="m-sep"></span>
+    <span class="m-item">iOS MVP</span><span class="m-sep"></span>
+    <span class="m-item">VISUAL IDENTITY</span><span class="m-sep"></span>
+    <span class="m-item red">TONE · STORY · PRESENCE</span><span class="m-sep"></span>
+    <span class="m-item">VERCEL READY</span><span class="m-sep"></span>
+    <span class="m-item">PROMO ITEMS</span><span class="m-sep"></span>
+    <span class="m-item">BRAND IDENTITY</span><span class="m-sep"></span>
+    <span class="m-item red">HUMAN CRAFTED BRAND BETTER</span><span class="m-sep"></span>
+    <span class="m-item">LOGO DIRECTION</span><span class="m-sep"></span>
+    <span class="m-item">BRAND STORY</span><span class="m-sep"></span>
+    <span class="m-item red">WE DESIGN</span><span class="m-sep"></span>
+    <span class="m-item">LANDING PAGES</span><span class="m-sep"></span>
+    <span class="m-item">iOS MVP</span><span class="m-sep"></span>
+    <span class="m-item">VISUAL IDENTITY</span><span class="m-sep"></span>
+    <span class="m-item red">TONE · STORY · PRESENCE</span><span class="m-sep"></span>
+    <span class="m-item">VERCEL READY</span><span class="m-sep"></span>
+    <span class="m-item">PROMO ITEMS</span><span class="m-sep"></span>
+  </div>
+</div>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <div>
+    <h2 class="stmt-text reveal">
+      <span class="dim">BRANDING IS NOT</span><br>
+      A LOGO.<br>
+      <span class="dim">IT IS</span> CLARITY,<br>
+      TRUST <span class="red">&</span><br>
+      PERCEPTION.
+    </h2>
+    <div class="stmt-aside">
+      <p class="stmt-aside-inner reveal d1">
+        <strong>A weak brand costs you before the conversation starts.</strong> The client sees your page, your identity, your presentation — and decides whether you belong in the room they're in. We make sure the answer is yes.
+        <br><br>
+        We Design helps founders, operators, and service businesses look more established, more serious, and more worth the price they charge. Human crafted. No shortcuts. No templates.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="slabel reveal">What We Build</div>
+  <div class="svc-grid">
+    <div class="svc reveal">
+      <div class="svc-num">01 — IDENTITY</div>
+      <div class="svc-name">BRAND<br>IDENTITY</div>
+      <p class="svc-desc">The foundation everything else is built on. Logos, slogans, brand stories, visual direction, and tone systems that make your brand feel decided and undeniable.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">Logo Direction</span>
+        <span class="svc-tag">Slogan</span>
+        <span class="svc-tag">Brand Story</span>
+        <span class="svc-tag">Visual Tone</span>
+        <span class="svc-tag">Promo Items</span>
       </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section class="services" id="services">
-      <div class="container">
-        <div class="services-header">
-          <div>
-            <div class="section-kicker fade-up">Services</div>
-            <h2 class="services-headline fade-up fade-up-d1">Three lanes.<br>One clear outcome.</h2>
-          </div>
-          <p class="services-desc fade-up fade-up-d2">Premium creative direction without bloated agency pricing or confusing service menus. Choose a full package or a single modular piece.</p>
-        </div>
-        <div class="service-row">
-          <div class="service-item fade-up">
-            <div class="service-num">01</div>
-            <div class="service-name">Brand Identity</div>
-            <div class="service-desc">Logos, slogans, brand stories, visual direction, and type systems that stop your brand from looking undecided. The foundation everything else sits on.</div>
-            <div class="service-tag">From $750</div>
-          </div>
-          <div class="service-item fade-up fade-up-d1">
-            <div class="service-num">02</div>
-            <div class="service-name">Web Launch</div>
-            <div class="service-desc">Landing pages and compact websites that give your brand a stronger presence, sharper messaging, and a first impression worth the price you charge.</div>
-            <div class="service-tag">From $1,250</div>
-          </div>
-          <div class="service-item fade-up fade-up-d2">
-            <div class="service-num">03</div>
-            <div class="service-name">iOS MVP</div>
-            <div class="service-desc">SwiftUI-based MVP builds for founders who need a functional early product, core screens, and a cleaner product presentation — without pretending they need an enterprise build yet.</div>
-            <div class="service-tag">From $2,500</div>
-          </div>
-        </div>
+      <div class="svc-price">FROM $750</div>
+      <div class="svc-line"></div>
+    </div>
+    <div class="svc reveal d1">
+      <div class="svc-num">02 — WEB</div>
+      <div class="svc-name">WEB<br>LAUNCH</div>
+      <p class="svc-desc">Landing pages and compact websites built for stronger presence, sharper messaging, and a first impression that carries weight before the pitch even begins.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">Landing Page</span>
+        <span class="svc-tag">Website</span>
+        <span class="svc-tag">Copy Direction</span>
+        <span class="svc-tag">Vercel Ready</span>
+        <span class="svc-tag">Mobile First</span>
       </div>
-    </section>
-
-    <!-- PACKAGES -->
-    <section class="packages" id="packages">
-      <div class="container">
-        <div class="section-kicker fade-up">Packages</div>
-        <h2 class="packages-headline fade-up fade-up-d1">Clear paths.<br><em>No</em> confusion.</h2>
-        <p class="packages-sub fade-up fade-up-d2">Enough structure to make the decision easy. Enough flexibility so you don't pay for what you don't need.</p>
-
-        <div class="pkg-grid">
-          <!-- Brand Foundation -->
-          <div class="pkg-card fade-up">
-            <div class="pkg-tier">Brand Foundation</div>
-            <div class="pkg-price"><sub>$</sub>750</div>
-            <div class="pkg-name">Brand Identity Package</div>
-            <p class="pkg-desc">Logo direction, slogan support, and a concise brand story for businesses that need a clean identity before they build bigger.</p>
-            <ul class="pkg-features">
-              <li>Logo concept and direction</li>
-              <li>Slogan or tagline support</li>
-              <li>Concise brand story</li>
-              <li>Visual direction and tone</li>
-            </ul>
-            <div class="pay-note-dark">Pay in full or start with a deposit. Final files released only after balance is paid in full.</div>
-            <a class="btn-pkg-full" href="https://buy.stripe.com/eVq14mepUeRr1m96rtfMA01" target="_blank" rel="noopener">Pay Full — $750</a>
-            <a class="btn-pkg-dep" href="https://buy.stripe.com/aFa5kC1D838Jc0NaHJfMA02" target="_blank" rel="noopener">Pay Deposit Instead</a>
-          </div>
-
-          <!-- Web Launch -->
-          <div class="pkg-card featured fade-up fade-up-d1">
-            <div class="pkg-tier">Web Launch</div>
-            <div class="pkg-price"><sub>$</sub>1,250</div>
-            <div class="pkg-name">Web Launch Package</div>
-            <p class="pkg-desc">A polished landing page or compact website built for stronger presence, clearer messaging, and a more credible first impression.</p>
-            <ul class="pkg-features">
-              <li>Landing page or compact website</li>
-              <li>Messaging and copy cleanup</li>
-              <li>Mobile-first structure</li>
-              <li>Vercel-ready delivery</li>
-            </ul>
-            <div class="pay-note-dark">Upfront or deposit plus installments. No website handoff, source files, or deliverables until balance is paid in full.</div>
-            <a class="btn-pkg-full" href="https://buy.stripe.com/6oU00i1D8dNne8V6rtfMA03" target="_blank" rel="noopener">Pay Full — $1,250</a>
-            <a class="btn-pkg-dep" href="https://buy.stripe.com/aFafZgbdI9x7fcZ3fhfMA04" target="_blank" rel="noopener">Pay Deposit Instead</a>
-          </div>
-
-          <!-- App MVP -->
-          <div class="pkg-card fade-up fade-up-d2">
-            <div class="pkg-tier">App MVP</div>
-            <div class="pkg-price"><sub>$</sub>2,500</div>
-            <div class="pkg-name">iOS App MVP Package</div>
-            <p class="pkg-desc">A SwiftUI-based MVP build for founders who need a functional concept, key screens, and a cleaner product presentation before scaling further.</p>
-            <ul class="pkg-features">
-              <li>SwiftUI MVP or app concept build</li>
-              <li>Core screens and user flow</li>
-              <li>Product presentation direction</li>
-              <li>Early handoff structure</li>
-            </ul>
-            <div class="pay-note-dark">Pay in full or reserve your slot with a deposit. No final app files or code handoff until payment is completed in full.</div>
-            <a class="btn-pkg-full" href="https://buy.stripe.com/dRmaEW5TogZz7KxdTVfMA05" target="_blank" rel="noopener">Pay Full — $2,500</a>
-            <a class="btn-pkg-dep" href="https://buy.stripe.com/9B6fZg1D89x71m93fhfMA06" target="_blank" rel="noopener">Pay Deposit Instead</a>
-          </div>
-        </div>
-
-        <div class="modular-note fade-up">
-          <div>
-            <h3>Only need part of the work?</h3>
-            <p>You don't have to buy a full package. Request a logo only, slogan and brand story, landing page only, website only, or a custom modular quote. Use the contact form below and select what you need.</p>
-          </div>
-          <a href="#contact" class="btn-ghost" style="white-space:nowrap;color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.14);">Build Custom →</a>
-        </div>
+      <div class="svc-price">FROM $1,250</div>
+      <div class="svc-line"></div>
+    </div>
+    <div class="svc reveal d2">
+      <div class="svc-num">03 — APP</div>
+      <div class="svc-name">iOS<br>MVP</div>
+      <p class="svc-desc">SwiftUI-based MVP builds for founders who need a functional early product, core screens, and a cleaner product story — without an enterprise budget or timeline.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">SwiftUI</span>
+        <span class="svc-tag">Core Screens</span>
+        <span class="svc-tag">User Flow</span>
+        <span class="svc-tag">Product Direction</span>
       </div>
-    </section>
+      <div class="svc-price">FROM $2,500</div>
+      <div class="svc-line"></div>
+    </div>
+  </div>
+</section>
 
-    <!-- PROCESS -->
-    <section class="process" id="process">
-      <div class="container">
-        <div class="process-header">
-          <div>
-            <div class="section-kicker fade-up">Process</div>
-            <h2 class="process-headline fade-up fade-up-d1">Sharp workflow.<br>No drama.</h2>
-          </div>
-          <p class="process-desc fade-up fade-up-d2">Structured enough to deliver clean results. Lean enough to not slow you down. This is how a project moves from uncertainty to a polished brand presence.</p>
+<!-- PACKAGES -->
+<section class="packages" id="packages">
+  <div class="slabel reveal">Packages</div>
+  <div class="pkg-top">
+    <h2 class="pkg-headline reveal">THREE<br>CLEAR<br>PATHS.</h2>
+    <p class="pkg-sub reveal d1">No confusion. No bloat. Enough structure to make the decision easy. Enough flexibility so you don't pay for what you don't need.</p>
+  </div>
+  <div class="pkg-grid">
+    <div class="pkg reveal">
+      <div class="pkg-tier-label">Brand Foundation</div>
+      <div class="pkg-amount"><sup>$</sup>750</div>
+      <div class="pkg-starting">Starting Price</div>
+      <p class="pkg-desc">Logo direction, slogan support, and a concise brand story for businesses that need a clean identity before they build bigger.</p>
+      <ul class="pkg-list">
+        <li class="pkg-li">Logo concept and direction</li>
+        <li class="pkg-li">Slogan or tagline support</li>
+        <li class="pkg-li">Concise brand story</li>
+        <li class="pkg-li">Visual direction and tone</li>
+      </ul>
+      <div class="pkg-note">Pay in full or start with a deposit. No final files or deliverables released until balance is paid in full.</div>
+      <a class="pkg-full" href="https://buy.stripe.com/eVq14mepUeRr1m96rtfMA01" target="_blank" rel="noopener">Pay Full — $750</a>
+      <a class="pkg-dep" href="https://buy.stripe.com/aFa5kC1D838Jc0NaHJfMA02" target="_blank" rel="noopener">Pay Deposit Instead</a>
+    </div>
+    <div class="pkg feat reveal d1">
+      <div class="pkg-tier-label">Web Launch</div>
+      <div class="pkg-amount"><sup>$</sup>1,250</div>
+      <div class="pkg-starting">Starting Price</div>
+      <p class="pkg-desc">A polished landing page or compact website built for stronger presence, clearer messaging, and a first impression that converts.</p>
+      <ul class="pkg-list">
+        <li class="pkg-li">Landing page or compact website</li>
+        <li class="pkg-li">Messaging and copy direction</li>
+        <li class="pkg-li">Mobile-first structure</li>
+        <li class="pkg-li">Vercel-ready delivery</li>
+      </ul>
+      <div class="pkg-note">Upfront or deposit plus installments. No website handoff or source files released until balance is paid in full.</div>
+      <a class="pkg-full" href="https://buy.stripe.com/6oU00i1D8dNne8V6rtfMA03" target="_blank" rel="noopener">Pay Full — $1,250</a>
+      <a class="pkg-dep" href="https://buy.stripe.com/aFafZgbdI9x7fcZ3fhfMA04" target="_blank" rel="noopener">Pay Deposit Instead</a>
+    </div>
+    <div class="pkg reveal d2">
+      <div class="pkg-tier-label">App MVP</div>
+      <div class="pkg-amount"><sup>$</sup>2,500</div>
+      <div class="pkg-starting">Starting Price</div>
+      <p class="pkg-desc">A SwiftUI-based MVP for founders who need a functional concept, core screens, and a cleaner product presentation before scaling further.</p>
+      <ul class="pkg-list">
+        <li class="pkg-li">SwiftUI MVP or app concept build</li>
+        <li class="pkg-li">Core screens and user flow</li>
+        <li class="pkg-li">Product presentation direction</li>
+        <li class="pkg-li">Early handoff structure</li>
+      </ul>
+      <div class="pkg-note">Pay in full or reserve your slot with a deposit. No final app files or code handoff until payment is completed in full.</div>
+      <a class="pkg-full" href="https://buy.stripe.com/dRmaEW5TogZz7KxdTVfMA05" target="_blank" rel="noopener">Pay Full — $2,500</a>
+      <a class="pkg-dep" href="https://buy.stripe.com/9B6fZg1D89x71m93fhfMA06" target="_blank" rel="noopener">Pay Deposit Instead</a>
+    </div>
+  </div>
+  <div class="modular reveal">
+    <div>
+      <h3>Only Need Part of the Work?</h3>
+      <p>You don't have to buy a full package. Request a logo only, slogan and brand story, landing page only, website only, or a custom modular quote. Use the contact form and tell us exactly what you need.</p>
+    </div>
+    <a href="#contact" class="btn-dark">Build Custom →</a>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="slabel reveal">How It Works</div>
+  <div class="process-grid">
+    <div class="step reveal">
+      <div class="step-n">01</div>
+      <div class="step-lbl">Clarify</div>
+      <div class="step-name">DIRECTION</div>
+      <p class="step-desc">We tighten the story, the audience, and the visual territory. No guessing, no wasted rounds.</p>
+    </div>
+    <div class="step reveal d1">
+      <div class="step-n">02</div>
+      <div class="step-lbl">Create</div>
+      <div class="step-name">DESIGN</div>
+      <p class="step-desc">We shape the visual system, the message, and the brand tension. Every choice is intentional.</p>
+    </div>
+    <div class="step reveal d2">
+      <div class="step-n">03</div>
+      <div class="step-lbl">Ship</div>
+      <div class="step-name">DEPLOY</div>
+      <p class="step-desc">The work ships clean on Vercel, ready for Stripe, Calendly, and future integrations without a rebuild.</p>
+    </div>
+    <div class="step reveal d3">
+      <div class="step-n">04</div>
+      <div class="step-lbl">Grow</div>
+      <div class="step-name">SCALE</div>
+      <p class="step-desc">Forms, inboxes, invoices, and docs connect into Google Workspace when you're ready. No rebuild tax.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="slabel reveal">Contact</div>
+      <h2 class="contact-headline reveal d1">LET'S<br>BUILD<br>IT.</h2>
+      <p class="contact-body reveal d2">If your brand feels uncertain, your clients feel it too. Start with a message, book a call, or jump straight to payment if you already know what you need.</p>
+      <div class="cline reveal d2"><span class="cline-lbl">Email</span><a href="mailto:hello@wedesignsstudio.com">hello@wedesignsstudio.com</a></div>
+      <div class="cline reveal d2"><span class="cline-lbl">Book</span><a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">30-min call on Calendly</a></div>
+      <div class="cline reveal d2"><span class="cline-lbl">Pay</span><span>Stripe — card and Apple Pay accepted</span></div>
+    </div>
+    <div class="form-box reveal d1">
+      <div class="form-ttl">SEND INQUIRY</div>
+      <form id="inquiryForm">
+        <div class="frow">
+          <div class="ff"><label>Name</label><input name="name" required placeholder="Your name" /></div>
+          <div class="ff"><label>Email</label><input type="email" name="email" required placeholder="you@company.com" /></div>
         </div>
-        <div class="process-steps">
-          <div class="step-item fade-up">
-            <div class="step-num">01 — Clarify</div>
-            <h3 class="step-title">Direction</h3>
-            <p class="step-desc">We tighten the story, the audience, and the visual territory. No guessing. No ambiguity.</p>
-          </div>
-          <div class="step-item fade-up fade-up-d1">
-            <div class="step-num">02 — Design</div>
-            <h3 class="step-title">Creation</h3>
-            <p class="step-desc">We shape the page, the message, and the brand tension. Every choice is intentional.</p>
-          </div>
-          <div class="step-item fade-up fade-up-d2">
-            <div class="step-num">03 — Deploy</div>
-            <h3 class="step-title">Launch</h3>
-            <p class="step-desc">The site ships clean on Vercel. Ready for Stripe, Calendly, and future ops integrations.</p>
-          </div>
-          <div class="step-item fade-up fade-up-d3">
-            <div class="step-num">04 — Scale</div>
-            <h3 class="step-title">Growth</h3>
-            <p class="step-desc">Forms, inboxes, invoices, and docs wire into Workspace when you're ready. No rebuild tax.</p>
+        <div class="frow">
+          <div class="ff"><label>Company</label><input name="company" placeholder="Company name" /></div>
+          <div class="ff">
+            <label>Service</label>
+            <select name="service">
+              <option>Brand Foundation</option>
+              <option>Web Launch</option>
+              <option>App MVP</option>
+              <option>Logo Only</option>
+              <option>Slogan + Brand Story Only</option>
+              <option>Landing Page Only</option>
+              <option>Website Only</option>
+              <option>Custom Modular Quote</option>
+            </select>
           </div>
         </div>
+        <div class="ff"><label>Budget</label><input name="budget" placeholder="$750 – $2,500+" /></div>
+        <div class="ff"><label>Project Summary</label><textarea name="summary" required placeholder="Tell us what you need, what you're building, and where your current brand feels weak."></textarea></div>
+        <div class="factions">
+          <button class="btn-red sbtn" type="submit">Send Inquiry</button>
+          <a class="btn-outline-light" href="mailto:hello@wedesignsstudio.com">Email Instead</a>
+          <a class="btn-outline-light" href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Calendly</a>
+        </div>
+        <div id="inquiryStatus" class="smsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CRITIQUE -->
+<section class="critique" id="critique">
+  <div class="crit-inner">
+    <div class="crit-grid">
+      <div>
+        <div class="slabel reveal">Client Feedback</div>
+        <h2 class="crit-headline reveal d1">PRAISE.<br>NOTES.<br>CRITIQUE.</h2>
+        <p class="crit-body reveal d2">Good feedback becomes testimonials. Hard feedback becomes intel. Routes directly to the studio inbox — built for a later Sheets CRM or testimonial bank.</p>
+        <div class="crit-detail reveal d2"><span class="icon">★</span><span>Great for testimonials, revision notes, and final client reactions.</span></div>
+        <div class="crit-detail reveal d2"><span class="icon">→</span><span>Routes to <a href="mailto:hello@wedesignsstudio.com">hello@wedesignsstudio.com</a></span></div>
       </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="contact" id="contact">
-      <div class="container contact-grid">
-        <div>
-          <div class="section-kicker fade-up">Contact</div>
-          <h2 class="contact-headline fade-up fade-up-d1">If your brand feels uncertain, clients feel it too.</h2>
-          <p class="contact-text fade-up fade-up-d2">Start with a message, a call, or jump straight to payment if you already know what you need. This site is structured for Stripe, Calendly, Google Workspace, and client intake — now and as you scale.</p>
-          <div class="contact-detail fade-up fade-up-d3">
-            <span class="icon">✉</span>
-            <div><a href="mailto:hello@wedesignsstudio.com">hello@wedesignsstudio.com</a></div>
+      <div class="form-box reveal d1">
+        <div class="form-ttl">SEND FEEDBACK</div>
+        <form id="critiqueForm">
+          <div class="frow">
+            <div class="ff"><label>Your Name</label><input name="clientName" required placeholder="Your name" /></div>
+            <div class="ff"><label>Your Email</label><input type="email" name="clientEmail" required placeholder="client@company.com" /></div>
           </div>
-          <div class="contact-detail fade-up fade-up-d3">
-            <span class="icon">📅</span>
-            <div><a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Book a 30-min call on Calendly</a></div>
-          </div>
-          <div class="contact-detail fade-up fade-up-d3">
-            <span class="icon">$</span>
-            <div>Stripe handles card and Apple Pay. Deposits or full payment accepted.</div>
-          </div>
-        </div>
-        <div class="form-box fade-up fade-up-d1">
-          <div class="form-title">Send an Inquiry</div>
-          <form id="inquiryForm">
-            <div class="form-row">
-              <div class="field"><label>Name</label><input name="name" required placeholder="Your name" /></div>
-              <div class="field"><label>Email</label><input type="email" name="email" required placeholder="you@company.com" /></div>
-            </div>
-            <div class="form-row">
-              <div class="field"><label>Company</label><input name="company" placeholder="Company name" /></div>
-              <div class="field">
-                <label>Service</label>
-                <select name="service">
-                  <option>Brand Foundation</option>
-                  <option>Web Launch</option>
-                  <option>App MVP</option>
-                  <option>Logo Only</option>
-                  <option>Slogan + Brand Story Only</option>
-                  <option>Landing Page Only</option>
-                  <option>Website Only</option>
-                  <option>Custom Modular Quote</option>
-                </select>
-              </div>
-            </div>
-            <div class="field field-full"><label>Budget</label><input name="budget" placeholder="$750 – $2,500" /></div>
-            <div class="field field-full">
-              <label>Project Summary</label>
-              <textarea name="summary" required placeholder="Tell us what you need, what you're building, and where the current brand feels weak."></textarea>
-            </div>
-            <div class="form-actions">
-              <button class="btn-form" type="submit">Send Inquiry</button>
-              <a class="btn-form-ghost" href="mailto:hello@wedesignsstudio.com">Email Instead</a>
-              <a class="btn-form-ghost" href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Calendly</a>
-            </div>
-            <div id="inquiryStatus" class="status-msg"></div>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- CLIENT CRITIQUE -->
-    <section class="critique" id="critique">
-      <div class="container">
-        <div class="critique-inner">
-          <div class="critique-grid">
-            <div>
-              <div class="section-kicker fade-up">Client Critique</div>
-              <h2 class="critique-headline fade-up fade-up-d1">Praise, notes, or straight critique — all in one place.</h2>
-              <p style="margin-top:18px;font-size:16px;line-height:1.75;color:var(--muted);font-weight:300;" class="fade-up fade-up-d2">Good feedback becomes testimonials. Hard feedback becomes useful intel. This section routes directly to the studio inbox and is structured for a later Sheets CRM or testimonial bank.</p>
-              <div class="contact-detail fade-up fade-up-d3" style="margin-top:20px;">
-                <span class="icon">★</span>
-                <div>Great for testimonials, revision notes, and final client reactions.</div>
-              </div>
-              <div class="contact-detail fade-up fade-up-d3">
-                <span class="icon">✉</span>
-                <div>Routes to <a href="mailto:hello@wedesignsstudio.com">hello@wedesignsstudio.com</a></div>
-              </div>
-            </div>
-            <div class="form-box fade-up fade-up-d1">
-              <div class="form-title">Send Feedback</div>
-              <form id="critiqueForm">
-                <div class="form-row">
-                  <div class="field"><label>Your Name</label><input name="clientName" required placeholder="Your name" /></div>
-                  <div class="field"><label>Your Email</label><input type="email" name="clientEmail" required placeholder="client@company.com" /></div>
-                </div>
-                <div class="form-row">
-                  <div class="field"><label>Project Name</label><input name="projectName" required placeholder="Project or deliverable" /></div>
-                  <div class="field">
-                    <label>Rating</label>
-                    <select name="rating"><option>5 / 5 — Excellent</option><option>4 / 5 — Very Good</option><option>3 / 5 — Good</option><option>2 / 5 — Needs Work</option><option>1 / 5 — Disappointing</option></select>
-                  </div>
-                </div>
-                <div class="field field-full">
-                  <label>Type</label>
-                  <select name="critiqueType"><option>Praise / Testimonial</option><option>Revision Notes</option><option>General Feedback</option><option>Issue / Concern</option></select>
-                </div>
-                <div class="field field-full">
-                  <label>Your Feedback</label>
-                  <textarea name="feedback" required placeholder="Tell us what worked, what could be sharper, or what stood out."></textarea>
-                </div>
-                <div class="form-actions">
-                  <button class="btn-form" type="submit">Send Critique</button>
-                  <a class="btn-form-ghost" href="mailto:hello@wedesignsstudio.com">Email Instead</a>
-                </div>
-                <div id="critiqueStatus" class="status-msg"></div>
-              </form>
+          <div class="frow">
+            <div class="ff"><label>Project Name</label><input name="projectName" required placeholder="Project or deliverable" /></div>
+            <div class="ff">
+              <label>Rating</label>
+              <select name="rating">
+                <option>5 / 5 — Excellent</option><option>4 / 5 — Very Good</option>
+                <option>3 / 5 — Good</option><option>2 / 5 — Needs Work</option>
+                <option>1 / 5 — Disappointing</option>
+              </select>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAYMENT -->
-    <section class="payment" id="payment">
-      <div class="container">
-        <div class="section-kicker fade-up">Secure Payment</div>
-        <h2 class="payment-headline fade-up fade-up-d1">Pay by card or Apple Pay — when you're ready.</h2>
-        <div class="payment-grid">
-          <div class="payment-info fade-up">
-            <p>Stripe handles checkout. Clients can pay in full or use agreed installments. No final deliverables, source files, websites, or app handoff will be released until payment is completed in full.</p>
-            <div class="pay-warning fade-up fade-up-d1">
-              <strong>Payment Policy:</strong> No deliverables, transfers, source files, or website handoffs are released until the balance is paid in full. This applies to all packages and modular services without exception.
-            </div>
+          <div class="ff">
+            <label>Type</label>
+            <select name="critiqueType">
+              <option>Praise / Testimonial</option><option>Revision Notes</option>
+              <option>General Feedback</option><option>Issue / Concern</option>
+            </select>
           </div>
-          <div class="payment-box fade-up fade-up-d1">
-            <stripe-buy-button
-              buy-button-id="buy_btn_1THCXLADGjKiCwz3JTZThDcf"
-              publishable-key="pk_live_rczP5XxZqrfQPMh7zVW51RNp">
-            </stripe-buy-button>
-            <p>If the button doesn't load, use the direct checkout link below.</p>
-            <a class="btn-stripe" href="https://buy.stripe.com/eVq14mepUeRr1m96rtfMA01" target="_blank" rel="noopener">Open Stripe Checkout →</a>
+          <div class="ff"><label>Feedback</label><textarea name="feedback" required placeholder="Tell us what worked, what could be sharper, or what stood out."></textarea></div>
+          <div class="factions">
+            <button class="btn-red sbtn" type="submit">Send Critique</button>
+            <a class="btn-outline-light" href="mailto:hello@wedesignsstudio.com">Email Instead</a>
           </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">We <em>Design</em></div>
-        <div>Human Crafted Brand Better. © 2026</div>
-        <div class="footer-links">
-          <a href="#services">Services</a>
-          <a href="#packages">Packages</a>
-          <a href="#contact">Contact</a>
-          <a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Calendly</a>
-        </div>
+          <div id="critiqueStatus" class="smsg"></div>
+        </form>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    // ── SCROLL ANIMATIONS ──
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+<!-- PAYMENT -->
+<section class="payment" id="payment">
+  <div class="slabel reveal">Secure Payment</div>
+  <h2 class="pay-headline reveal d1">PAY BY CARD OR APPLE PAY.</h2>
+  <div class="pay-grid">
+    <div class="reveal">
+      <p class="pay-body">Stripe handles checkout. Pay in full or use agreed installments. No final deliverables, source files, websites, or app handoff will be released until payment is completed in full.</p>
+      <div class="pay-policy"><strong>Payment Policy:</strong> No deliverables, transfers, source files, or handoffs are released until the balance is paid in full. No exceptions.</div>
+    </div>
+    <div class="pay-box reveal d1">
+      <stripe-buy-button buy-button-id="buy_btn_1THCXLADGjKiCwz3JTZThDcf" publishable-key="pk_live_rczP5XxZqrfQPMh7zVW51RNp"></stripe-buy-button>
+      <p>If the button doesn't load, use the direct link below.</p>
+      <a class="btn-stripe" href="https://buy.stripe.com/eVq14mepUeRr1m96rtfMA01" target="_blank" rel="noopener">Open Stripe Checkout →</a>
+    </div>
+  </div>
+</section>
 
-    // ── FORMS ──
-    const siteConfig = {
-      formEndpoint: 'https://script.google.com/macros/s/REPLACE_WITH_WEB_APP_URL/exec',
-      formMode: 'mock'
-    };
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">WE <span>DESIGN</span></div>
+    <div class="footer-copy">Human Crafted Brand Better. © 2026 We Design.</div>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#packages">Packages</a>
+      <a href="#contact">Contact</a>
+      <a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Calendly</a>
+    </div>
+  </div>
+</footer>
 
-    function showStatus(el, type, msg) {
-      el.className = 'status-msg show ' + type;
-      el.textContent = msg;
-      setTimeout(() => { el.className = 'status-msg'; }, 6000);
-    }
+<script>
+  // CURSOR
+  const cur = document.getElementById('cursor');
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function moveCursor() { cur.style.left = mx + 'px'; cur.style.top = my + 'px'; requestAnimationFrame(moveCursor); }
+  moveCursor();
+  document.querySelectorAll('a, button, .svc, .pkg').forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('hovering'));
+  });
 
-    async function handleForm(formId, statusId, type) {
-      const form = document.getElementById(formId);
-      const status = document.getElementById(statusId);
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const data = Object.fromEntries(new FormData(form).entries());
-        if (siteConfig.formMode === 'mock') {
-          showStatus(status, 'ok', type === 'inquiry'
-            ? 'Inquiry received. Connect your Google Apps Script endpoint and flip formMode to live when ready.'
-            : 'Feedback received. Connect your endpoint and flip formMode to live when ready.');
-          form.reset(); return;
-        }
-        try {
-          const res = await fetch(siteConfig.formEndpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type, ...data })
-          });
-          if (res.ok) { showStatus(status, 'ok', type === 'inquiry' ? 'Inquiry sent.' : 'Feedback sent.'); form.reset(); }
-          else { showStatus(status, 'err', 'Something went wrong. Try emailing directly.'); }
-        } catch { showStatus(status, 'err', 'Connection error. Try emailing hello@wedesignsstudio.com'); }
-      });
-    }
+  // SCROLL REVEAL
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    handleForm('inquiryForm', 'inquiryStatus', 'inquiry');
-    handleForm('critiqueForm', 'critiqueStatus', 'critique');
-  </script>
+  // FORMS
+  const cfg = {
+    endpoint: 'https://script.google.com/macros/s/REPLACE_WITH_WEB_APP_URL/exec',
+    mode: 'mock'
+  };
+  function showMsg(el, type, msg) {
+    el.className = 'smsg show ' + type;
+    el.textContent = msg;
+    setTimeout(() => el.className = 'smsg', 7000);
+  }
+  function wire(formId, msgId, type) {
+    const form = document.getElementById(formId);
+    const msg = document.getElementById(msgId);
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      if (cfg.mode === 'mock') {
+        showMsg(msg, 'ok', 'Received. Add your Apps Script endpoint and set mode to live when ready.');
+        form.reset(); return;
+      }
+      try {
+        const res = await fetch(cfg.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type, ...data }) });
+        res.ok ? (showMsg(msg, 'ok', 'Sent.'), form.reset()) : showMsg(msg, 'err', 'Error. Email hello@wedesignsstudio.com');
+      } catch { showMsg(msg, 'err', 'Connection error. Email hello@wedesignsstudio.com'); }
+    });
+  }
+  wire('inquiryForm', 'inquiryStatus', 'inquiry');
+  wire('critiqueForm', 'critiqueStatus', 'critique');
+</script>
 </body>
 </html>
