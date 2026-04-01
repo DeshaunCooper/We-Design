@@ -8,563 +8,432 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
-  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
   <style>
     :root {
-      --black: #080808;
-      --white: #f4f2ee;
-      --red: #d63a2a;
-      --red-dark: #b02e1f;
-      --gray: #888480;
-      --gray-2: #3a3835;
-      --line: rgba(244,242,238,0.1);
-      --line-light: rgba(244,242,238,0.06);
+      --black: #0a0a0a;
+      --ink: #1a1a1a;
+      --white: #ffffff;
+      --cream: #f8f6f2;
+      --red: #c8352a;
+      --red-dark: #a82820;
+      --red-soft: rgba(200,53,42,0.07);
+      --gray: #6b6864;
+      --line: rgba(20,18,16,0.1);
+      --line-light: rgba(20,18,16,0.06);
+      --radius: 8px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--black);
-      color: var(--white);
+      background: var(--white);
+      color: var(--ink);
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
-      cursor: none;
+      -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; }
 
-    /* CURSOR */
-    .cursor {
-      width: 10px; height: 10px;
-      background: var(--white); border-radius: 50%;
-      position: fixed; top: 0; left: 0;
-      pointer-events: none; z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s ease, height 0.3s ease;
-      mix-blend-mode: difference;
-    }
-    .cursor.hovering { width: 44px; height: 44px; }
-
     /* NAV */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: sticky; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 28px 48px;
+      padding: 20px 48px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
     }
-    nav::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(8,8,8,0.96) 0%, transparent 100%);
-      pointer-events: none;
-    }
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px; letter-spacing: 0.12em; position: relative; z-index: 1;
-    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.1em; color: var(--ink); }
     .nav-logo span { color: var(--red); }
     .nav-links {
-      display: flex; gap: 40px; position: relative; z-index: 1;
+      display: flex; gap: 36px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(244,242,238,0.45);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(26,26,26,0.42);
     }
-    .nav-links a:hover { color: var(--white); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); transition: color 0.2s; }
     .nav-cta {
-      position: relative; z-index: 1;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 12px 28px; border: 1px solid rgba(244,242,238,0.25); transition: all 0.2s;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 11px 22px; background: var(--ink); color: var(--white);
+      border-radius: var(--radius); transition: all 0.2s;
     }
-    .nav-cta:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+    .nav-cta:hover { background: var(--red); }
 
     /* HERO */
     .hero {
-      min-height: 100vh; display: flex; flex-direction: column;
+      min-height: 92vh; display: flex; flex-direction: column;
       justify-content: flex-end; padding: 0 48px 64px;
-      position: relative; overflow: hidden;
+      position: relative; overflow: hidden; background: var(--black);
     }
     .hero-bg {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 82% 38%, rgba(214,58,42,0.13), transparent),
-        radial-gradient(ellipse 40% 60% at 8% 82%, rgba(214,58,42,0.06), transparent),
+        radial-gradient(ellipse 55% 45% at 85% 35%, rgba(200,53,42,0.14), transparent),
+        radial-gradient(ellipse 40% 55% at 5% 80%, rgba(200,53,42,0.07), transparent),
         var(--black);
     }
     .hero-noise {
-      position: absolute; inset: 0; opacity: 0.04;
+      position: absolute; inset: 0; opacity: 0.035;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
     .hero-bg-word {
-      position: absolute; top: 50%; right: -20px;
-      transform: translateY(-54%);
+      position: absolute; top: 50%; right: -20px; transform: translateY(-54%);
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(180px, 26vw, 380px); line-height: 1;
-      color: rgba(244,242,238,0.022); letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.016); letter-spacing: 0.05em;
       user-select: none; pointer-events: none;
     }
     .hero-content { position: relative; z-index: 2; }
     .hero-overline {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase;
       color: var(--red); margin-bottom: 20px;
-      display: flex; align-items: center; gap: 16px;
+      display: flex; align-items: center; gap: 14px;
     }
-    .hero-overline::before { content: ''; width: 40px; height: 1px; background: var(--red); }
+    .hero-overline::before { content: ''; width: 32px; height: 1px; background: var(--red); }
     .hero-headline {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(80px, 13.5vw, 210px);
-      line-height: 0.88; letter-spacing: 0.02em;
+      font-size: clamp(68px, 12vw, 192px);
+      line-height: 0.88; letter-spacing: 0.02em; color: rgba(255,255,255,0.94);
     }
     .hero-headline .hl2 { color: var(--red); }
     .hero-bottom {
       display: flex; justify-content: space-between; align-items: flex-end;
-      margin-top: 52px; padding-top: 32px;
-      border-top: 1px solid var(--line);
+      margin-top: 48px; padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.09);
     }
     .hero-sub {
-      font-size: 18px; line-height: 1.72; color: rgba(244,242,238,0.5);
-      max-width: 500px; font-weight: 300;
+      font-size: 17px; line-height: 1.75; color: rgba(255,255,255,0.42);
+      max-width: 480px; font-weight: 300;
     }
-    .hero-sub strong { color: var(--white); font-weight: 500; }
-    .hero-actions { display: flex; gap: 14px; flex-shrink: 0; }
-    .btn-red {
+    .hero-sub strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+    .hero-actions { display: flex; gap: 12px; flex-shrink: 0; }
+
+    /* BUTTONS */
+    .btn-primary {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 18px 40px; background: var(--red); color: var(--white);
-      display: inline-flex; align-items: center; gap: 10px; transition: 0.2s;
-    }
-    .btn-red:hover { background: var(--red-dark); }
-    .btn-outline-light {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 18px 32px; border: 1px solid var(--line);
-      color: rgba(244,242,238,0.5);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 15px 32px; background: var(--red); color: var(--white);
+      border-radius: var(--radius); border: none; cursor: pointer;
       display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
     }
-    .btn-outline-light:hover { border-color: var(--white); color: var(--white); }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .btn-secondary {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 14px 26px; border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.55); border-radius: var(--radius);
+      display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.5); color: rgba(255,255,255,0.88); }
+    .btn-dark {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 14px 26px; background: var(--ink); color: var(--white);
+      border-radius: var(--radius); display: inline-flex; align-items: center;
+      white-space: nowrap; transition: 0.2s;
+    }
+    .btn-dark:hover { background: var(--red); }
+    .btn-outline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 13px 22px; border: 1px solid var(--line); color: var(--gray);
+      border-radius: var(--radius); display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--ink); color: var(--ink); }
+    .btn-book {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 15px 28px; background: var(--ink); color: var(--white);
+      border-radius: var(--radius); display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+    }
+    .btn-book:hover { background: var(--red); transform: translateY(-1px); }
 
     /* MARQUEE */
     .marquee {
       border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-      overflow: hidden; background: rgba(244,242,238,0.025);
+      overflow: hidden; background: var(--cream);
     }
-    .marquee-track {
-      display: flex; white-space: nowrap;
-      animation: ticker 32s linear infinite;
-    }
+    .marquee-track { display: flex; white-space: nowrap; animation: ticker 36s linear infinite; }
     .marquee-track:hover { animation-play-state: paused; }
     @keyframes ticker { to { transform: translateX(-50%); } }
     .m-item {
       display: inline-flex; align-items: center; gap: 0;
-      padding: 20px 40px 20px 0;
+      padding: 16px 32px 16px 0;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 17px; letter-spacing: 0.18em;
-      color: rgba(244,242,238,0.22);
+      font-size: 14px; letter-spacing: 0.18em; color: rgba(26,26,26,0.28);
     }
     .m-item.red { color: var(--red); }
-    .m-sep { width: 4px; height: 4px; background: var(--gray-2); border-radius: 50%; margin-right: 40px; flex-shrink: 0; display: inline-block; }
+    .m-sep { width: 4px; height: 4px; background: rgba(26,26,26,0.14); border-radius: 50%; margin-right: 32px; flex-shrink: 0; display: inline-block; }
 
-    /* STATEMENT */
-    .statement { padding: 160px 48px; border-bottom: 1px solid var(--line); }
-    .stmt-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(52px, 8vw, 128px); line-height: 0.92; letter-spacing: 0.02em;
-    }
-    .stmt-text .dim { color: rgba(244,242,238,0.18); }
-    .stmt-text .red { color: var(--red); }
-    .stmt-aside {
-      display: flex; justify-content: flex-end; margin-top: 64px;
-    }
-    .stmt-aside-inner {
-      max-width: 420px; font-size: 17px; line-height: 1.8;
-      color: rgba(244,242,238,0.42); font-weight: 300;
-      border-left: 2px solid var(--red); padding-left: 28px;
-    }
-    .stmt-aside-inner strong { color: var(--white); font-weight: 500; }
-
-    /* SECTION LABEL */
+    /* SECTION LABELS */
     .slabel {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase;
-      color: var(--red); display: flex; align-items: center; gap: 16px; margin-bottom: 64px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--red); display: flex; align-items: center; gap: 12px; margin-bottom: 48px;
     }
-    .slabel::before { content: ''; width: 32px; height: 1px; background: var(--red); }
+    .slabel::before { content: ''; width: 24px; height: 1px; background: var(--red); }
+    .slabel.light { color: rgba(255,255,255,0.35); }
+    .slabel.light::before { background: rgba(255,255,255,0.35); }
+
+    /* STATEMENT */
+    .statement { padding: 128px 48px; border-bottom: 1px solid var(--line); background: var(--white); }
+    .stmt-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(44px, 7vw, 112px); line-height: 0.93; letter-spacing: 0.02em; color: var(--ink);
+    }
+    .stmt-text .dim { color: rgba(26,26,26,0.18); }
+    .stmt-text .red { color: var(--red); }
+    .stmt-aside { display: flex; justify-content: flex-end; margin-top: 52px; }
+    .stmt-aside-inner {
+      max-width: 400px; font-size: 16px; line-height: 1.82;
+      color: rgba(26,26,26,0.5); font-weight: 300;
+      border-left: 2px solid var(--red); padding-left: 22px;
+    }
+    .stmt-aside-inner strong { color: var(--ink); font-weight: 500; }
 
     /* SERVICES */
-    .services { padding: 120px 48px; border-bottom: 1px solid var(--line); }
+    .services { padding: 100px 48px; border-bottom: 1px solid var(--line); background: var(--white); }
     .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
-    .svc {
-      padding: 56px 40px 56px 0; border-right: 1px solid var(--line);
-      position: relative; overflow: hidden;
-    }
-    .svc:last-child { border-right: none; padding-right: 0; padding-left: 40px; }
-    .svc:nth-child(2) { padding-left: 40px; }
-    .svc-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.25em;
-      color: rgba(244,242,238,0.18); margin-bottom: 40px;
-    }
-    .svc-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(44px, 4.5vw, 68px); letter-spacing: 0.04em; line-height: 0.9;
-      margin-bottom: 24px;
-    }
-    .svc-desc { font-size: 15px; line-height: 1.75; color: rgba(244,242,238,0.42); font-weight: 300; max-width: 300px; }
-    .svc-tags { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .svc { padding: 48px 32px 48px 0; border-right: 1px solid var(--line); position: relative; overflow: hidden; }
+    .svc:last-child { border-right: none; padding-right: 0; padding-left: 32px; }
+    .svc:nth-child(2) { padding-left: 32px; }
+    .svc-num { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.22em; color: rgba(26,26,26,0.2); margin-bottom: 32px; }
+    .svc-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 3.8vw, 58px); letter-spacing: 0.04em; line-height: 0.92; margin-bottom: 18px; color: var(--ink); }
+    .svc-desc { font-size: 15px; line-height: 1.75; color: rgba(26,26,26,0.5); font-weight: 300; max-width: 280px; }
+    .svc-tags { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 6px; }
     .svc-tag {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-      padding: 6px 14px; border: 1px solid var(--line); color: rgba(244,242,238,0.32);
+      font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 5px 11px; border: 1px solid var(--line); color: rgba(26,26,26,0.36); border-radius: 4px;
     }
-    .svc-price {
-      margin-top: 40px; font-family: 'Bebas Neue', sans-serif;
-      font-size: 32px; letter-spacing: 0.08em; color: var(--red);
-    }
-    .svc-line {
-      position: absolute; bottom: 0; left: 0;
-      width: 0; height: 2px; background: var(--red);
-      transition: width 0.45s ease;
-    }
+    .svc-price { margin-top: 32px; font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.06em; color: var(--red); }
+    .svc-line { position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--red); transition: width 0.4s ease; }
     .svc:hover .svc-line { width: 100%; }
 
     /* PACKAGES */
-    .packages { padding: 120px 48px; background: var(--white); color: var(--black); }
-    .packages .slabel { color: var(--red); }
-    .packages .slabel::before { background: var(--red); }
-    .pkg-top {
-      display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px;
-    }
-    .pkg-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(52px, 7vw, 108px); line-height: 0.88; letter-spacing: 0.02em;
-    }
-    .pkg-sub {
-      font-size: 16px; line-height: 1.75; color: rgba(8,8,8,0.48); font-weight: 300;
-      max-width: 360px; text-align: right;
-    }
-    .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid rgba(8,8,8,0.1); }
+    .packages { padding: 100px 48px; background: var(--cream); }
+    .pkg-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+    .pkg-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 6vw, 96px); line-height: 0.88; letter-spacing: 0.02em; color: var(--ink); }
+    .pkg-sub { font-size: 15px; line-height: 1.75; color: rgba(26,26,26,0.46); font-weight: 300; max-width: 320px; text-align: right; }
+    .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .pkg {
-      padding: 48px 40px; border-right: 1px solid rgba(8,8,8,0.1);
+      padding: 36px 32px; border-radius: 12px;
+      background: var(--white); border: 1px solid rgba(26,26,26,0.08);
       position: relative; display: flex; flex-direction: column;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     }
-    .pkg:last-child { border-right: none; }
-    .pkg.feat { background: var(--black); color: var(--white); }
+    .pkg.feat {
+      background: var(--ink); color: rgba(255,255,255,0.88);
+      border-color: var(--ink); box-shadow: 0 8px 36px rgba(0,0,0,0.16);
+    }
     .pkg.feat .pkg-tier-label { color: var(--red); }
-    .pkg.feat .pkg-desc { color: rgba(244,242,238,0.42); }
-    .pkg.feat .pkg-li { color: rgba(244,242,238,0.55); border-color: rgba(244,242,238,0.07); }
-    .pkg.feat .pkg-li::before { color: var(--red); }
-    .pkg.feat .pkg-note { background: rgba(244,242,238,0.04); border-color: rgba(244,242,238,0.08); color: rgba(244,242,238,0.32); }
-    .pkg.feat .pkg-dep { border-color: rgba(244,242,238,0.14); color: rgba(244,242,238,0.38); }
-    .pkg.feat .pkg-dep:hover { border-color: var(--white); color: var(--white); }
-    .pkg-tier-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--red); margin-bottom: 28px;
-    }
-    .pkg-amount {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 88px; line-height: 1; letter-spacing: -0.01em; margin-bottom: 4px;
-    }
-    .pkg-amount sup { font-size: 34px; vertical-align: top; padding-top: 18px; opacity: 0.38; }
-    .pkg-starting {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-      opacity: 0.4; margin-bottom: 20px;
-    }
-    .pkg-desc { font-size: 15px; line-height: 1.72; color: rgba(8,8,8,0.48); font-weight: 300; margin-bottom: 32px; flex: 1; }
-    .pkg-list { list-style: none; margin-bottom: 28px; }
-    .pkg-li {
-      font-size: 14px; padding: 11px 0;
-      border-bottom: 1px solid rgba(8,8,8,0.08);
-      display: flex; gap: 12px; color: rgba(8,8,8,0.6);
-    }
-    .pkg-li::before { content: ''; width: 16px; height: 1px; background: var(--red); flex-shrink: 0; margin-top: 10px; }
-    .pkg-note {
-      padding: 13px 16px; margin-bottom: 22px;
-      background: rgba(8,8,8,0.04); border: 1px solid rgba(8,8,8,0.08);
-      font-size: 12px; line-height: 1.65; color: rgba(8,8,8,0.38);
-    }
+    .pkg.feat .pkg-desc { color: rgba(255,255,255,0.44); }
+    .pkg.feat .pkg-li { color: rgba(255,255,255,0.54); border-color: rgba(255,255,255,0.08); }
+    .pkg.feat .pkg-li::before { background: var(--red); }
+    .pkg.feat .pkg-note { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); }
+    .pkg.feat .pkg-dep { border-color: rgba(255,255,255,0.16); color: rgba(255,255,255,0.4); }
+    .pkg.feat .pkg-dep:hover { border-color: rgba(255,255,255,0.5); color: rgba(255,255,255,0.82); }
+    .pkg-tier-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+    .pkg-amount { font-family: 'Bebas Neue', sans-serif; font-size: 76px; line-height: 1; letter-spacing: -0.01em; margin-bottom: 4px; }
+    .pkg-amount sup { font-size: 28px; vertical-align: top; padding-top: 14px; opacity: 0.32; }
+    .pkg-starting { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.36; margin-bottom: 16px; }
+    .pkg-desc { font-size: 14px; line-height: 1.72; color: rgba(26,26,26,0.48); font-weight: 300; margin-bottom: 24px; flex: 1; }
+    .pkg-list { list-style: none; margin-bottom: 22px; }
+    .pkg-li { font-size: 14px; padding: 10px 0; border-bottom: 1px solid rgba(26,26,26,0.07); display: flex; gap: 12px; color: rgba(26,26,26,0.58); align-items: flex-start; }
+    .pkg-li::before { content: ''; width: 14px; height: 1px; background: var(--red); flex-shrink: 0; margin-top: 10px; }
+    .pkg-note { padding: 11px 14px; margin-bottom: 18px; background: rgba(26,26,26,0.03); border: 1px solid rgba(26,26,26,0.07); font-size: 12px; line-height: 1.65; color: rgba(26,26,26,0.38); border-radius: 6px; }
     .pkg-full {
       display: flex; align-items: center; justify-content: center;
-      padding: 18px; background: var(--red); color: var(--white);
+      padding: 15px; background: var(--red); color: var(--white);
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      margin-bottom: 8px; transition: 0.2s;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      margin-bottom: 8px; transition: 0.2s; border-radius: var(--radius);
     }
-    .pkg-full:hover { background: var(--red-dark); }
+    .pkg-full:hover { background: var(--red-dark); transform: translateY(-1px); }
     .pkg-dep {
       display: flex; align-items: center; justify-content: center;
-      padding: 15px; border: 1px solid rgba(8,8,8,0.14);
+      padding: 12px; border: 1px solid rgba(26,26,26,0.13);
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
-      color: rgba(8,8,8,0.38); transition: 0.2s;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(26,26,26,0.38); transition: 0.2s; border-radius: var(--radius);
     }
-    .pkg-dep:hover { color: var(--black); border-color: var(--black); }
-    .modular {
-      margin-top: 2px; padding: 36px 40px; background: rgba(8,8,8,0.04);
-      border: 1px solid rgba(8,8,8,0.08);
-      display: flex; justify-content: space-between; align-items: center; gap: 32px;
-    }
-    .modular h3 {
-      font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 0.05em; margin-bottom: 6px;
-    }
-    .modular p { font-size: 15px; color: rgba(8,8,8,0.48); font-weight: 300; max-width: 540px; line-height: 1.65; }
-    .btn-dark {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 18px 36px; background: var(--black); color: var(--white);
-      white-space: nowrap; flex-shrink: 0; transition: 0.2s;
-    }
-    .btn-dark:hover { background: var(--red); }
+    .pkg-dep:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* MODULAR SELECTOR */
+    .modular-selector { margin-top: 20px; background: var(--white); border: 1px solid rgba(26,26,26,0.08); border-radius: 12px; padding: 40px 36px; }
+    .mod-header { margin-bottom: 32px; }
+    .mod-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(26px, 3vw, 44px); letter-spacing: 0.03em; margin: 8px 0 8px; color: var(--ink); }
+    .mod-sub { font-size: 14px; color: rgba(26,26,26,0.44); font-weight: 300; }
+    .mod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 14px; }
+    .mod-group-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--red); padding: 0 0 9px; margin-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .mod-card { padding: 13px 15px; border: 1px solid var(--line); cursor: pointer; transition: 0.18s ease; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; background: var(--white); border-radius: 6px; }
+    .mod-card:hover { border-color: rgba(26,26,26,0.25); background: var(--cream); }
+    .mod-card.selected { background: var(--red-soft); border-color: rgba(200,53,42,0.3); }
+    .mod-card.mod-complete { border-color: rgba(200,53,42,0.18); background: rgba(200,53,42,0.02); }
+    .mod-card.mod-complete.selected { background: var(--red-soft); border-color: rgba(200,53,42,0.36); }
+    .mod-card-name { font-size: 13px; font-weight: 500; color: rgba(26,26,26,0.75); }
+    .mod-card-price { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 0.04em; color: var(--red); }
+    .mod-panel { background: var(--cream); border: 1px solid var(--line); padding: 22px 26px; margin-top: 4px; border-radius: 8px; }
+    .mod-panel-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .mod-panel-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(26,26,26,0.28); margin-bottom: 5px; }
+    .mod-panel-service { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.03em; color: var(--ink); }
+    .mod-panel-desc { font-size: 13px; color: rgba(26,26,26,0.42); font-weight: 300; margin-top: 4px; max-width: 360px; line-height: 1.6; }
+    .mod-panel-right { display: flex; flex-direction: column; align-items: flex-end; gap: 9px; flex-shrink: 0; }
+    .mod-panel-price { font-family: 'Bebas Neue', sans-serif; font-size: 40px; letter-spacing: -0.01em; color: var(--red); line-height: 1; }
+    .mod-pay-btn { display: inline-flex; align-items: center; justify-content: center; padding: 13px 26px; background: var(--red); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; transition: 0.2s; white-space: nowrap; border-radius: var(--radius); }
+    .mod-pay-btn:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .mod-pay-btn.disabled { background: rgba(26,26,26,0.07); color: rgba(26,26,26,0.28); pointer-events: none; cursor: default; }
+    .mod-alt { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(26,26,26,0.32); border-bottom: 1px solid rgba(26,26,26,0.14); padding-bottom: 2px; transition: 0.2s; }
+    .mod-alt:hover { color: var(--ink); }
+
+    /* POLICY STRIP */
+    .policy-strip { margin-top: 20px; border: 1px solid rgba(26,26,26,0.08); border-radius: 12px; overflow: hidden; }
+    .policy-strip-inner { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    .policy-col { padding: 32px 28px; border-right: 1px solid var(--line); background: var(--white); }
+    .policy-col:last-child { border-right: none; }
+    .policy-col.refund-col { background: rgba(200,53,42,0.03); }
+    .policy-col-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+    .policy-col-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px, 2.2vw, 30px); letter-spacing: 0.03em; line-height: 1.05; color: var(--ink); margin-bottom: 12px; }
+    .policy-col-text { font-size: 13px; line-height: 1.75; color: rgba(26,26,26,0.48); font-weight: 300; }
+    .policy-col-link { display: inline-block; margin-top: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); border-bottom: 1px solid rgba(200,53,42,0.28); padding-bottom: 2px; transition: 0.2s; }
+    .policy-col-link:hover { border-color: var(--red); }
 
     /* PROCESS */
-    .process { padding: 120px 48px; border-bottom: 1px solid var(--line); }
-    .process-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--line); margin-top: 64px;
-    }
-    .step {
-      padding: 48px 32px 48px 0; border-right: 1px solid var(--line);
-    }
+    .process { padding: 100px 48px; border-bottom: 1px solid rgba(255,255,255,0.05); background: var(--ink); }
+    .process .slabel { color: rgba(255,255,255,0.32); }
+    .process .slabel::before { background: rgba(255,255,255,0.32); }
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,0.07); margin-top: 48px; }
+    .step { padding: 40px 24px 40px 0; border-right: 1px solid rgba(255,255,255,0.06); }
     .step:last-child { border-right: none; padding-right: 0; }
-    .step:not(:first-child) { padding-left: 32px; }
-    .step-n {
-      font-family: 'Bebas Neue', sans-serif; font-size: 80px; line-height: 1;
-      color: rgba(244,242,238,0.055); margin-bottom: 16px;
-    }
-    .step-lbl {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--red); margin-bottom: 12px;
-    }
-    .step-name {
-      font-family: 'Bebas Neue', sans-serif; font-size: 38px; letter-spacing: 0.04em; margin-bottom: 14px;
-    }
-    .step-desc { font-size: 14px; line-height: 1.75; color: rgba(244,242,238,0.38); font-weight: 300; }
+    .step:not(:first-child) { padding-left: 24px; }
+    .step-n { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 1; color: rgba(255,255,255,0.045); margin-bottom: 12px; }
+    .step-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+    .step-name { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.04em; margin-bottom: 10px; color: rgba(255,255,255,0.86); }
+    .step-desc { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.32); font-weight: 300; }
+
+    /* CONSULTATION CTA */
+    .consult { padding: 84px 48px; background: var(--cream); border-bottom: 1px solid var(--line); }
+    .consult-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .consult-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 74px); line-height: 0.92; letter-spacing: 0.02em; color: var(--ink); margin-top: 18px; margin-bottom: 18px; }
+    .consult-body { font-size: 16px; line-height: 1.78; color: rgba(26,26,26,0.48); font-weight: 300; margin-bottom: 24px; }
+    .consult-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .consult-right { padding: 36px 32px; background: var(--white); border: 1px solid rgba(26,26,26,0.08); border-radius: 12px; }
+    .consult-right-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+    .consult-right h3 { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 0.03em; margin-bottom: 12px; color: var(--ink); }
+    .consult-right p { font-size: 14px; line-height: 1.72; color: rgba(26,26,26,0.46); font-weight: 300; margin-bottom: 18px; }
+    .consult-detail { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: rgba(26,26,26,0.48); }
+    .consult-detail:last-of-type { border-bottom: none; }
+    .consult-detail-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); width: 60px; flex-shrink: 0; }
+    .consult-detail a { color: var(--ink); transition: 0.2s; }
+    .consult-detail a:hover { color: var(--red); }
+
+    /* AVAIL DOT */
+    .avail-line { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+    .avail-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; flex-shrink: 0; box-shadow: 0 0 0 3px rgba(34,197,94,0.16); animation: pulse 2.2s infinite; }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 3px rgba(34,197,94,0.16); } 50% { box-shadow: 0 0 0 6px rgba(34,197,94,0.06); } }
+    .avail-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(34,197,94,0.72); }
 
     /* CONTACT */
-    .contact { padding: 120px 48px; border-bottom: 1px solid var(--line); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .contact-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(52px, 7vw, 98px); line-height: 0.9; letter-spacing: 0.02em;
-      margin-top: 24px; margin-bottom: 28px;
-    }
-    .contact-body { font-size: 17px; line-height: 1.78; color: rgba(244,242,238,0.42); font-weight: 300; margin-bottom: 40px; }
-    .cline {
-      display: flex; align-items: center; gap: 16px;
-      padding: 17px 0; border-bottom: 1px solid var(--line);
-      font-size: 15px; color: rgba(244,242,238,0.45);
-    }
-    .cline-lbl {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--red); width: 76px; flex-shrink: 0;
-    }
-    .cline a { color: var(--white); transition: 0.2s; }
-    .cline a:hover { color: var(--red); }
-    .form-box {
-      background: rgba(244,242,238,0.03); border: 1px solid var(--line); padding: 48px 44px;
-    }
-    .form-ttl {
-      font-family: 'Bebas Neue', sans-serif; font-size: 44px; letter-spacing: 0.04em; margin-bottom: 36px;
-    }
-    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-    .ff { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
-    .ff label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
-      color: rgba(244,242,238,0.28);
-    }
-    .ff input, .ff select, .ff textarea {
-      background: rgba(244,242,238,0.04); border: 1px solid var(--line);
-      padding: 14px 18px; color: var(--white);
-      font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 300;
-      outline: none; width: 100%; transition: border-color 0.2s;
-    }
-    .ff select option { background: var(--black); }
-    .ff input:focus, .ff select:focus, .ff textarea:focus { border-color: rgba(244,242,238,0.3); }
-    .ff textarea { min-height: 120px; resize: vertical; }
-    .factions { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+    .contact { padding: 100px 48px; border-bottom: 1px solid var(--line); background: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
+    .contact-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 6vw, 86px); line-height: 0.9; letter-spacing: 0.02em; color: var(--ink); margin-top: 18px; margin-bottom: 22px; }
+    .contact-body { font-size: 16px; line-height: 1.78; color: rgba(26,26,26,0.44); font-weight: 300; margin-bottom: 0; }
+    .form-box { background: var(--cream); border: 1px solid rgba(26,26,26,0.08); padding: 40px 36px; border-radius: 12px; }
+    .form-ttl { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 0.04em; margin-bottom: 28px; color: var(--ink); }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .ff { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .ff label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(26,26,26,0.36); }
+    .ff input, .ff select, .ff textarea { background: var(--white); border: 1px solid rgba(26,26,26,0.11); padding: 12px 14px; color: var(--ink); border-radius: 6px; font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 300; outline: none; width: 100%; transition: border-color 0.2s; }
+    .ff input:focus, .ff select:focus, .ff textarea:focus { border-color: var(--red); }
+    .ff textarea { min-height: 105px; resize: vertical; }
+    .factions { display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
     .sbtn { all: unset; cursor: pointer; }
-    .smsg { margin-top: 14px; padding: 14px 18px; font-size: 13px; display: none; }
+    .smsg { margin-top: 12px; padding: 12px 14px; font-size: 13px; display: none; border-radius: 6px; }
     .smsg.show { display: block; }
-    .smsg.ok { background: rgba(0,160,80,0.1); border: 1px solid rgba(0,160,80,0.2); color: #4ade80; }
-    .smsg.err { background: rgba(214,58,42,0.1); border: 1px solid rgba(214,58,42,0.3); color: #f87171; }
+    .smsg.ok { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.18); color: #15803d; }
+    .smsg.err { background: rgba(200,53,42,0.08); border: 1px solid rgba(200,53,42,0.18); color: var(--red); }
 
     /* CRITIQUE */
-    .critique { padding: 80px 48px 120px; border-bottom: 1px solid var(--line); }
-    .crit-inner { background: rgba(244,242,238,0.02); border: 1px solid var(--line); padding: 80px; }
-    .crit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-    .crit-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(44px, 5vw, 74px); letter-spacing: 0.02em; line-height: 0.9;
-      margin-top: 24px; margin-bottom: 24px;
-    }
-    .crit-body { font-size: 16px; line-height: 1.75; color: rgba(244,242,238,0.38); font-weight: 300; }
-    .crit-detail { display: flex; gap: 14px; margin-top: 20px; font-size: 14px; color: rgba(244,242,238,0.38); }
-    .crit-lbl {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--red); width: 52px; flex-shrink: 0; padding-top: 1px;
-    }
-
-    /* PAYMENT */
-    .payment { padding: 120px 48px; border-bottom: 1px solid var(--line); background: rgba(244,242,238,0.02); }
-    .pay-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(44px, 6vw, 86px); letter-spacing: 0.02em; margin-top: 16px; max-width: 18ch;
-    }
-    .pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; align-items: start; }
-    .pay-body { font-size: 17px; line-height: 1.78; color: rgba(244,242,238,0.42); font-weight: 300; margin-bottom: 28px; }
-    .pay-policy {
-      padding: 22px 28px; border-left: 2px solid var(--red);
-      background: rgba(214,58,42,0.06);
-      font-size: 14px; line-height: 1.7; color: rgba(244,242,238,0.42);
-    }
-    .pay-policy strong { color: var(--white); font-weight: 500; }
-    .pay-box {
-      border: 1px solid var(--line); padding: 48px;
-      display: flex; flex-direction: column; align-items: center;
-      gap: 22px; text-align: center; min-height: 280px; justify-content: center;
-    }
-    .pay-box p { font-size: 13px; color: rgba(244,242,238,0.28); line-height: 1.65; }
-    .btn-stripe {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 16px 32px; border: 1px solid var(--line);
-      color: rgba(244,242,238,0.45); transition: 0.2s;
-    }
-    .btn-stripe:hover { border-color: var(--white); color: var(--white); }
+    .critique { padding: 64px 48px 100px; border-bottom: 1px solid var(--line); background: var(--cream); }
+    .crit-inner { background: var(--white); border: 1px solid rgba(26,26,26,0.08); padding: 56px; border-radius: 12px; }
+    .crit-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; }
+    .crit-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4vw, 60px); letter-spacing: 0.02em; line-height: 0.92; margin-top: 18px; margin-bottom: 18px; color: var(--ink); }
+    .crit-body { font-size: 15px; line-height: 1.75; color: rgba(26,26,26,0.44); font-weight: 300; }
+    .crit-detail { display: flex; gap: 12px; margin-top: 16px; font-size: 14px; color: rgba(26,26,26,0.4); }
+    .crit-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); width: 44px; flex-shrink: 0; padding-top: 1px; }
+    .crit-detail a { color: var(--ink); transition: 0.2s; }
+    .crit-detail a:hover { color: var(--red); }
 
     /* FOOTER */
-    footer { padding: 48px; border-top: 1px solid var(--line); }
-    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
-    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.12em; }
+    footer { padding: 36px 48px; background: var(--ink); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 28px; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.1em; color: rgba(255,255,255,0.65); }
     .footer-logo span { color: var(--red); }
-    .footer-copy { font-size: 13px; color: rgba(244,242,238,0.22); }
-    .footer-links {
-      display: flex; gap: 32px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(244,242,238,0.28);
-    }
-    .footer-links a:hover { color: var(--white); transition: color 0.2s; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+    .footer-links { display: flex; gap: 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.26); }
+    .footer-links a:hover { color: rgba(255,255,255,0.62); transition: color 0.2s; }
 
     /* REVEAL */
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.72s ease, transform 0.72s ease; }
     .reveal.d1 { transition-delay: 0.1s; } .reveal.d2 { transition-delay: 0.2s; }
     .reveal.d3 { transition-delay: 0.3s; } .reveal.d4 { transition-delay: 0.4s; }
     .reveal.on { opacity: 1; transform: none; }
 
-    /* AVAILABILITY */
-    .avail-line { display: flex; align-items: center; gap: 10px; margin-top: 20px; }
-    .avail-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; flex-shrink: 0; box-shadow: 0 0 0 3px rgba(74,222,128,0.2); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 3px rgba(74,222,128,0.2); } 50% { box-shadow: 0 0 0 6px rgba(74,222,128,0.08); } }
-    .avail-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(74,222,128,0.7); }
-
-    /* MODULAR SELECTOR */
-    .modular-selector { margin-top: 2px; background: var(--black); border: 1px solid var(--line); padding: 48px 40px; }
-    .mod-header { margin-bottom: 40px; }
-    .mod-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 4vw, 52px); letter-spacing: 0.03em; margin: 10px 0 10px; color: var(--white); }
-    .mod-sub { font-size: 15px; color: rgba(244,242,238,0.38); font-weight: 300; }
-    .mod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 2px; }
-    .mod-group-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--red); padding: 10px 0 12px; }
-    .mod-card { padding: 18px 20px; border: 1px solid var(--line); cursor: pointer; transition: 0.18s ease; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; background: rgba(244,242,238,0.02); }
-    .mod-card:hover { background: rgba(244,242,238,0.05); border-color: rgba(244,242,238,0.2); }
-    .mod-card.selected { background: rgba(214,58,42,0.1); border-color: var(--red); }
-    .mod-card.mod-complete { border-color: rgba(214,58,42,0.3); background: rgba(214,58,42,0.05); }
-    .mod-card.mod-complete.selected { background: rgba(214,58,42,0.18); }
-    .mod-card-name { font-size: 14px; font-weight: 500; color: rgba(244,242,238,0.8); }
-    .mod-card-price { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.05em; color: var(--red); }
-    .mod-panel { background: rgba(244,242,238,0.04); border: 1px solid var(--line); padding: 28px 32px; margin-top: 2px; }
-    .mod-panel-inner { display: flex; justify-content: space-between; align-items: center; gap: 32px; }
-    .mod-panel-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(244,242,238,0.25); margin-bottom: 8px; }
-    .mod-panel-service { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.04em; color: var(--white); }
-    .mod-panel-desc { font-size: 13px; color: rgba(244,242,238,0.38); font-weight: 300; margin-top: 6px; max-width: 380px; }
-    .mod-panel-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0; }
-    .mod-panel-price { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: -0.01em; color: var(--red); line-height: 1; }
-    .mod-pay-btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; background: var(--red); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; transition: 0.2s; white-space: nowrap; }
-    .mod-pay-btn:hover { background: var(--red-dark); }
-    .mod-pay-btn.disabled { background: rgba(244,242,238,0.08); color: rgba(244,242,238,0.35); pointer-events: none; }
-    .mod-alt { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(244,242,238,0.28); border-bottom: 1px solid rgba(244,242,238,0.12); padding-bottom: 2px; transition: 0.2s; }
-    .mod-alt:hover { color: rgba(244,242,238,0.6); }
-
-    /* REVISION POLICY STRIP */
-    .rev-policy { margin-top: 2px; background: rgba(214,58,42,0.07); border: 1px solid rgba(214,58,42,0.18); }
-    .rev-policy-inner { display: grid; grid-template-columns: 1fr 24px 1fr 24px 1fr; align-items: center; padding: 48px 40px; gap: 0; }
-    .rev-divider { width: 1px; height: 100%; background: rgba(214,58,42,0.2); align-self: stretch; margin: 0 32px; }
-    .rev-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--red); margin-bottom: 14px;
-    }
-    .rev-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(28px, 3vw, 44px); letter-spacing: 0.03em; line-height: 1;
-      color: var(--black);
-    }
-    .rev-text { font-size: 14px; line-height: 1.75; color: rgba(8,8,8,0.52); font-weight: 300; }
-    .rev-link {
-      display: inline-block; margin-top: 14px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--red); border-bottom: 1px solid rgba(214,58,42,0.35); padding-bottom: 2px;
-      transition: 0.2s;
-    }
-    .rev-link:hover { border-color: var(--red); }
-
     /* RESPONSIVE */
     @media (max-width: 1100px) {
-      nav { padding: 22px 24px; }
+      nav { padding: 16px 22px; }
       .nav-links { display: none; }
-      .hero { padding: 0 24px 52px; }
+      .hero { padding: 0 22px 48px; min-height: 80vh; }
       .hero-bg-word { display: none; }
-      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 28px; }
-      .statement { padding: 100px 24px; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 22px; }
+      .statement { padding: 80px 22px; }
       .stmt-aside { justify-content: flex-start; }
-      .services { padding: 80px 24px; }
+      .services { padding: 64px 22px; }
       .svc-grid { grid-template-columns: 1fr; }
-      .svc { border-right: none !important; border-bottom: 1px solid var(--line); padding: 48px 0 !important; }
+      .svc { border-right: none !important; border-bottom: 1px solid var(--line); padding: 40px 0 !important; }
       .svc:last-child { border-bottom: none; }
-      .packages { padding: 80px 24px; }
-      .pkg-top { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .packages { padding: 64px 22px; }
+      .pkg-top { flex-direction: column; align-items: flex-start; gap: 12px; }
       .pkg-sub { text-align: left; }
-      .pkg-grid { grid-template-columns: 1fr; }
-      .pkg { border-right: none !important; border-bottom: 1px solid rgba(8,8,8,0.1); }
-      .pkg:last-child { border-bottom: none; }
-      .rev-policy-inner { grid-template-columns: 1fr; padding: 32px 24px; gap: 24px; }
-      .rev-divider { width: 100%; height: 1px; margin: 0; }
-      .mod-grid { grid-template-columns: 1fr 1fr; }
+      .pkg-grid { grid-template-columns: 1fr; gap: 12px; }
+      .modular-selector { padding: 24px 18px; }
+      .mod-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
       .mod-panel-inner { flex-direction: column; align-items: flex-start; }
       .mod-panel-right { align-items: flex-start; width: 100%; }
       .mod-pay-btn { width: 100%; justify-content: center; }
-      .modular-selector { padding: 32px 24px; }
-
-      .process { padding: 80px 24px; }
+      .policy-strip-inner { grid-template-columns: 1fr; }
+      .policy-col { border-right: none; border-bottom: 1px solid var(--line); }
+      .policy-col:last-child { border-bottom: none; }
+      .process { padding: 64px 22px; }
       .process-grid { grid-template-columns: 1fr 1fr; }
-      .step { border-right: none !important; border-bottom: 1px solid var(--line); padding: 40px 0 !important; }
+      .step { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 32px 0 !important; }
       .step:last-child { border-bottom: none; }
-      .contact { padding: 80px 24px; }
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .critique { padding: 60px 24px 80px; }
-      .crit-inner { padding: 44px 24px; }
-      .crit-grid { grid-template-columns: 1fr; gap: 48px; }
-      .payment { padding: 80px 24px; }
-      .pay-grid { grid-template-columns: 1fr; gap: 40px; }
-      footer { padding: 36px 24px; }
-      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+      .consult { padding: 56px 22px; }
+      .consult-inner { grid-template-columns: 1fr; gap: 36px; }
+      .contact { padding: 64px 22px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+      .critique { padding: 48px 22px 64px; }
+      .crit-inner { padding: 32px 20px; }
+      .crit-grid { grid-template-columns: 1fr; gap: 36px; }
+      footer { padding: 24px 22px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
       .frow { grid-template-columns: 1fr; }
-      .form-box { padding: 32px 24px; }
+      .form-box { padding: 26px 18px; }
     }
     @media (max-width: 640px) {
-      .hero-headline { font-size: 68px; }
+      .hero-headline { font-size: 58px; }
       .process-grid { grid-template-columns: 1fr; }
-      .pkg-amount { font-size: 72px; }
+      .pkg-amount { font-size: 64px; }
+      .mod-grid { grid-template-columns: 1fr; }
+      .consult-actions { flex-direction: column; }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .btn-primary, .btn-secondary { justify-content: center; }
     }
   </style>
 </head>
 <body>
-
-<div class="cursor" id="cursor"></div>
 
 <!-- NAV -->
 <nav>
@@ -576,7 +445,7 @@
     <a href="/contract">Agreement</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="#contact" class="nav-cta">Start a Project</a>
+  <a href="#consult" class="nav-cta">Book a Consultation</a>
 </nav>
 
 <!-- HERO -->
@@ -590,8 +459,8 @@
     <div class="hero-bottom">
       <p class="hero-sub">We build <strong>logos, identity systems, landing pages, websites, and iOS MVPs</strong> for founders who refuse to look small. Not templates. Not committees. Human crafted, intentionally built.</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn-red">Start a Project</a>
-        <a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener" class="btn-outline-light">Book a Call</a>
+        <a href="#packages" class="btn-primary">See Packages</a>
+        <a href="#consult" class="btn-secondary">Schedule a Consultation</a>
       </div>
     </div>
   </div>
@@ -610,7 +479,7 @@
     <span class="m-item">VISUAL IDENTITY</span><span class="m-sep"></span>
     <span class="m-item red">TONE · STORY · PRESENCE</span><span class="m-sep"></span>
     <span class="m-item">VERCEL READY</span><span class="m-sep"></span>
-    <span class="m-item">PROMO ITEMS</span><span class="m-sep"></span>
+    <span class="m-item">PRINT + PROMO</span><span class="m-sep"></span>
     <span class="m-item">BRAND IDENTITY</span><span class="m-sep"></span>
     <span class="m-item red">HUMAN CRAFTED BRAND BETTER</span><span class="m-sep"></span>
     <span class="m-item">LOGO DIRECTION</span><span class="m-sep"></span>
@@ -621,7 +490,7 @@
     <span class="m-item">VISUAL IDENTITY</span><span class="m-sep"></span>
     <span class="m-item red">TONE · STORY · PRESENCE</span><span class="m-sep"></span>
     <span class="m-item">VERCEL READY</span><span class="m-sep"></span>
-    <span class="m-item">PROMO ITEMS</span><span class="m-sep"></span>
+    <span class="m-item">PRINT + PROMO</span><span class="m-sep"></span>
   </div>
 </div>
 
@@ -660,7 +529,7 @@
         <span class="svc-tag">Visual Tone</span>
         <span class="svc-tag">Promo Items</span>
       </div>
-      <div class="svc-price">FROM $750</div>
+      <div class="svc-price">FROM $350</div>
       <div class="svc-line"></div>
     </div>
     <div class="svc reveal d1">
@@ -674,7 +543,7 @@
         <span class="svc-tag">Vercel Ready</span>
         <span class="svc-tag">Mobile First</span>
       </div>
-      <div class="svc-price">FROM $1,250</div>
+      <div class="svc-price">FROM $650</div>
       <div class="svc-line"></div>
     </div>
     <div class="svc reveal d2">
@@ -712,9 +581,9 @@
         <li class="pkg-li">Concise brand story</li>
         <li class="pkg-li">Visual direction and tone</li>
       </ul>
-      <div class="pkg-note">2 rounds of revisions included. Additional rounds at $75/hr. Pay in full or start with a deposit. No final files released until balance is paid in full.</div>
-      <a class="pkg-full" href="https://buy.stripe.com/eVq14mepUeRr1m96rtfMA01" target="_blank" rel="noopener">Pay Full — $750</a>
-      <a class="pkg-dep" href="https://buy.stripe.com/aFa5kC1D838Jc0NaHJfMA02" target="_blank" rel="noopener">Pay Deposit Instead</a>
+      <div class="pkg-note">2 rounds of revisions included. Additional rounds at $75/hr. Pay in full or start with a deposit. No deliverables released until paid in full.</div>
+      <a class="pkg-full" href="https://buy.stripe.com/eVq14mepUeRr1m96rtfMA01" target="_blank" rel="noopener">Pay in Full — $750</a>
+      <a class="pkg-dep" href="https://buy.stripe.com/aFa5kC1D838Jc0NaHJfMA02" target="_blank" rel="noopener">Start with a Deposit</a>
     </div>
     <div class="pkg feat reveal d1">
       <div class="pkg-tier-label">Web Launch</div>
@@ -727,9 +596,9 @@
         <li class="pkg-li">Mobile-first structure</li>
         <li class="pkg-li">Vercel-ready delivery</li>
       </ul>
-      <div class="pkg-note">2 rounds of revisions included. Additional rounds at $75/hr. Upfront or deposit plus installments. No website handoff or source files released until balance is paid in full.</div>
-      <a class="pkg-full" href="https://buy.stripe.com/6oU00i1D8dNne8V6rtfMA03" target="_blank" rel="noopener">Pay Full — $1,250</a>
-      <a class="pkg-dep" href="https://buy.stripe.com/aFafZgbdI9x7fcZ3fhfMA04" target="_blank" rel="noopener">Pay Deposit Instead</a>
+      <div class="pkg-note">2 rounds of revisions included. Additional rounds at $75/hr. Upfront or deposit plus installments. No website or source files released until paid in full.</div>
+      <a class="pkg-full" href="https://buy.stripe.com/6oU00i1D8dNne8V6rtfMA03" target="_blank" rel="noopener">Pay in Full — $1,250</a>
+      <a class="pkg-dep" href="https://buy.stripe.com/aFafZgbdI9x7fcZ3fhfMA04" target="_blank" rel="noopener">Start with a Deposit</a>
     </div>
     <div class="pkg reveal d2">
       <div class="pkg-tier-label">App MVP</div>
@@ -742,41 +611,64 @@
         <li class="pkg-li">Product presentation direction</li>
         <li class="pkg-li">Early handoff structure</li>
       </ul>
-      <div class="pkg-note">2 rounds of revisions included. Additional rounds at $100/hr. Pay in full or reserve your slot with a deposit. No final app files or code handoff until payment is completed in full.</div>
-      <a class="pkg-full" href="https://buy.stripe.com/dRmaEW5TogZz7KxdTVfMA05" target="_blank" rel="noopener">Pay Full — $2,500</a>
-      <a class="pkg-dep" href="https://buy.stripe.com/9B6fZg1D89x71m93fhfMA06" target="_blank" rel="noopener">Pay Deposit Instead</a>
+      <div class="pkg-note">2 rounds of revisions included. Additional rounds at $100/hr. Pay in full or reserve your slot with a deposit. No app files or code released until paid in full.</div>
+      <a class="pkg-full" href="https://buy.stripe.com/dRmaEW5TogZz7KxdTVfMA05" target="_blank" rel="noopener">Pay in Full — $2,500</a>
+      <a class="pkg-dep" href="https://buy.stripe.com/9B6fZg1D89x71m93fhfMA06" target="_blank" rel="noopener">Start with a Deposit</a>
     </div>
   </div>
+
   <!-- MODULAR SELECTOR -->
   <div class="modular-selector reveal" id="modular">
     <div class="mod-header">
-      <div class="rev-label">Build Your Own</div>
+      <div class="slabel" style="margin-bottom:8px;">Build Your Own</div>
       <h3 class="mod-title">ONLY NEED PART OF THE WORK?</h3>
-      <p class="mod-sub">Select exactly what you need. Price updates instantly. Pay directly.</p>
+      <p class="mod-sub">Select exactly what you need. Price updates instantly. Pay directly — no back and forth.</p>
     </div>
     <div class="mod-grid">
       <div class="mod-group">
         <div class="mod-group-label">Identity</div>
-        <div class="mod-card" data-service="Logo Only" data-price="350" data-link="https://buy.stripe.com/7sY4gychMeRrfcZ4jlfMA07" data-desc="Logo concept, direction, and final files."><div class="mod-card-name">Logo Only</div><div class="mod-card-price">$350</div></div>
-        <div class="mod-card" data-service="Slogan + Brand Story" data-price="250" data-link="https://buy.stripe.com/14A8wOgy238JfcZ4jlfMA08" data-desc="Tagline and written brand narrative."><div class="mod-card-name">Slogan + Brand Story</div><div class="mod-card-price">$250</div></div>
-        <div class="mod-card" data-service="Logo + Slogan Bundle" data-price="550" data-link="https://buy.stripe.com/aFadR8epUgZzfcZcPRfMA09" data-desc="Logo and slogan bundled — slightly discounted."><div class="mod-card-name">Logo + Slogan Bundle</div><div class="mod-card-price">$550</div></div>
+        <div class="mod-card" data-service="Logo Only" data-price="350" data-link="https://buy.stripe.com/7sY4gychMeRrfcZ4jlfMA07" data-desc="Logo concept, direction, and final files. Clean and ownable.">
+          <div class="mod-card-name">Logo Only</div><div class="mod-card-price">$350</div>
+        </div>
+        <div class="mod-card" data-service="Slogan + Brand Story" data-price="250" data-link="https://buy.stripe.com/14A8wOgy238JfcZ4jlfMA08" data-desc="Tagline and written brand narrative. The words behind the business.">
+          <div class="mod-card-name">Slogan + Brand Story</div><div class="mod-card-price">$250</div>
+        </div>
+        <div class="mod-card" data-service="Logo + Slogan Bundle" data-price="550" data-link="https://buy.stripe.com/aFadR8epUgZzfcZcPRfMA09" data-desc="Logo and slogan together — bundled and slightly discounted.">
+          <div class="mod-card-name">Logo + Slogan Bundle</div><div class="mod-card-price">$550</div>
+        </div>
       </div>
       <div class="mod-group">
         <div class="mod-group-label">Web</div>
-        <div class="mod-card" data-service="Landing Page Only" data-price="650" data-link="https://buy.stripe.com/7sYcN4epU4cNfcZ5npfMA0a" data-desc="Single polished page. Mobile-first. Vercel-ready."><div class="mod-card-name">Landing Page Only</div><div class="mod-card-price">$650</div></div>
-        <div class="mod-card" data-service="Full Website" data-price="1250" data-link="https://buy.stripe.com/6oU00i1D8dNne8V6rtfMA03" data-desc="Compact multi-page website. Clean, structured, ready to grow."><div class="mod-card-name">Full Website</div><div class="mod-card-price">$1,250</div></div>
+        <div class="mod-card" data-service="Landing Page Only" data-price="650" data-link="https://buy.stripe.com/7sYcN4epU4cNfcZ5npfMA0a" data-desc="Single polished page. Mobile-first. Vercel-ready to deploy.">
+          <div class="mod-card-name">Landing Page Only</div><div class="mod-card-price">$650</div>
+        </div>
+        <div class="mod-card" data-service="Full Website" data-price="1250" data-link="https://buy.stripe.com/6oU00i1D8dNne8V6rtfMA03" data-desc="Compact multi-page website. Clean, structured, and ready to grow.">
+          <div class="mod-card-name">Full Website</div><div class="mod-card-price">$1,250</div>
+        </div>
       </div>
       <div class="mod-group">
         <div class="mod-group-label">Print</div>
-        <div class="mod-card" data-service="Business Cards" data-price="175" data-link="https://buy.stripe.com/6oU5kC6XsbFf3uh8zBfMA0b" data-desc="Design + print production + delivery included."><div class="mod-card-name">Business Cards</div><div class="mod-card-price">$175</div></div>
-        <div class="mod-card" data-service="Flyers" data-price="225" data-link="https://buy.stripe.com/3cI8wOepU9x72qdaHJfMA0c" data-desc="Design + print production + delivery included."><div class="mod-card-name">Flyers</div><div class="mod-card-price">$225</div></div>
-        <div class="mod-card" data-service="Yard Signs" data-price="275" data-link="https://buy.stripe.com/bJe8wO6XsaBb9SFg23fMA0d" data-desc="Design + print production + delivery included."><div class="mod-card-name">Yard Signs</div><div class="mod-card-price">$275</div></div>
+        <div class="mod-card" data-service="Business Cards" data-price="175" data-link="https://buy.stripe.com/6oU5kC6XsbFf3uh8zBfMA0b" data-desc="Design, print production, and delivery — all included.">
+          <div class="mod-card-name">Business Cards</div><div class="mod-card-price">$175</div>
+        </div>
+        <div class="mod-card" data-service="Flyers" data-price="225" data-link="https://buy.stripe.com/3cI8wOepU9x72qdaHJfMA0c" data-desc="Design, print production, and delivery — all included.">
+          <div class="mod-card-name">Flyers</div><div class="mod-card-price">$225</div>
+        </div>
+        <div class="mod-card" data-service="Yard Signs" data-price="275" data-link="https://buy.stripe.com/bJe8wO6XsaBb9SFg23fMA0d" data-desc="Design, print production, and delivery — all included.">
+          <div class="mod-card-name">Yard Signs</div><div class="mod-card-price">$275</div>
+        </div>
       </div>
       <div class="mod-group">
         <div class="mod-group-label">Product + Bundles</div>
-        <div class="mod-card" data-service="Product Design" data-price="450" data-link="https://buy.stripe.com/bJeeVcdlQcJjgh38zBfMA0g" data-desc="Send your product photos. We style and enhance them for web use."><div class="mod-card-name">Product Design</div><div class="mod-card-price">$450</div></div>
-        <div class="mod-card" data-service="Promo Bundle" data-price="1350" data-link="https://buy.stripe.com/3cI3cu4PkcJjaWJ8zBfMA0e" data-desc="Business cards + Yard Signs + Landing Page + Logo + Slogan."><div class="mod-card-name">Promo Bundle</div><div class="mod-card-price">$1,350</div></div>
-        <div class="mod-card mod-complete" data-service="WD Complete" data-price="5000" data-link="https://buy.stripe.com/eVq8wO6XsbFf5Cp9DFfMA0f" data-desc="Every service. Identity, web, app, print, and product design. Full studio engagement."><div class="mod-card-name">WD Complete</div><div class="mod-card-price">$5,000</div></div>
+        <div class="mod-card" data-service="Product Design" data-price="450" data-link="https://buy.stripe.com/bJeeVcdlQcJjgh38zBfMA0g" data-desc="Send us your product photos. We style, enhance, and prep them for web use.">
+          <div class="mod-card-name">Product Design</div><div class="mod-card-price">$450</div>
+        </div>
+        <div class="mod-card" data-service="Promo Bundle" data-price="1350" data-link="https://buy.stripe.com/3cI3cu4PkcJjaWJ8zBfMA0e" data-desc="Business cards + Yard Signs + Landing Page + Logo + Slogan. Everything to get visible.">
+          <div class="mod-card-name">Promo Bundle</div><div class="mod-card-price">$1,350</div>
+        </div>
+        <div class="mod-card mod-complete" data-service="WD Complete" data-price="5000" data-link="https://buy.stripe.com/eVq8wO6XsbFf5Cp9DFfMA0f" data-desc="Every service. Identity, web, app, print, and product design. Full studio engagement.">
+          <div class="mod-card-name">WD Complete</div><div class="mod-card-price">$5,000</div>
+        </div>
       </div>
     </div>
     <div class="mod-panel" id="modPanel">
@@ -788,26 +680,32 @@
         </div>
         <div class="mod-panel-right">
           <div class="mod-panel-price" id="modPrice"></div>
-          <a class="mod-pay-btn disabled" id="modPayBtn" href="#contact">Ask First — Contact Form</a>
-          <a class="mod-alt" href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Or book a call</a>
+          <a class="mod-pay-btn disabled" id="modPayBtn" href="#contact">Ask First — Contact Us</a>
+          <a class="mod-alt" href="#consult">Or schedule a consultation</a>
         </div>
       </div>
     </div>
   </div>
-  <div class="rev-policy reveal">
-    <div class="rev-policy-inner">
-      <div class="rev-col">
-        <div class="rev-label">Revision Policy</div>
-        <div class="rev-headline">2 ROUNDS INCLUDED.<br>EVERY PACKAGE.</div>
+
+  <!-- POLICY STRIP -->
+  <div class="policy-strip reveal">
+    <div class="policy-strip-inner">
+      <div class="policy-col">
+        <div class="policy-col-label">Revision Policy</div>
+        <div class="policy-col-title">2 ROUNDS INCLUDED. EVERY PROJECT.</div>
+        <p class="policy-col-text">Every project includes two full rounds of revisions at no additional charge. A revision round is one consolidated set of feedback — not ongoing changes across multiple messages. Additional rounds are billed at $75–$100/hr depending on scope.</p>
+        <a href="/contract" class="policy-col-link">Read the Service Agreement</a>
       </div>
-      <div class="rev-divider"></div>
-      <div class="rev-col">
-        <p class="rev-text">Every project includes two full rounds of revisions. A revision round means one consolidated set of feedback — not individual changes over multiple messages. Additional rounds are billed at $75–$100/hr depending on scope.</p>
+      <div class="policy-col refund-col">
+        <div class="policy-col-label">Refund Policy</div>
+        <div class="policy-col-title">ALL PAYMENTS ARE NON-REFUNDABLE.</div>
+        <p class="policy-col-text">All services are custom creative work initiated specifically for your project. Because work begins upon payment, all fees are non-refundable. If you are dissatisfied, we will work within the agreed scope to make it right. No final files, source files, website handoff, app handoff, or deliverables of any kind are released until all outstanding balances are fully satisfied.</p>
       </div>
-      <div class="rev-divider"></div>
-      <div class="rev-col">
-        <p class="rev-text">Before any project starts, both parties agree to a simple one-page service agreement covering scope, revisions, payment, and delivery terms.</p>
-        <a href="/contract" class="rev-link">Read the Service Agreement</a>
+      <div class="policy-col">
+        <div class="policy-col-label">Payment Terms</div>
+        <div class="policy-col-title">PAY IN FULL OR START WITH A DEPOSIT.</div>
+        <p class="policy-col-text">Full payment or an approved deposit is required before any work begins. Deposits reserve your project slot. Remaining balances are due before final delivery. Stripe handles all transactions — card and Apple Pay accepted where available.</p>
+        <a href="#contact" class="policy-col-link">Start a Project</a>
       </div>
     </div>
   </div>
@@ -815,7 +713,7 @@
 
 <!-- PROCESS -->
 <section class="process" id="process">
-  <div class="slabel reveal">How It Works</div>
+  <div class="slabel light reveal">How It Works</div>
   <div class="process-grid">
     <div class="step reveal">
       <div class="step-n">01</div>
@@ -833,13 +731,49 @@
       <div class="step-n">03</div>
       <div class="step-lbl">Ship</div>
       <div class="step-name">DEPLOY</div>
-      <p class="step-desc">The work ships clean on Vercel, ready for Stripe, Calendly, and future integrations without a rebuild.</p>
+      <p class="step-desc">The work ships clean and ready — Vercel, Stripe, and future integrations without a rebuild.</p>
     </div>
     <div class="step reveal d3">
       <div class="step-n">04</div>
       <div class="step-lbl">Grow</div>
       <div class="step-name">SCALE</div>
-      <p class="step-desc">Forms, inboxes, invoices, and docs connect into Google Workspace when you're ready. No rebuild tax.</p>
+      <p class="step-desc">Forms, inboxes, invoices, and docs connect into Google Workspace when you're ready.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTATION CTA -->
+<section class="consult" id="consult">
+  <div class="consult-inner">
+    <div>
+      <div class="slabel reveal">Start Here</div>
+      <h2 class="consult-headline reveal d1">READY TO BUILD SOMETHING SERIOUS?</h2>
+      <p class="consult-body reveal d2">Not every project is a fit — and that is fine. Schedule a 30-minute studio call and we will figure out exactly what your brand needs, what it will cost, and how quickly we can move.</p>
+      <div class="avail-line reveal d2">
+        <span class="avail-dot"></span>
+        <span class="avail-text">Currently accepting new projects</span>
+      </div>
+      <div class="consult-actions reveal d3">
+        <a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener" class="btn-book">Schedule a Studio Call</a>
+        <a href="#contact" class="btn-outline">Send an Inquiry Instead</a>
+      </div>
+    </div>
+    <div class="consult-right reveal d1">
+      <div class="consult-right-label">What to Expect</div>
+      <h3>30-Minute Studio Call</h3>
+      <p>A focused conversation about your brand, your goals, and where we can make the biggest impact. No pressure. No pitch. Just clarity on what the work actually looks like.</p>
+      <div class="consult-detail">
+        <span class="consult-detail-lbl">Email</span>
+        <a href="mailto:hello@wedesignsstudio.com">hello@wedesignsstudio.com</a>
+      </div>
+      <div class="consult-detail">
+        <span class="consult-detail-lbl">Duration</span>
+        <span>30 minutes — free, no obligation</span>
+      </div>
+      <div class="consult-detail">
+        <span class="consult-detail-lbl">Payment</span>
+        <span>Stripe — card and Apple Pay accepted</span>
+      </div>
     </div>
   </div>
 </section>
@@ -850,11 +784,7 @@
     <div>
       <div class="slabel reveal">Apply to Work With Us</div>
       <h2 class="contact-headline reveal d1">WE TAKE ON A LIMITED NUMBER OF PROJECTS EACH MONTH.</h2>
-      <p class="contact-body reveal d2">Not every project is a fit. If you're ready to execute at a high level, fill out the form and we'll be in touch within one business day.</p>
-      <div class="avail-line reveal d2"><span class="avail-dot"></span><span class="avail-text">Currently accepting new projects</span></div>
-      <div class="cline reveal d2"><span class="cline-lbl">Email</span><a href="mailto:hello@wedesignsstudio.com">hello@wedesignsstudio.com</a></div>
-      <div class="cline reveal d2"><span class="cline-lbl">Book</span><a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">30-min call on Calendly</a></div>
-      <div class="cline reveal d2"><span class="cline-lbl">Pay</span><span>Stripe — card and Apple Pay accepted</span></div>
+      <p class="contact-body reveal d2">Not every project is a fit. If you are ready to execute at a high level, fill out the form and we will be in touch within one business day.</p>
     </div>
     <div class="form-box reveal d1">
       <div class="form-ttl">SEND INQUIRY</div>
@@ -872,10 +802,12 @@
               <option>Web Launch</option>
               <option>App MVP</option>
               <option>Logo Only</option>
-              <option>Slogan + Brand Story Only</option>
+              <option>Slogan + Brand Story</option>
               <option>Landing Page Only</option>
-              <option>Website Only</option>
-              <option>Custom Modular Quote</option>
+              <option>Full Website</option>
+              <option>Promo Bundle</option>
+              <option>WD Complete</option>
+              <option>Custom / Not Sure Yet</option>
             </select>
           </div>
         </div>
@@ -904,9 +836,8 @@
         </div>
         <div class="ff"><label>What Are You Trying to Fix or Build?</label><textarea name="summary" required placeholder="Be specific. The more context you give, the faster we can move."></textarea></div>
         <div class="factions">
-          <button class="btn-red sbtn" type="submit">Apply for a Project Slot</button>
-          <a class="btn-outline-light" href="mailto:hello@wedesignsstudio.com">Email Instead</a>
-          <a class="btn-outline-light" href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Calendly</a>
+          <button class="btn-primary sbtn" type="submit">Apply for a Project Slot</button>
+          <a class="btn-outline" href="mailto:hello@wedesignsstudio.com">Email Instead</a>
         </div>
         <div id="inquiryStatus" class="smsg"></div>
       </form>
@@ -914,14 +845,14 @@
   </div>
 </section>
 
-<!-- CRITIQUE -->
+<!-- CLIENT FEEDBACK -->
 <section class="critique" id="critique">
   <div class="crit-inner">
     <div class="crit-grid">
       <div>
         <div class="slabel reveal">Client Feedback</div>
         <h2 class="crit-headline reveal d1">PRAISE.<br>NOTES.<br>CRITIQUE.</h2>
-        <p class="crit-body reveal d2">Good feedback becomes testimonials. Hard feedback becomes intel. Routes directly to the studio inbox — built for a later Sheets CRM or testimonial bank.</p>
+        <p class="crit-body reveal d2">Good feedback becomes testimonials. Hard feedback becomes intel. Routes directly to the studio inbox — structured for a later CRM or testimonial bank.</p>
         <div class="crit-detail reveal d2"><span class="crit-lbl">Note</span><span>Great for testimonials, revision notes, and final client reactions.</span></div>
         <div class="crit-detail reveal d2"><span class="crit-lbl">Inbox</span><span>Routes to <a href="mailto:hello@wedesignsstudio.com">hello@wedesignsstudio.com</a></span></div>
       </div>
@@ -952,29 +883,12 @@
           </div>
           <div class="ff"><label>Feedback</label><textarea name="feedback" required placeholder="Tell us what worked, what could be sharper, or what stood out."></textarea></div>
           <div class="factions">
-            <button class="btn-red sbtn" type="submit">Send Critique</button>
-            <a class="btn-outline-light" href="mailto:hello@wedesignsstudio.com">Email Instead</a>
+            <button class="btn-primary sbtn" type="submit">Send Feedback</button>
+            <a class="btn-outline" href="mailto:hello@wedesignsstudio.com">Email Instead</a>
           </div>
           <div id="critiqueStatus" class="smsg"></div>
         </form>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- PAYMENT -->
-<section class="payment" id="payment">
-  <div class="slabel reveal">Secure Payment</div>
-  <h2 class="pay-headline reveal d1">PAY BY CARD OR APPLE PAY.</h2>
-  <div class="pay-grid">
-    <div class="reveal">
-      <p class="pay-body">Stripe handles checkout. Pay in full or use agreed installments. No final deliverables, source files, websites, or app handoff will be released until payment is completed in full.</p>
-      <div class="pay-policy"><strong>Payment Policy:</strong> No deliverables, transfers, source files, or handoffs are released until the balance is paid in full. No exceptions.</div>
-    </div>
-    <div class="pay-box reveal d1">
-      <stripe-buy-button buy-button-id="buy_btn_1THCXLADGjKiCwz3JTZThDcf" publishable-key="pk_live_rczP5XxZqrfQPMh7zVW51RNp"></stripe-buy-button>
-      <p>If the button doesn't load, use the direct link below.</p>
-      <a class="btn-stripe" href="https://buy.stripe.com/eVq14mepUeRr1m96rtfMA01" target="_blank" rel="noopener">Open Stripe Checkout</a>
     </div>
   </div>
 </section>
@@ -987,28 +901,18 @@
     <div class="footer-links">
       <a href="#services">Services</a>
       <a href="#packages">Packages</a>
+      <a href="#consult">Consultation</a>
+      <a href="/contract">Agreement</a>
       <a href="#contact">Contact</a>
-      <a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener">Calendly</a>
     </div>
   </div>
 </footer>
 
 <script>
-  // CURSOR
-  const cur = document.getElementById('cursor');
-  let mx = 0, my = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function moveCursor() { cur.style.left = mx + 'px'; cur.style.top = my + 'px'; requestAnimationFrame(moveCursor); }
-  moveCursor();
-  document.querySelectorAll('a, button, .svc, .pkg').forEach(el => {
-    el.addEventListener('mouseenter', () => cur.classList.add('hovering'));
-    el.addEventListener('mouseleave', () => cur.classList.remove('hovering'));
-  });
-
   // SCROLL REVEAL
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.07, rootMargin: '0px 0px -32px 0px' });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
   // FORMS
@@ -1028,12 +932,12 @@
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
       if (cfg.mode === 'mock') {
-        showMsg(msg, 'ok', 'Received. Add your Apps Script endpoint and set mode to live when ready.');
+        showMsg(msg, 'ok', 'Received. Connect your Apps Script endpoint and set mode to live when ready.');
         form.reset(); return;
       }
       try {
         const res = await fetch(cfg.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type, ...data }) });
-        res.ok ? (showMsg(msg, 'ok', 'Sent.'), form.reset()) : showMsg(msg, 'err', 'Error. Email hello@wedesignsstudio.com');
+        res.ok ? (showMsg(msg, 'ok', 'Sent. We will be in touch within one business day.'), form.reset()) : showMsg(msg, 'err', 'Something went wrong. Email hello@wedesignsstudio.com');
       } catch { showMsg(msg, 'err', 'Connection error. Email hello@wedesignsstudio.com'); }
     });
   }
@@ -1046,22 +950,17 @@
   const modDesc = document.getElementById('modDesc');
   const modPrice = document.getElementById('modPrice');
   const modPayBtn = document.getElementById('modPayBtn');
-
   cards.forEach(card => {
     card.addEventListener('click', () => {
       cards.forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
-      const service = card.dataset.service;
       const price = parseInt(card.dataset.price);
-      const link = card.dataset.link;
-      const desc = card.dataset.desc;
-      modService.textContent = service;
-      modDesc.textContent = desc;
+      modService.textContent = card.dataset.service;
+      modDesc.textContent = card.dataset.desc;
       modPrice.textContent = '$' + price.toLocaleString();
       modPayBtn.textContent = 'Pay Now — $' + price.toLocaleString();
-      modPayBtn.href = link;
+      modPayBtn.href = card.dataset.link;
       modPayBtn.classList.remove('disabled');
-      modPayBtn.classList.add('active');
       modPayBtn.setAttribute('target', '_blank');
       modPayBtn.setAttribute('rel', 'noopener');
     });
