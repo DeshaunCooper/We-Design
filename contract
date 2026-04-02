@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Agreement — We Design</title>
+  <meta name="description" content="We Design service agreement covering scope, revisions, payment terms, and delivery conditions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --ink: #1a1a1a;
+      --white: #ffffff;
+      --cream: #f8f6f2;
+      --red: #c8352a;
+      --red-dark: #a82820;
+      --gray: #6b6864;
+      --line: rgba(20,18,16,0.1);
+      --line-light: rgba(20,18,16,0.07);
+      --radius: 8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.1em; color: var(--ink); }
+    .nav-logo span { color: var(--red); }
+    .nav-back {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(26,26,26,0.42); transition: 0.2s;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-back::before { content: ''; display: inline-block; width: 18px; height: 1px; background: currentColor; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* HEADER */
+    .doc-header {
+      padding: 72px 48px 56px;
+      border-bottom: 1px solid var(--line);
+      background: var(--cream);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end;
+    }
+    .doc-overline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--red); display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+    }
+    .doc-overline::before { content: ''; width: 24px; height: 1px; background: var(--red); }
+    .doc-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 8vw, 112px); line-height: 0.88; letter-spacing: 0.02em; color: var(--ink);
+    }
+    .doc-title span { color: var(--red); }
+    .doc-meta { align-self: end; }
+    .doc-meta-row {
+      display: flex; justify-content: space-between;
+      padding: 13px 0; border-bottom: 1px solid var(--line-light);
+      font-size: 14px; color: rgba(26,26,26,0.45);
+    }
+    .doc-meta-row:first-child { border-top: 1px solid var(--line-light); }
+    .doc-meta-lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(26,26,26,0.32);
+    }
+    .doc-meta-val { color: rgba(26,26,26,0.62); font-weight: 400; }
+
+    /* DOCUMENT BODY */
+    .doc-body { max-width: 860px; margin: 0 auto; padding: 72px 48px 108px; }
+
+    .doc-section { margin-bottom: 56px; padding-bottom: 56px; border-bottom: 1px solid var(--line-light); }
+    .doc-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .sec-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 10px;
+    }
+    .sec-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 3.8vw, 48px); letter-spacing: 0.03em; line-height: 1;
+      margin-bottom: 24px; color: var(--ink);
+    }
+    .sec-body {
+      font-size: 16px; line-height: 1.82; color: rgba(26,26,26,0.62);
+      font-weight: 400;
+    }
+    .sec-body strong { color: var(--ink); font-weight: 600; }
+    .sec-body p + p { margin-top: 16px; }
+
+    /* CLAUSE BOXES */
+    .clause {
+      margin-top: 16px; padding: 20px 24px;
+      background: var(--cream); border: 1px solid var(--line-light);
+      display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start;
+      border-radius: var(--radius);
+    }
+    .clause-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--red); line-height: 1.2;
+    }
+    .clause-text { font-size: 15px; line-height: 1.78; color: rgba(26,26,26,0.62); font-weight: 400; }
+    .clause-text strong { color: var(--ink); font-weight: 600; }
+
+    /* HIGHLIGHT BOX */
+    .highlight {
+      margin-top: 22px; padding: 20px 24px;
+      border-left: 2px solid var(--red);
+      background: rgba(200,53,42,0.05);
+      font-size: 15px; line-height: 1.75; color: rgba(26,26,26,0.62); font-weight: 400;
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .highlight strong { color: var(--ink); font-weight: 600; }
+
+    /* REVISION TABLE */
+    .rev-table { margin-top: 20px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .rev-row {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--line-light);
+    }
+    .rev-row:last-child { border-bottom: none; }
+    .rev-row.header { background: rgba(200,53,42,0.06); }
+    .rev-cell {
+      padding: 14px 18px; font-size: 14px; color: rgba(26,26,26,0.62);
+      border-right: 1px solid var(--line-light);
+    }
+    .rev-cell:last-child { border-right: none; }
+    .rev-row.header .rev-cell {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--red);
+    }
+
+    /* SIGNATURE BLOCK */
+    .sig-block {
+      margin-top: 48px; padding: 40px;
+      border: 1px solid var(--line);
+      background: var(--cream); border-radius: 12px;
+    }
+    .sig-title {
+      font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.04em; margin-bottom: 8px; color: var(--ink);
+    }
+    .sig-sub { font-size: 14px; color: rgba(26,26,26,0.5); font-weight: 400; line-height: 1.65; margin-bottom: 32px; }
+    .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .sig-party-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 16px;
+    }
+    .sig-line { border-top: 1px solid rgba(26,26,26,0.2); padding-top: 10px; margin-bottom: 20px; }
+    .sig-line-label { font-size: 12px; color: rgba(26,26,26,0.35); letter-spacing: 0.08em; }
+    .sig-note {
+      margin-top: 24px; padding: 16px 20px;
+      background: rgba(26,26,26,0.03); border: 1px solid var(--line-light);
+      font-size: 13px; line-height: 1.65; color: rgba(26,26,26,0.42); border-radius: 6px;
+    }
+
+    /* FOOTER */
+    footer { padding: 32px 48px; background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.24); }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em; color: rgba(255,255,255,0.65); }
+    .footer-logo span { color: var(--red); }
+
+    /* PRINT */
+    @media print {
+      nav, footer { display: none; }
+      .doc-header { background: #f8f6f2; }
+      .clause, .highlight, .sig-block { background: #f8f6f2 !important; }
+      .rev-row.header { background: #f0eeea !important; }
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 22px; }
+      .doc-header { grid-template-columns: 1fr; padding: 44px 22px 36px; gap: 28px; }
+      .doc-body { padding: 44px 22px 72px; }
+      .sig-grid { grid-template-columns: 1fr; }
+      .rev-row { grid-template-columns: 1fr 1fr; }
+      .rev-row .rev-cell:last-child { display: none; }
+      .sig-block { padding: 28px 20px; }
+      footer { padding: 24px 22px; }
+      .footer-inner { flex-direction: column; gap: 14px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">WE <span>DESIGN</span></div>
+  <a href="/" class="nav-back">Back to Site</a>
+</nav>
+
+<header class="doc-header">
+  <div>
+    <div class="doc-overline">Legal Document</div>
+    <h1 class="doc-title">SERVICE<br><span>AGREE</span><br>MENT.</h1>
+  </div>
+  <div class="doc-meta">
+    <div class="doc-meta-row">
+      <span class="doc-meta-lbl">Studio</span>
+      <span class="doc-meta-val">We Design</span>
+    </div>
+    <div class="doc-meta-row">
+      <span class="doc-meta-lbl">Version</span>
+      <span class="doc-meta-val">1.0 — 2026</span>
+    </div>
+    <div class="doc-meta-row">
+      <span class="doc-meta-lbl">Applies To</span>
+      <span class="doc-meta-val">All packages and modular services</span>
+    </div>
+    <div class="doc-meta-row">
+      <span class="doc-meta-lbl">Contact</span>
+      <span class="doc-meta-val">hello@wedesignsstudio.com</span>
+    </div>
+    <div class="doc-meta-row">
+      <span class="doc-meta-lbl">Print</span>
+      <span class="doc-meta-val"><a href="#" onclick="window.print();return false;" style="color:var(--red);border-bottom:1px solid rgba(200,53,42,0.3);padding-bottom:1px;">Print or Save as PDF</a></span>
+    </div>
+  </div>
+</header>
+
+<div class="doc-body">
+
+  <!-- INTRO -->
+  <div class="doc-section">
+    <div class="sec-num">Introduction</div>
+    <h2 class="sec-title">WHAT THIS COVERS</h2>
+    <div class="sec-body">
+      <p>This Service Agreement ("Agreement") is entered into between <strong>We Design</strong> ("Studio") and the individual or business engaging services ("Client"). It applies to all creative services including brand identity, web design, landing pages, and iOS MVP development.</p>
+      <p>By making a payment, sending a deposit, or providing written confirmation of a project, the Client agrees to the terms outlined in this document. No separate signature is required to make this agreement binding, though a signed copy may be requested at the Studio's discretion.</p>
+    </div>
+    <div class="highlight">
+      <strong>Plain language version:</strong> You hire us to build your brand, site, or app. We deliver quality work on an agreed scope. You pay as agreed. We all move forward cleanly.
+    </div>
+  </div>
+
+  <!-- SCOPE -->
+  <div class="doc-section">
+    <div class="sec-num">Section 01</div>
+    <h2 class="sec-title">SCOPE OF WORK</h2>
+    <div class="sec-body">
+      <p>The scope of each project is defined at the start of the engagement via email, intake form, or written confirmation. The Studio will not begin work until scope is mutually agreed upon.</p>
+    </div>
+    <div class="clause">
+      <div class="clause-num">1.1</div>
+      <div class="clause-text"><strong>Scope creep.</strong> Work requested outside the original agreed scope is not included in the original price. Additional work will be quoted separately and requires written approval before the Studio begins.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">1.2</div>
+      <div class="clause-text"><strong>Modular services.</strong> If the Client has requested a single service rather than a full package (e.g., logo only, landing page only), the scope is limited to that deliverable and does not include adjacent work unless explicitly stated.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">1.3</div>
+      <div class="clause-text"><strong>Changes to scope.</strong> If the Client changes the direction, goals, or concept of the project after work has begun, this constitutes a scope change and may result in additional fees or an adjusted timeline.</div>
+    </div>
+  </div>
+
+  <!-- REVISIONS -->
+  <div class="doc-section">
+    <div class="sec-num">Section 02</div>
+    <h2 class="sec-title">REVISIONS</h2>
+    <div class="sec-body">
+      <p>Every project includes <strong>two (2) rounds of revisions</strong> at no additional charge. A revision round is defined as one consolidated set of feedback submitted at one time — not incremental or ongoing changes delivered across multiple messages.</p>
+    </div>
+
+    <div class="rev-table">
+      <div class="rev-row header">
+        <div class="rev-cell">Package</div>
+        <div class="rev-cell">Included Rounds</div>
+        <div class="rev-cell">Additional Rate</div>
+      </div>
+      <div class="rev-row">
+        <div class="rev-cell">Brand Foundation</div>
+        <div class="rev-cell">2 rounds</div>
+        <div class="rev-cell">$75 / hr</div>
+      </div>
+      <div class="rev-row">
+        <div class="rev-cell">Web Launch</div>
+        <div class="rev-cell">2 rounds</div>
+        <div class="rev-cell">$75 / hr</div>
+      </div>
+      <div class="rev-row">
+        <div class="rev-cell">App MVP</div>
+        <div class="rev-cell">2 rounds</div>
+        <div class="rev-cell">$100 / hr</div>
+      </div>
+      <div class="rev-row">
+        <div class="rev-cell">Modular / Custom</div>
+        <div class="rev-cell">2 rounds</div>
+        <div class="rev-cell">$75–$100 / hr</div>
+      </div>
+    </div>
+
+    <div class="clause">
+      <div class="clause-num">2.1</div>
+      <div class="clause-text"><strong>What counts as a revision round.</strong> One round = one document, email, or message with all feedback consolidated. If a Client sends additional feedback after the Studio has already begun incorporating the previous round, that constitutes a new revision round.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">2.2</div>
+      <div class="clause-text"><strong>Additional revision rounds.</strong> Rounds beyond the two included will be billed at the applicable hourly rate. The Studio will notify the Client before additional revision work begins and will provide an estimated time cost.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">2.3</div>
+      <div class="clause-text"><strong>What is not a revision.</strong> Fixing a Studio error, correcting a typo introduced by the Studio, or adjusting something that was incorrectly built relative to the agreed scope does not count as a revision round. Those corrections are made at no charge.</div>
+    </div>
+    <div class="highlight">
+      <strong>How to make revision rounds count:</strong> Collect all your feedback before sending. Review the work fully, note everything in one pass, and send it together. This protects your included rounds and keeps the project moving cleanly.
+    </div>
+  </div>
+
+  <!-- PAYMENT -->
+  <div class="doc-section">
+    <div class="sec-num">Section 03</div>
+    <h2 class="sec-title">PAYMENT TERMS</h2>
+    <div class="sec-body">
+      <p>Payment is processed through Stripe. The Studio accepts card payments and Apple Pay where available. Projects may be paid in full upfront or initiated with an approved deposit.</p>
+    </div>
+    <div class="clause">
+      <div class="clause-num">3.1</div>
+      <div class="clause-text"><strong>Deposit projects.</strong> If a deposit is used to start a project, the remaining balance is due prior to final delivery. The Studio will not transfer, publish, or hand off any files, source code, or deliverables until the full balance has been received and confirmed.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">3.2</div>
+      <div class="clause-text"><strong>No exceptions to delivery hold.</strong> This applies without exception to all packages and modular services. No partial delivery will be made on the basis of a pending balance. No deliverables, source files, website transfers, or app code are released until full payment is complete.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">3.3</div>
+      <div class="clause-text"><strong>Late or failed payment.</strong> If a balance remains unpaid 14 days after the agreed due date, the Studio reserves the right to pause or terminate the project. Any work completed remains the property of the Studio until payment is received in full.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">3.4</div>
+      <div class="clause-text"><strong>Refunds.</strong> Deposits are non-refundable once work has begun. Full-payment projects may receive a partial refund for work not yet started, at the Studio's discretion, minus a 15% administrative fee.</div>
+    </div>
+  </div>
+
+  <!-- DELIVERY -->
+  <div class="doc-section">
+    <div class="sec-num">Section 04</div>
+    <h2 class="sec-title">DELIVERY & TIMELINE</h2>
+    <div class="sec-body">
+      <p>Project timelines are estimated at the start of the engagement and are dependent on timely Client feedback and content submission. The Studio will communicate any delays proactively.</p>
+    </div>
+    <div class="clause">
+      <div class="clause-num">4.1</div>
+      <div class="clause-text"><strong>Client delays.</strong> If the Client does not provide required content, feedback, or approvals within 7 business days of a request, the project may be deprioritized in the Studio's queue. Re-activation may require a new timeline estimate.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">4.2</div>
+      <div class="clause-text"><strong>Delivery format.</strong> Final deliverables will be provided in the formats agreed upon in the scope — typically PDF, PNG, SVG, HTML, or repository access. The Studio does not retain an ongoing obligation to maintain, host, or update deliverables after project close unless a separate maintenance agreement is in place.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">4.3</div>
+      <div class="clause-text"><strong>Hosting and deployment.</strong> The Studio may assist with Vercel deployment as part of a web project. Post-deployment maintenance, domain management, and third-party service fees (Vercel, Stripe, Calendly) are the Client's responsibility.</div>
+    </div>
+  </div>
+
+  <!-- OWNERSHIP -->
+  <div class="doc-section">
+    <div class="sec-num">Section 05</div>
+    <h2 class="sec-title">OWNERSHIP & RIGHTS</h2>
+    <div class="clause">
+      <div class="clause-num">5.1</div>
+      <div class="clause-text"><strong>Client ownership.</strong> Upon receipt of full payment, the Client owns all final deliverables created specifically for their project. This includes logos, copy, brand assets, and website files.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">5.2</div>
+      <div class="clause-text"><strong>Studio portfolio rights.</strong> The Studio retains the right to display completed work in its portfolio, case studies, and marketing materials unless the Client requests confidentiality in writing prior to project start.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">5.3</div>
+      <div class="clause-text"><strong>Third-party assets.</strong> If any third-party fonts, stock images, or licensed elements are used, the Client is responsible for maintaining the appropriate licenses after delivery. The Studio will flag any such assets clearly at handoff.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">5.4</div>
+      <div class="clause-text"><strong>Unpaid work.</strong> Any work not yet paid for in full remains the intellectual property of We Design and may not be used, published, or distributed by the Client until full payment is received.</div>
+    </div>
+  </div>
+
+  <!-- CONDUCT -->
+  <div class="doc-section">
+    <div class="sec-num">Section 06</div>
+    <h2 class="sec-title">WORKING RELATIONSHIP</h2>
+    <div class="clause">
+      <div class="clause-num">6.1</div>
+      <div class="clause-text"><strong>Communication.</strong> All project communication should be conducted via email or the agreed communication channel. The Studio will respond to project-related messages within 2 business days.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">6.2</div>
+      <div class="clause-text"><strong>Creative direction.</strong> The Studio maintains the right to decline requests that conflict with its creative standards, ethical guidelines, or that would require producing misleading, harmful, or illegal content.</div>
+    </div>
+    <div class="clause">
+      <div class="clause-num">6.3</div>
+      <div class="clause-text"><strong>Termination.</strong> Either party may terminate the agreement with written notice. If the Studio terminates, any work completed will be delivered and a pro-rated refund issued for work not started. If the Client terminates, the deposit is non-refundable and any additional work completed will be invoiced before files are released.</div>
+    </div>
+  </div>
+
+  <!-- SIGNATURE -->
+  <div class="doc-section">
+    <div class="sec-num">Section 07</div>
+    <h2 class="sec-title">AGREEMENT & ACCEPTANCE</h2>
+    <div class="sec-body">
+      <p>By submitting payment, a deposit, or written project confirmation, the Client agrees to all terms outlined in this Service Agreement. A signed copy is not required but may be requested.</p>
+    </div>
+    <div class="highlight">
+      <strong>Questions before signing?</strong> Email <a href="mailto:hello@wedesignsstudio.com" style="color:var(--ink);border-bottom:1px solid rgba(26,26,26,0.2);padding-bottom:1px;">hello@wedesignsstudio.com</a> before making a payment and we'll address anything that needs clarification.
+    </div>
+
+    <div class="sig-block">
+      <div class="sig-title">SIGNATURE BLOCK</div>
+      <p class="sig-sub">Print this page, sign below, and return a scanned copy if a formal signed agreement is required. Otherwise, payment constitutes acceptance.</p>
+      <div class="sig-grid">
+        <div>
+          <div class="sig-party-label">Studio — We Design</div>
+          <div class="sig-line"></div>
+          <div class="sig-line-label">Authorized Signature</div>
+          <div class="sig-line" style="margin-top:28px;"></div>
+          <div class="sig-line-label">Printed Name</div>
+          <div class="sig-line" style="margin-top:28px;"></div>
+          <div class="sig-line-label">Date</div>
+        </div>
+        <div>
+          <div class="sig-party-label">Client</div>
+          <div class="sig-line"></div>
+          <div class="sig-line-label">Authorized Signature</div>
+          <div class="sig-line" style="margin-top:28px;"></div>
+          <div class="sig-line-label">Printed Name &amp; Company</div>
+          <div class="sig-line" style="margin-top:28px;"></div>
+          <div class="sig-line-label">Date</div>
+        </div>
+      </div>
+      <div class="sig-note">This agreement is governed by applicable law. We Design is a creative studio, not a law firm. This document is provided in good faith as a working agreement and does not constitute legal advice. For complex commercial engagements, both parties may wish to consult independent legal counsel.</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">WE <span>DESIGN</span></div>
+    <div>Service Agreement v1.0 — 2026</div>
+    <div>hello@wedesignsstudio.com</div>
+  </div>
+</footer>
+
+</body>
+</html>
