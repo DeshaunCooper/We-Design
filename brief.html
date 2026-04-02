@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Brief — We Design</title>
+  <meta name="description" content="Submit your project brief to We Design. Tell us everything we need to get started." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --ink: #1a1a1a;
+      --white: #ffffff;
+      --cream: #f8f6f2;
+      --red: #c8352a;
+      --red-dark: #a82820;
+      --red-soft: rgba(200,53,42,0.07);
+      --gray: #6b6864;
+      --line: rgba(20,18,16,0.1);
+      --line-light: rgba(20,18,16,0.07);
+      --radius: 8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.1em; color: var(--ink); }
+    .nav-logo span { color: var(--red); }
+    .nav-back {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(26,26,26,0.42); transition: 0.2s;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-back::before { content: ''; display: inline-block; width: 18px; height: 1px; background: currentColor; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* HEADER */
+    .brief-header {
+      background: var(--cream);
+      padding: 64px 48px 52px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brief-header-inner { max-width: 860px; margin: 0 auto; }
+    .brief-overline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--red); display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+    }
+    .brief-overline::before { content: ''; width: 24px; height: 1px; background: var(--red); }
+    .brief-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 8vw, 108px); line-height: 0.88; letter-spacing: 0.02em;
+      color: var(--ink); margin-bottom: 24px;
+    }
+    .brief-title span { color: var(--red); }
+    .brief-desc {
+      font-size: 17px; line-height: 1.75; color: rgba(26,26,26,0.52);
+      max-width: 560px; font-weight: 400;
+    }
+    .brief-desc strong { color: var(--ink); font-weight: 500; }
+
+    /* STEP INDICATOR */
+    .step-bar {
+      background: var(--white); border-bottom: 1px solid var(--line);
+      padding: 20px 48px;
+    }
+    .step-bar-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 8px; }
+    .step-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+      background: var(--white); border: 1px solid var(--line);
+      color: rgba(26,26,26,0.35); transition: 0.25s; flex-shrink: 0;
+    }
+    .step-dot.active { background: var(--red); border-color: var(--red); color: var(--white); }
+    .step-dot.done { background: var(--ink); border-color: var(--ink); color: var(--white); }
+    .step-line { flex: 1; height: 1px; background: var(--line); }
+    .step-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(26,26,26,0.38); margin-left: 4px;
+    }
+    .step-label.active { color: var(--red); }
+
+    /* FORM BODY */
+    .brief-body { max-width: 860px; margin: 0 auto; padding: 56px 48px 100px; }
+
+    /* SERVICE SELECTOR */
+    .service-select-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 40px;
+    }
+    .svc-opt {
+      padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--radius);
+      cursor: pointer; transition: 0.18s; background: var(--white);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .svc-opt:hover { border-color: rgba(26,26,26,0.28); background: var(--cream); }
+    .svc-opt.selected { background: var(--red-soft); border-color: rgba(200,53,42,0.32); }
+    .svc-opt-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink);
+    }
+    .svc-opt-price { font-size: 12px; color: var(--red); font-weight: 500; }
+
+    /* FORM SECTIONS */
+    .form-section { display: none; }
+    .form-section.active { display: block; }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 3.5vw, 44px); letter-spacing: 0.03em; color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .section-sub { font-size: 15px; color: rgba(26,26,26,0.5); margin-bottom: 32px; line-height: 1.65; }
+
+    /* FIELDS */
+    .field-group { margin-bottom: 20px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase;
+      color: rgba(26,26,26,0.45);
+    }
+    .field label .req { color: var(--red); margin-left: 2px; }
+    .field input, .field select, .field textarea {
+      background: var(--cream); border: 1px solid rgba(26,26,26,0.12);
+      padding: 13px 16px; color: var(--ink); border-radius: 6px;
+      font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 400;
+      outline: none; width: 100%; transition: border-color 0.2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--red); background: var(--white); }
+    .field textarea { min-height: 110px; resize: vertical; line-height: 1.65; }
+    .field-hint { font-size: 12px; color: rgba(26,26,26,0.38); margin-top: 5px; line-height: 1.5; }
+
+    /* VIBE SELECTOR */
+    .vibe-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .vibe-chip {
+      padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px;
+      font-size: 13px; font-weight: 500; color: rgba(26,26,26,0.55);
+      cursor: pointer; transition: 0.18s; user-select: none;
+    }
+    .vibe-chip:hover { border-color: rgba(26,26,26,0.3); color: var(--ink); }
+    .vibe-chip.selected { background: var(--red-soft); border-color: rgba(200,53,42,0.35); color: var(--ink); }
+
+    /* DIVIDER */
+    .form-divider {
+      border: none; border-top: 1px solid var(--line);
+      margin: 32px 0;
+    }
+    .form-divider-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 20px; margin-top: 32px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .form-divider-label::before { content: ''; width: 20px; height: 1px; background: var(--red); }
+
+    /* NAVIGATION BUTTONS */
+    .form-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line);
+    }
+    .btn-next {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 15px 36px; background: var(--red); color: var(--white);
+      border-radius: var(--radius); border: none; cursor: pointer; transition: 0.2s;
+    }
+    .btn-next:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .btn-next:disabled { background: rgba(26,26,26,0.1); color: rgba(26,26,26,0.3); cursor: not-allowed; transform: none; }
+    .btn-back {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 14px 24px; border: 1px solid var(--line); color: var(--gray);
+      border-radius: var(--radius); background: none; cursor: pointer; transition: 0.2s;
+    }
+    .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+    .btn-submit {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 15px 40px; background: var(--ink); color: var(--white);
+      border-radius: var(--radius); border: none; cursor: pointer; transition: 0.2s;
+    }
+    .btn-submit:hover { background: var(--red); transform: translateY(-1px); }
+
+    /* SUMMARY PANEL */
+    .summary-panel {
+      background: var(--cream); border: 1px solid var(--line);
+      border-radius: 12px; padding: 28px 32px; margin-bottom: 32px;
+    }
+    .summary-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 16px;
+    }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid var(--line-light);
+      font-size: 14px; gap: 20px;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-key { color: rgba(26,26,26,0.45); font-weight: 400; flex-shrink: 0; width: 140px; }
+    .summary-val { color: var(--ink); font-weight: 500; text-align: right; }
+
+    /* SUCCESS STATE */
+    .success-state { display: none; text-align: center; padding: 80px 24px; }
+    .success-state.show { display: block; }
+    .success-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(34,197,94,0.1); border: 2px solid rgba(34,197,94,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px; font-size: 28px;
+    }
+    .success-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 0.03em; color: var(--ink); margin-bottom: 12px; }
+    .success-body { font-size: 16px; line-height: 1.75; color: rgba(26,26,26,0.52); max-width: 440px; margin: 0 auto 32px; }
+    .success-next {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; background: var(--ink); color: var(--white);
+      border-radius: var(--radius);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      transition: 0.2s;
+    }
+    .success-next:hover { background: var(--red); }
+
+    /* STATUS MSG */
+    .smsg { margin-top: 14px; padding: 13px 16px; font-size: 13px; display: none; border-radius: 6px; }
+    .smsg.show { display: block; }
+    .smsg.ok { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); color: #15803d; }
+    .smsg.err { background: rgba(200,53,42,0.08); border: 1px solid rgba(200,53,42,0.2); color: var(--red); }
+
+    /* FOOTER */
+    footer { padding: 32px 48px; background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.24); }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em; color: rgba(255,255,255,0.65); }
+    .footer-logo span { color: var(--red); }
+    .footer-links { display: flex; gap: 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.26); }
+    .footer-links a:hover { color: rgba(255,255,255,0.62); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 16px 22px; }
+      .brief-header { padding: 52px 22px 40px; }
+      .step-bar { padding: 16px 22px; }
+      .brief-body { padding: 40px 22px 72px; }
+      .service-select-grid { grid-template-columns: 1fr 1fr; }
+      .field-row { grid-template-columns: 1fr; }
+      footer { padding: 24px 22px; }
+      .footer-inner { flex-direction: column; gap: 14px; text-align: center; }
+    }
+    @media (max-width: 540px) {
+      .service-select-grid { grid-template-columns: 1fr; }
+      .vibe-grid { gap: 6px; }
+      .form-nav { flex-direction: column-reverse; gap: 10px; }
+      .btn-next, .btn-submit, .btn-back { width: 100%; justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">WE <span>DESIGN</span></div>
+  <a href="/" class="nav-back">Back to Site</a>
+</nav>
+
+<!-- HEADER -->
+<div class="brief-header">
+  <div class="brief-header-inner">
+    <div class="brief-overline">Project Brief</div>
+    <h1 class="brief-title">TELL US<br><span>EVERYTHING.</span></h1>
+    <p class="brief-desc">The more you give us here, the <strong>less time we spend on calls</strong> and the faster we can start delivering. Fill this out after payment or before — either way works.</p>
+  </div>
+</div>
+
+<!-- STEP BAR -->
+<div class="step-bar">
+  <div class="step-bar-inner">
+    <div class="step-dot active" id="dot1">1</div>
+    <span class="step-label active" id="lbl1">Service</span>
+    <div class="step-line"></div>
+    <div class="step-dot" id="dot2">2</div>
+    <span class="step-label" id="lbl2">Your Info</span>
+    <div class="step-line"></div>
+    <div class="step-dot" id="dot3">3</div>
+    <span class="step-label" id="lbl3">Project Details</span>
+    <div class="step-line"></div>
+    <div class="step-dot" id="dot4">4</div>
+    <span class="step-label" id="lbl4">Review & Send</span>
+  </div>
+</div>
+
+<!-- FORM BODY -->
+<div class="brief-body">
+  <div id="successState" class="success-state">
+    <div class="success-icon">✓</div>
+    <div class="success-title">BRIEF RECEIVED.</div>
+    <p class="success-body">We have everything we need to get started. Expect a message from us within one business day confirming your project details.</p>
+    <a href="/" class="success-next">Back to We Design</a>
+  </div>
+
+  <form id="briefForm">
+
+    <!-- STEP 1: SERVICE -->
+    <div class="form-section active" id="step1">
+      <div class="section-title">What are we building?</div>
+      <p class="section-sub">Select the service you purchased or are planning to purchase. This shapes the rest of the brief.</p>
+      <div class="service-select-grid">
+        <div class="svc-opt" data-service="Logo Only" data-category="identity">
+          <div class="svc-opt-name">Logo Only</div>
+          <div class="svc-opt-price">$350</div>
+        </div>
+        <div class="svc-opt" data-service="Slogan + Brand Story" data-category="identity">
+          <div class="svc-opt-name">Slogan + Brand Story</div>
+          <div class="svc-opt-price">$250</div>
+        </div>
+        <div class="svc-opt" data-service="Logo + Slogan Bundle" data-category="identity">
+          <div class="svc-opt-name">Logo + Slogan Bundle</div>
+          <div class="svc-opt-price">$550</div>
+        </div>
+        <div class="svc-opt" data-service="Brand Foundation" data-category="identity">
+          <div class="svc-opt-name">Brand Foundation</div>
+          <div class="svc-opt-price">$750</div>
+        </div>
+        <div class="svc-opt" data-service="Landing Page Only" data-category="web">
+          <div class="svc-opt-name">Landing Page Only</div>
+          <div class="svc-opt-price">$650</div>
+        </div>
+        <div class="svc-opt" data-service="Full Website" data-category="web">
+          <div class="svc-opt-name">Full Website</div>
+          <div class="svc-opt-price">$1,250</div>
+        </div>
+        <div class="svc-opt" data-service="Web Launch" data-category="web">
+          <div class="svc-opt-name">Web Launch Package</div>
+          <div class="svc-opt-price">$1,250</div>
+        </div>
+        <div class="svc-opt" data-service="App MVP" data-category="app">
+          <div class="svc-opt-name">App MVP</div>
+          <div class="svc-opt-price">$2,500</div>
+        </div>
+        <div class="svc-opt" data-service="Business Cards" data-category="print">
+          <div class="svc-opt-name">Business Cards</div>
+          <div class="svc-opt-price">$175</div>
+        </div>
+        <div class="svc-opt" data-service="Flyers" data-category="print">
+          <div class="svc-opt-name">Flyers</div>
+          <div class="svc-opt-price">$225</div>
+        </div>
+        <div class="svc-opt" data-service="Yard Signs" data-category="print">
+          <div class="svc-opt-name">Yard Signs</div>
+          <div class="svc-opt-price">$275</div>
+        </div>
+        <div class="svc-opt" data-service="Product Design" data-category="product">
+          <div class="svc-opt-name">Product Design</div>
+          <div class="svc-opt-price">$450</div>
+        </div>
+        <div class="svc-opt" data-service="Promo Bundle" data-category="bundle">
+          <div class="svc-opt-name">Promo Bundle</div>
+          <div class="svc-opt-price">$1,350</div>
+        </div>
+        <div class="svc-opt" data-service="WD Complete" data-category="bundle">
+          <div class="svc-opt-name">WD Complete</div>
+          <div class="svc-opt-price">$5,000</div>
+        </div>
+      </div>
+      <input type="hidden" name="selectedService" id="selectedService" />
+      <input type="hidden" name="serviceCategory" id="serviceCategory" />
+      <div class="form-nav">
+        <div></div>
+        <button type="button" class="btn-next" id="nextStep1" disabled onclick="goToStep(2)">Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: YOUR INFO -->
+    <div class="form-section" id="step2">
+      <div class="section-title">About you.</div>
+      <p class="section-sub">Basic contact info and what your business actually does. Keep it real — this goes straight into the work.</p>
+      <div class="field-row">
+        <div class="field">
+          <label>Your Name <span class="req">*</span></label>
+          <input type="text" name="clientName" required placeholder="First and last name" />
+        </div>
+        <div class="field">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" name="clientEmail" required placeholder="you@company.com" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Business Name <span class="req">*</span></label>
+          <input type="text" name="businessName" required placeholder="Your brand or company name" />
+        </div>
+        <div class="field">
+          <label>Industry / Niche</label>
+          <input type="text" name="industry" placeholder="e.g. Real estate, fitness, tech" />
+        </div>
+      </div>
+      <div class="field field-group">
+        <label>What does your business do? <span class="req">*</span></label>
+        <textarea name="businessDesc" required placeholder="Describe what you do, who you serve, and what makes you different. 2–4 sentences is perfect."></textarea>
+      </div>
+      <div class="field field-group">
+        <label>Who is your customer? <span class="req">*</span></label>
+        <textarea name="targetCustomer" required placeholder="Describe your ideal client or customer. Age, situation, what they need, what they care about." style="min-height:90px;"></textarea>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn-back" onclick="goToStep(1)">Back</button>
+        <button type="button" class="btn-next" onclick="goToStep(3)">Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: PROJECT DETAILS (adaptive) -->
+    <div class="form-section" id="step3">
+      <div class="section-title" id="step3Title">Project Details</div>
+      <p class="section-sub" id="step3Sub">Tell us exactly what you need. The more specific you are here, the better the output.</p>
+
+      <!-- IDENTITY FIELDS (logo, slogan, brand foundation) -->
+      <div id="fields-identity" class="field-section" style="display:none;">
+        <div class="field field-group">
+          <label>Do you have an existing logo or brand?</label>
+          <select name="existingBrand">
+            <option value="">Select one</option>
+            <option>No — starting from scratch</option>
+            <option>Yes — but it needs a full redesign</option>
+            <option>Yes — I want to keep it and build around it</option>
+          </select>
+        </div>
+        <div class="field field-group">
+          <label>Colors you want or like <span class="req">*</span></label>
+          <input type="text" name="colors" required placeholder="e.g. Black and gold, deep navy and white, earthy tones — or describe a feeling" />
+          <div class="field-hint">Don't overthink it. Even saying "nothing neon, nothing pastel" helps.</div>
+        </div>
+        <div class="field field-group">
+          <label>Colors to avoid</label>
+          <input type="text" name="colorsAvoid" placeholder="e.g. No bright red, no orange, no pastels" />
+        </div>
+        <div class="form-divider-label">Visual Direction</div>
+        <div class="field field-group">
+          <label>Pick the vibes that fit your brand <span class="req">*</span></label>
+          <div class="vibe-grid" id="vibeGrid">
+            <div class="vibe-chip" data-vibe="Bold">Bold</div>
+            <div class="vibe-chip" data-vibe="Minimal">Minimal</div>
+            <div class="vibe-chip" data-vibe="Luxury">Luxury</div>
+            <div class="vibe-chip" data-vibe="Clean">Clean</div>
+            <div class="vibe-chip" data-vibe="Raw / Gritty">Raw / Gritty</div>
+            <div class="vibe-chip" data-vibe="Playful">Playful</div>
+            <div class="vibe-chip" data-vibe="Corporate">Corporate</div>
+            <div class="vibe-chip" data-vibe="Editorial">Editorial</div>
+            <div class="vibe-chip" data-vibe="Street / Urban">Street / Urban</div>
+            <div class="vibe-chip" data-vibe="Premium / High-End">Premium / High-End</div>
+            <div class="vibe-chip" data-vibe="Approachable">Approachable</div>
+            <div class="vibe-chip" data-vibe="Tech Forward">Tech Forward</div>
+          </div>
+          <input type="hidden" name="vibes" id="vibesInput" />
+        </div>
+        <div class="field field-group">
+          <label>2–3 brands you admire visually</label>
+          <input type="text" name="brandInspo" placeholder="e.g. Nike, Glossier, Supreme, Apple — any industry" />
+          <div class="field-hint">These don't need to be competitors. Just brands whose look and feel you respect.</div>
+        </div>
+        <div class="field field-group">
+          <label>Any logo concepts, ideas, or directions in mind?</label>
+          <textarea name="logoConcepts" placeholder="Wordmark only? An icon? Initials? Abstract? Describe any early ideas or directions you're drawn to — or say 'no idea, surprise me.'" style="min-height:90px;"></textarea>
+        </div>
+        <div class="field field-group">
+          <label>Tagline or slogan direction (if applicable)</label>
+          <textarea name="sloganDirection" placeholder="What feeling should the slogan create? Any words or phrases you like? Or paste your current slogan if you have one." style="min-height:80px;"></textarea>
+        </div>
+      </div>
+
+      <!-- WEB FIELDS (landing page, website, web launch) -->
+      <div id="fields-web" class="field-section" style="display:none;">
+        <div class="field field-group">
+          <label>What is the primary goal of this page or site? <span class="req">*</span></label>
+          <select name="webGoal" >
+            <option value="">Select one</option>
+            <option>Get people to contact me / book a call</option>
+            <option>Sell a product or service directly</option>
+            <option>Build credibility and trust</option>
+            <option>Collect email leads</option>
+            <option>Showcase portfolio or work</option>
+            <option>All of the above</option>
+          </select>
+        </div>
+        <div class="field field-group">
+          <label>What pages or sections do you need? <span class="req">*</span></label>
+          <textarea name="webPages" required placeholder="e.g. Home, About, Services, Pricing, Contact — or describe what sections you want. If you're not sure, say so." style="min-height:80px;"></textarea>
+        </div>
+        <div class="field field-group">
+          <label>Do you have copy written or do you need help with messaging?</label>
+          <select name="copyStatus">
+            <option value="">Select one</option>
+            <option>I have all my copy ready</option>
+            <option>I have some copy but need cleanup and direction</option>
+            <option>I need help writing the messaging from scratch</option>
+          </select>
+        </div>
+        <div class="field field-group">
+          <label>Do you have a domain already?</label>
+          <select name="domainStatus">
+            <option value="">Select one</option>
+            <option>Yes — I already have a domain</option>
+            <option>No — I need help choosing one</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field field-group">
+          <label>Your domain name (if you have one)</label>
+          <input type="text" name="domainName" placeholder="e.g. thecraftedbrand.co" />
+        </div>
+        <div class="form-divider-label">Design Direction</div>
+        <div class="field field-group">
+          <label>Pick the vibes that fit your brand <span class="req">*</span></label>
+          <div class="vibe-grid" id="vibeGridWeb">
+            <div class="vibe-chip" data-vibe="Bold">Bold</div>
+            <div class="vibe-chip" data-vibe="Minimal">Minimal</div>
+            <div class="vibe-chip" data-vibe="Luxury">Luxury</div>
+            <div class="vibe-chip" data-vibe="Clean">Clean</div>
+            <div class="vibe-chip" data-vibe="Dark / Moody">Dark / Moody</div>
+            <div class="vibe-chip" data-vibe="Light / Airy">Light / Airy</div>
+            <div class="vibe-chip" data-vibe="Editorial">Editorial</div>
+            <div class="vibe-chip" data-vibe="High Energy">High Energy</div>
+            <div class="vibe-chip" data-vibe="Premium / High-End">Premium / High-End</div>
+            <div class="vibe-chip" data-vibe="Approachable">Approachable</div>
+            <div class="vibe-chip" data-vibe="Tech Forward">Tech Forward</div>
+            <div class="vibe-chip" data-vibe="Classic">Classic</div>
+          </div>
+          <input type="hidden" name="vibesWeb" id="vibesWebInput" />
+        </div>
+        <div class="field field-group">
+          <label>2–3 websites you love the look of</label>
+          <input type="text" name="webInspo" placeholder="Paste URLs or name the brands — any industry" />
+        </div>
+        <div class="field field-group">
+          <label>Anything else we need to know about the site?</label>
+          <textarea name="webNotes" placeholder="Special features, integrations, things you hate on other websites, non-negotiables — drop it all here." style="min-height:90px;"></textarea>
+        </div>
+      </div>
+
+      <!-- APP FIELDS -->
+      <div id="fields-app" class="field-section" style="display:none;">
+        <div class="field field-group">
+          <label>What does the app do in one sentence? <span class="req">*</span></label>
+          <input type="text" name="appOneLiner" required placeholder="e.g. Helps personal trainers manage client check-ins and progress photos" />
+        </div>
+        <div class="field field-group">
+          <label>Who uses this app? <span class="req">*</span></label>
+          <textarea name="appUsers" required placeholder="Describe the primary user — their situation, what they need, how they'll use the app." style="min-height:80px;"></textarea>
+        </div>
+        <div class="field field-group">
+          <label>What are the core screens you need? <span class="req">*</span></label>
+          <textarea name="appScreens" required placeholder="e.g. Login, Dashboard, Client List, Add Client, Progress Photos, Settings — list every screen you can think of." style="min-height:100px;"></textarea>
+        </div>
+        <div class="field field-group">
+          <label>Do you have wireframes, sketches, or mockups?</label>
+          <select name="appWireframes">
+            <option value="">Select one</option>
+            <option>Yes — I'll send them after submitting this form</option>
+            <option>No — starting from scratch</option>
+            <option>I have rough sketches / notes</option>
+          </select>
+        </div>
+        <div class="field field-group">
+          <label>Any apps that inspired this or that you want to reference?</label>
+          <input type="text" name="appInspo" placeholder="e.g. Notion, Strava, Airbnb, Cash App — any app whose UX you admire" />
+        </div>
+        <div class="field field-group">
+          <label>Anything else we need to know?</label>
+          <textarea name="appNotes" placeholder="Special logic, third-party integrations, known constraints, or anything else relevant." style="min-height:90px;"></textarea>
+        </div>
+      </div>
+
+      <!-- PRINT FIELDS -->
+      <div id="fields-print" class="field-section" style="display:none;">
+        <div class="field field-group">
+          <label>What information goes on the piece? <span class="req">*</span></label>
+          <textarea name="printInfo" required placeholder="e.g. Full name, title, phone number, email, website, address, tagline, social handles — list everything you want included." style="min-height:100px;"></textarea>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Quantity needed</label>
+            <input type="text" name="printQty" placeholder="e.g. 250 business cards, 100 flyers" />
+          </div>
+          <div class="field">
+            <label>Delivery address <span class="req">*</span></label>
+            <input type="text" name="deliveryAddress" required placeholder="Street address, city, state, zip" />
+          </div>
+        </div>
+        <div class="field field-group">
+          <label>Do you have an existing logo or brand colors to use?</label>
+          <select name="printBrandAssets">
+            <option value="">Select one</option>
+            <option>Yes — I'll send files after submitting</option>
+            <option>No — We Design is creating my brand identity too</option>
+            <option>Partial — I have some assets but need help</option>
+          </select>
+        </div>
+        <div class="field field-group">
+          <label>Any design direction or references?</label>
+          <textarea name="printNotes" placeholder="Styles you like, colors, layouts — or name a brand whose print materials you admire." style="min-height:80px;"></textarea>
+        </div>
+      </div>
+
+      <!-- PRODUCT DESIGN FIELDS -->
+      <div id="fields-product" class="field-section" style="display:none;">
+        <div class="field field-group">
+          <label>What product(s) are we working with? <span class="req">*</span></label>
+          <input type="text" name="productName" required placeholder="e.g. Candles, skincare, supplements, clothing, accessories" />
+        </div>
+        <div class="field field-group">
+          <label>How many photos are you sending? <span class="req">*</span></label>
+          <select name="photoCount" >
+            <option value="">Select one</option>
+            <option>1–5 photos</option>
+            <option>6–10 photos</option>
+            <option>11–20 photos</option>
+            <option>20+ photos</option>
+          </select>
+        </div>
+        <div class="field field-group">
+          <label>Where will these images be used? <span class="req">*</span></label>
+          <select name="photoUsage">
+            <option value="">Select one</option>
+            <option>Website / landing page</option>
+            <option>Social media</option>
+            <option>Both website and social</option>
+            <option>E-commerce listing (Shopify, Etsy, Amazon, etc.)</option>
+            <option>All of the above</option>
+          </select>
+        </div>
+        <div class="field field-group">
+          <label>What feeling should the images create? <span class="req">*</span></label>
+          <div class="vibe-grid" id="vibeGridProduct">
+            <div class="vibe-chip" data-vibe="Clean / Studio">Clean / Studio</div>
+            <div class="vibe-chip" data-vibe="Luxury">Luxury</div>
+            <div class="vibe-chip" data-vibe="Lifestyle">Lifestyle</div>
+            <div class="vibe-chip" data-vibe="Minimal">Minimal</div>
+            <div class="vibe-chip" data-vibe="Bold / Dramatic">Bold / Dramatic</div>
+            <div class="vibe-chip" data-vibe="Natural / Organic">Natural / Organic</div>
+            <div class="vibe-chip" data-vibe="Dark / Moody">Dark / Moody</div>
+            <div class="vibe-chip" data-vibe="Bright / Airy">Bright / Airy</div>
+          </div>
+          <input type="hidden" name="vibesProduct" id="vibesProductInput" />
+        </div>
+        <div class="field field-group">
+          <label>3 product images or brands you want to reference</label>
+          <textarea name="productInspo" placeholder="Paste links or describe the look — e.g. 'like Aesop product shots' or 'clean white background like Apple'" style="min-height:80px;"></textarea>
+        </div>
+        <div class="field field-group">
+          <label>How will you send the photos?</label>
+          <select name="photoDelivery">
+            <option value="">Select one</option>
+            <option>Google Drive link</option>
+            <option>Email attachment</option>
+            <option>iCloud / Dropbox link</option>
+            <option>I'll wait for instructions</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- BUNDLE FIELDS -->
+      <div id="fields-bundle" class="field-section" style="display:none;">
+        <div class="field field-group">
+          <label>Which services are included in your bundle? <span class="req">*</span></label>
+          <textarea name="bundleServices" required placeholder="e.g. Logo, slogan, business cards, yard signs, landing page — list everything you're expecting so we can confirm scope." style="min-height:80px;"></textarea>
+        </div>
+        <div class="field field-group">
+          <label>Brand colors or direction (if you have one)</label>
+          <input type="text" name="bundleColors" placeholder="e.g. Black and gold, navy blue, or describe a feeling" />
+        </div>
+        <div class="field field-group">
+          <label>Pick the vibes that fit your brand <span class="req">*</span></label>
+          <div class="vibe-grid" id="vibeGridBundle">
+            <div class="vibe-chip" data-vibe="Bold">Bold</div>
+            <div class="vibe-chip" data-vibe="Minimal">Minimal</div>
+            <div class="vibe-chip" data-vibe="Luxury">Luxury</div>
+            <div class="vibe-chip" data-vibe="Clean">Clean</div>
+            <div class="vibe-chip" data-vibe="Premium">Premium</div>
+            <div class="vibe-chip" data-vibe="Approachable">Approachable</div>
+            <div class="vibe-chip" data-vibe="Street / Urban">Street / Urban</div>
+            <div class="vibe-chip" data-vibe="High Energy">High Energy</div>
+          </div>
+          <input type="hidden" name="vibesBundle" id="vibesBundleInput" />
+        </div>
+        <div class="field field-group">
+          <label>2–3 brands you admire visually</label>
+          <input type="text" name="bundleInspo" placeholder="Any industry — just brands whose look and feel you respect" />
+        </div>
+        <div class="field field-group">
+          <label>Delivery address (for any print items)</label>
+          <input type="text" name="bundleDelivery" placeholder="Street address, city, state, zip" />
+        </div>
+        <div class="field field-group">
+          <label>Anything else we need to know?</label>
+          <textarea name="bundleNotes" placeholder="Special requests, timeline pressure, non-negotiables — drop it all here." style="min-height:90px;"></textarea>
+        </div>
+      </div>
+
+      <!-- UNIVERSAL TIMELINE FIELD -->
+      <hr class="form-divider" />
+      <div class="field-row">
+        <div class="field">
+          <label>Timeline <span class="req">*</span></label>
+          <select name="timeline" required>
+            <option value="">When do you need this?</option>
+            <option>ASAP — within 2 weeks</option>
+            <option>1 month</option>
+            <option>1–3 months</option>
+            <option>Flexible — no hard deadline</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Have you paid already?</label>
+          <select name="paymentStatus">
+            <option value="">Select one</option>
+            <option>Yes — paid in full</option>
+            <option>Yes — paid a deposit</option>
+            <option>Not yet — submitting brief first</option>
+          </select>
+        </div>
+      </div>
+      <div class="field field-group">
+        <label>Anything else we should know before we start?</label>
+        <textarea name="additionalNotes" placeholder="Constraints, sensitivities, things you absolutely do not want, past experiences with designers — anything relevant." style="min-height:90px;"></textarea>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn-back" onclick="goToStep(2)">Back</button>
+        <button type="button" class="btn-next" onclick="goToStep(4)">Review Brief</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: REVIEW -->
+    <div class="form-section" id="step4">
+      <div class="section-title">Review your brief.</div>
+      <p class="section-sub">Make sure everything looks right. Once you submit this goes straight to the studio.</p>
+      <div class="summary-panel" id="summaryPanel"></div>
+      <div id="submitStatus" class="smsg"></div>
+      <div class="form-nav">
+        <button type="button" class="btn-back" onclick="goToStep(3)">Edit</button>
+        <button type="submit" class="btn-submit">Submit Brief</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">WE <span>DESIGN</span></div>
+    <div>Human Crafted Brand Better. © 2026</div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/contract">Agreement</a>
+      <a href="mailto:hello@wedesignsstudio.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── CONFIG ──
+  const cfg = {
+    endpoint: 'https://script.google.com/macros/s/REPLACE_WITH_WEB_APP_URL/exec',
+    mode: 'mock' // change to 'live' when Apps Script is connected
+  };
+
+  let currentStep = 1;
+  let selectedCategory = '';
+
+  // ── SERVICE SELECTION ──
+  document.querySelectorAll('.svc-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.svc-opt').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      document.getElementById('selectedService').value = opt.dataset.service;
+      document.getElementById('serviceCategory').value = opt.dataset.category;
+      selectedCategory = opt.dataset.category;
+      document.getElementById('nextStep1').disabled = false;
+    });
+  });
+
+  // ── VIBE CHIPS ──
+  function initVibeGrid(gridId, inputId) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    grid.querySelectorAll('.vibe-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        chip.classList.toggle('selected');
+        const selected = Array.from(grid.querySelectorAll('.vibe-chip.selected')).map(c => c.dataset.vibe);
+        document.getElementById(inputId).value = selected.join(', ');
+      });
+    });
+  }
+  initVibeGrid('vibeGrid', 'vibesInput');
+  initVibeGrid('vibeGridWeb', 'vibesWebInput');
+  initVibeGrid('vibeGridProduct', 'vibesProductInput');
+  initVibeGrid('vibeGridBundle', 'vibesBundleInput');
+
+  // ── STEP NAVIGATION ──
+  function goToStep(n) {
+    document.getElementById('step' + currentStep).classList.remove('active');
+    if (n === 3) showCategoryFields();
+    if (n === 4) buildSummary();
+    currentStep = n;
+    document.getElementById('step' + n).classList.add('active');
+    updateStepBar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateStepBar() {
+    for (let i = 1; i <= 4; i++) {
+      const dot = document.getElementById('dot' + i);
+      const lbl = document.getElementById('lbl' + i);
+      dot.classList.remove('active', 'done');
+      lbl.classList.remove('active');
+      if (i < currentStep) { dot.classList.add('done'); dot.textContent = '✓'; }
+      else if (i === currentStep) { dot.classList.add('active'); dot.textContent = i; lbl.classList.add('active'); }
+      else { dot.textContent = i; }
+    }
+  }
+
+  // ── SHOW CATEGORY-SPECIFIC FIELDS ──
+  function showCategoryFields() {
+    const cat = selectedCategory;
+    const svc = document.getElementById('selectedService').value;
+    document.querySelectorAll('.field-section').forEach(s => s.style.display = 'none');
+
+    const titleMap = {
+      identity: 'Brand Identity Details',
+      web: 'Website Details',
+      app: 'App Details',
+      print: 'Print Details',
+      product: 'Product Design Details',
+      bundle: 'Bundle Details'
+    };
+    const subMap = {
+      identity: 'Tell us everything about your brand direction. The more specific you are, the better the output.',
+      web: 'Walk us through exactly what you need on this site. No detail is too small.',
+      app: 'Lay out the full picture of what you want built. Be as detailed as you can.',
+      print: 'Give us all the information that needs to go on the piece plus delivery details.',
+      product: 'Tell us about your products and how you want them to look.',
+      bundle: 'Tell us everything across all the services in your bundle.'
+    };
+
+    document.getElementById('step3Title').textContent = titleMap[cat] || 'Project Details';
+    document.getElementById('step3Sub').textContent = subMap[cat] || 'Tell us exactly what you need.';
+    const el = document.getElementById('fields-' + cat);
+    if (el) el.style.display = 'block';
+  }
+
+  // ── BUILD SUMMARY ──
+  function buildSummary() {
+    const form = document.getElementById('briefForm');
+    const data = Object.fromEntries(new FormData(form).entries());
+    const panel = document.getElementById('summaryPanel');
+    const skip = ['serviceCategory'];
+
+    const labels = {
+      selectedService: 'Service', clientName: 'Name', clientEmail: 'Email',
+      businessName: 'Business', industry: 'Industry', businessDesc: 'What you do',
+      targetCustomer: 'Your customer', existingBrand: 'Existing brand', colors: 'Colors',
+      colorsAvoid: 'Colors to avoid', vibes: 'Vibe', brandInspo: 'Brand references',
+      logoConcepts: 'Logo concepts', sloganDirection: 'Slogan direction',
+      webGoal: 'Site goal', webPages: 'Pages needed', copyStatus: 'Copy status',
+      domainStatus: 'Domain', domainName: 'Domain name', vibesWeb: 'Vibe',
+      webInspo: 'Web references', webNotes: 'Additional notes',
+      appOneLiner: 'App concept', appUsers: 'App users', appScreens: 'Core screens',
+      appWireframes: 'Wireframes', appInspo: 'App references', appNotes: 'Notes',
+      printInfo: 'Print content', printQty: 'Quantity', deliveryAddress: 'Delivery address',
+      printBrandAssets: 'Brand assets', printNotes: 'Design notes',
+      productName: 'Product', photoCount: 'Photo count', photoUsage: 'Usage',
+      vibesProduct: 'Vibe', productInspo: 'References', photoDelivery: 'Photo delivery',
+      bundleServices: 'Bundle services', bundleColors: 'Colors', vibesBundle: 'Vibe',
+      bundleInspo: 'References', bundleDelivery: 'Delivery address', bundleNotes: 'Notes',
+      timeline: 'Timeline', paymentStatus: 'Payment', additionalNotes: 'Additional notes'
+    };
+
+    let html = '<div class="summary-label">Your Brief — ' + (data.selectedService || '') + '</div>';
+    Object.entries(data).forEach(([key, val]) => {
+      if (skip.includes(key) || !val || !val.trim()) return;
+      const label = labels[key] || key;
+      html += `<div class="summary-row"><span class="summary-key">${label}</span><span class="summary-val">${val}</span></div>`;
+    });
+    panel.innerHTML = html;
+  }
+
+  // ── FORM SUBMIT ──
+  document.getElementById('briefForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.btn-submit');
+    const status = document.getElementById('submitStatus');
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.formType = 'projectBrief';
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    if (cfg.mode === 'mock') {
+      setTimeout(() => {
+        document.getElementById('briefForm').style.display = 'none';
+        document.querySelector('.step-bar').style.display = 'none';
+        document.getElementById('successState').classList.add('show');
+      }, 800);
+      return;
+    }
+
+    try {
+      const res = await fetch(cfg.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        document.getElementById('briefForm').style.display = 'none';
+        document.querySelector('.step-bar').style.display = 'none';
+        document.getElementById('successState').classList.add('show');
+      } else {
+        status.className = 'smsg show err';
+        status.textContent = 'Something went wrong. Email hello@wedesignsstudio.com directly.';
+        btn.textContent = 'Submit Brief';
+        btn.disabled = false;
+      }
+    } catch {
+      status.className = 'smsg show err';
+      status.textContent = 'Connection error. Email hello@wedesignsstudio.com directly.';
+      btn.textContent = 'Submit Brief';
+      btn.disabled = false;
+    }
+  });
+
+  // ── PRE-SELECT SERVICE FROM URL PARAM ──
+  const params = new URLSearchParams(window.location.search);
+  const preService = params.get('service');
+  if (preService) {
+    const match = Array.from(document.querySelectorAll('.svc-opt')).find(o => o.dataset.service === preService);
+    if (match) {
+      match.click();
+    }
+  }
+</script>
+</body>
+</html>
