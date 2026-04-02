@@ -375,6 +375,17 @@
     .footer-links { display: flex; gap: 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.26); }
     .footer-links a:hover { color: rgba(255,255,255,0.62); transition: color 0.2s; }
 
+    /* AVAILABILITY BANNER */
+    .avail-banner { display: none; padding: 12px 48px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; }
+    .avail-banner.closed { display: block; background: rgba(200,53,42,0.1); border-bottom: 1px solid rgba(200,53,42,0.2); color: var(--red); }
+    .avail-banner.limited { display: block; background: rgba(245,158,11,0.1); border-bottom: 1px solid rgba(245,158,11,0.2); color: #b45309; }
+    .svc-badge { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; vertical-align: middle; }
+    .svc-badge.open { background: rgba(34,197,94,0.1); color: #15803d; border: 1px solid rgba(34,197,94,0.2); }
+    .svc-badge.limited { background: rgba(245,158,11,0.1); color: #b45309; border: 1px solid rgba(245,158,11,0.2); }
+    .svc-badge.closed { background: rgba(200,53,42,0.1); color: var(--red); border: 1px solid rgba(200,53,42,0.2); }
+    .mod-card.svc-closed { opacity: 0.4; pointer-events: none; }
+    .mod-card.svc-closed .mod-card-price::after { content: ' — Closed'; font-size: 11px; opacity: 0.7; }
+
     /* REVEAL */
     .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.72s ease, transform 0.72s ease; }
     .reveal.d1 { transition-delay: 0.1s; } .reveal.d2 { transition-delay: 0.2s; }
@@ -432,6 +443,7 @@
       .btn-primary, .btn-secondary { justify-content: center; }
     }
   </style>
+  <script src="/availability.js"></script>
 </head>
 <body>
 
@@ -447,6 +459,8 @@
   </div>
   <a href="#consult" class="nav-cta">Book a Consultation</a>
 </nav>
+
+<div class="avail-banner" id="availBanner"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -681,7 +695,7 @@
         <div class="mod-panel-right">
           <div class="mod-panel-price" id="modPrice"></div>
           <a class="mod-pay-btn disabled" id="modPayBtn" href="#contact">Ask First — Contact Us</a>
-          <a class="mod-alt" href="#consult">Or schedule a consultation</a>
+          <a class="mod-alt" href="/brief" id="modBriefLink">Submit a Project Brief</a>
         </div>
       </div>
     </div>
@@ -749,12 +763,13 @@
       <div class="slabel reveal">Start Here</div>
       <h2 class="consult-headline reveal d1">READY TO BUILD SOMETHING SERIOUS?</h2>
       <p class="consult-body reveal d2">Not every project is a fit — and that is fine. Schedule a 30-minute studio call and we will figure out exactly what your brand needs, what it will cost, and how quickly we can move.</p>
-      <div class="avail-line reveal d2">
-        <span class="avail-dot"></span>
-        <span class="avail-text">Currently accepting new projects</span>
+      <div class="avail-line reveal d2" id="availLine">
+        <span class="avail-dot" id="availDot"></span>
+        <span class="avail-text" id="availText">Currently accepting new projects</span>
       </div>
-      <div class="consult-actions reveal d3">
-        <a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener" class="btn-book">Schedule a Studio Call</a>
+      <div id="nextAvailLine" style="display:none;margin-bottom:20px;font-size:13px;color:rgba(26,26,26,0.45);font-weight:400;"></div>
+      <div class="consult-actions reveal d3" id="consultActions">
+        <a href="https://calendly.com/hello-wedesignsstudio/30min" target="_blank" rel="noopener" class="btn-book" id="bookBtn">Schedule a Studio Call</a>
         <a href="#contact" class="btn-outline">Send an Inquiry Instead</a>
       </div>
     </div>
@@ -903,6 +918,7 @@
       <a href="#packages">Packages</a>
       <a href="#consult">Consultation</a>
       <a href="/contract">Agreement</a>
+      <a href="/brief">Submit Brief</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -963,8 +979,93 @@
       modPayBtn.classList.remove('disabled');
       modPayBtn.setAttribute('target', '_blank');
       modPayBtn.setAttribute('rel', 'noopener');
+      // Link brief to selected service
+      const briefLink = document.getElementById('modBriefLink');
+      if (briefLink) briefLink.href = '/brief?service=' + encodeURIComponent(service);
     });
   });
+
+  // ── AVAILABILITY SYSTEM ──────────────────────
+  (function() {
+    const av = wdLoad();
+    const s = wdStatus(av);
+
+    // Dot + text in consult section
+    const dot = document.getElementById('availDot');
+    const txt = document.getElementById('availText');
+    const nextLine = document.getElementById('nextAvailLine');
+    if (dot) { dot.style.background = s.color; dot.style.boxShadow = '0 0 0 3px ' + s.color + '33'; }
+    if (txt) txt.textContent = s.label;
+
+    // Next available message
+    if (nextLine && av.nextAvailable) {
+      nextLine.textContent = av.nextAvailable;
+      nextLine.style.display = 'block';
+    }
+
+    // Top banner if not open
+    const banner = document.getElementById('availBanner');
+    if (banner) {
+      if (!av.studioOpen) {
+        banner.textContent = 'Studio is currently closed — inquiries are paused.' + (av.nextAvailable ? ' ' + av.nextAvailable : '');
+        banner.className = 'avail-banner closed';
+      } else {
+        const anyOpen = Object.values(av.services).some(sv => sv.open);
+        if (!anyOpen) {
+          banner.textContent = 'All project slots are currently filled — join the waitlist via the inquiry form.';
+          banner.className = 'avail-banner limited';
+        }
+      }
+    }
+
+    // Calls / booking button
+    const bookBtn = document.getElementById('bookBtn');
+    if (bookBtn && !av.callsOpen) {
+      bookBtn.textContent = 'Calls Paused — Send an Inquiry';
+      bookBtn.removeAttribute('href');
+      bookBtn.style.pointerEvents = 'none';
+      bookBtn.style.opacity = '0.5';
+    }
+
+    // Mod cards — mark closed services
+    document.querySelectorAll('.mod-card').forEach(card => {
+      const svcName = card.dataset.service;
+      if (!svcName) return;
+      const svc = av.services[svcName];
+      if (!svc) return;
+      if (!av.studioOpen || !svc.open) {
+        card.classList.add('svc-closed');
+      }
+      // Slot badge if slots enabled
+      if (svc.slots > 0) {
+        const badge = document.createElement('span');
+        badge.className = 'svc-badge ' + (svc.slots <= 1 ? 'limited' : 'open');
+        badge.textContent = svc.slots + ' slot' + (svc.slots !== 1 ? 's' : '') + ' left';
+        card.appendChild(badge);
+      }
+    });
+
+    // Package cards — add badges to pkg-tier-labels
+    const pkgMap = {
+      'Brand Foundation': 'Brand Foundation',
+      'Web Launch': 'Web Launch',
+      'App MVP': 'App MVP'
+    };
+    document.querySelectorAll('.pkg-tier-label').forEach(el => {
+      const name = el.textContent.trim();
+      const svc = av.services[name];
+      if (!svc) return;
+      const badge = document.createElement('span');
+      if (!av.studioOpen || !svc.open) {
+        badge.className = 'svc-badge closed'; badge.textContent = 'Closed';
+      } else if (svc.slots === 1) {
+        badge.className = 'svc-badge limited'; badge.textContent = '1 slot left';
+      } else if (svc.slots > 0) {
+        badge.className = 'svc-badge open'; badge.textContent = svc.slots + ' slots';
+      }
+      if (badge.textContent) el.appendChild(badge);
+    });
+  })();
 </script>
 </body>
 </html>
